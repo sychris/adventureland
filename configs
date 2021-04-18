@@ -1,0 +1,19 @@
+configs
+var buy_hp = false; //Allow HP Pot Purchasing = true
+var buy_mp = false; //Allow MP Pot Purchasing = true
+var HpPotType = "hpot0"
+var MpPotType = "mpot0"
+var ReqUpToHp = 500
+var ReqUpToMp = 500
+var LookToBuyHpPotAt = 50
+var LookToBuyMpPotAt = 50
+var BuyPotsFrom = "" //either a toon or npc name here
+
+every  min check if we are running low on potions
+if we are running low on potions check to see if "loots" is in range.
+		buy up to x number of potions
+
+setInterval(function(){
+
+
+},1000*60);
