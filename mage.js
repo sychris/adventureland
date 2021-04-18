@@ -4,7 +4,7 @@ var useMpPot=500
 var buy_hp = false; //Allow HP Pot Purchasing = true
 var buy_mp = false; //Allow MP Pot Purchasing = true
 var HpPotType = "hpot0"
-var MpPotType = "mpot1"
+var MpPotType = "mpot1" 
 var ReqUpToHp = 500
 var ReqUpToMp = 500
 var LookToBuyHpPotAt = 50
@@ -17,6 +17,7 @@ var pots_to_request =
     hpot0: 1000
   }
 
+  
 
 load_code(10)
 load_code(11)
