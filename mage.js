@@ -1,4 +1,3 @@
-//log(JSON.stringify(character.items))
 var attack_mode = true
 var useHpPot = 500
 var useMpPot = 500
@@ -18,14 +17,13 @@ var pots_to_request = {
 }
 
 
-
 load_code(10)
 load_code(11)
 load_code(12)
 Init_configs();
 configs.char = new Object();
 
-log("1" + JSON.stringify(character.items))
+
 configs.mode.inv_dump.enabled = true
 configs.mode.inv_dump.interval = 3000
 configs.mode.inv_dump.sendTo = "loots"
@@ -50,6 +48,7 @@ function ck_a_wList(item, arr) {
   return found;
 }
 
+
 function ck_range(tar, range) {
   //log("checking range")
   if (tar !== null) {
@@ -69,6 +68,7 @@ function ck_range(tar, range) {
   }
 }
 
+
 function ck_range_by_name(name, range) {
   var c = get_player(name)
   if (ck_range(c, range)) {
@@ -78,12 +78,10 @@ function ck_range_by_name(name, range) {
   }
 }
 
+
 function inv_dump() {
-  //log("2" + JSON.stringify(character.items))
   if (configs.mode.inv_dump.enabled & ck_range_by_name(configs.mode.inv_dump.sendTo, 320)) {
     send_gold(configs.mode.inv_dump.sendTo, 99999999)
-      //log("3" + JSON.stringify(character.items))
-      //log("4" + JSON.stringify(character.items))
     var s
     for (s in character.items) {
       if (character.items[s] !== null) {
@@ -108,6 +106,7 @@ function getItemSlot(name) {
   return -1;
 }
 
+
 function on_cm(n, d) {
   log("cm from " + n + ": " + d)
   if (n == "loots") {
@@ -117,6 +116,7 @@ function on_cm(n, d) {
   }
 }
 
+
 function request_pots(n) {
   log("requesting pots firing")
   var requests = {}
@@ -125,7 +125,7 @@ function request_pots(n) {
     var pslot = character.items[getItemSlot(pot)]
     var needed = {}
     var count = 0
-      //log(pslot.q + " pots found of the needed " + pots_to_request[pot])
+    //log(pslot.q + " pots found of the needed " + pots_to_request[pot])
     log("checking quantity from slot")
     if (pslot == undefined) {
       needed.name = pot
@@ -185,6 +185,3 @@ setInterval(function() {
   }
 
 }, 1000 / 4); // Loops every 1/4 seconds.
-
-// Learn Javascript: https://www.codecademy.com/learn/learn-javascript
-// Write your own CODE: https://github.com/kaansoral/adventureland
