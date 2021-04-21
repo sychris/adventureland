@@ -1,14 +1,20 @@
+import("./log_filter.js")
+//import("./meters.js")
+
+add_top_button("electron_dev_tools", "DEV", function() { parent.electron_dev_tools(); })
+
 var attack_mode = true
-var useHpPot = 500
+var useHpPot = 4000
 var useMpPot = 500
 var buy_hp = false; //Allow HP Pot Purchasing = true
 var buy_mp = false; //Allow MP Pot Purchasing = true
-var HpPotType = "hpot0"
+var HpPotType = "hpot1"
 var MpPotType = "mpot1"
 var ReqUpToHp = 500
 var ReqUpToMp = 500
 var LookToBuyHpPotAt = 50
 var LookToBuyMpPotAt = 50
+var last_cm_time = Date.now()
 var pots = new Object();
 var pots_to_request = {
   //ItemName, Count
@@ -18,9 +24,8 @@ var pots_to_request = {
 
 
 load_code(10)
-load_code(11)
-load_code(12)
 Init_configs();
+
 configs.char = new Object();
 
 
@@ -30,7 +35,7 @@ configs.mode.inv_dump.sendTo = "loots"
 configs.mode.inv_dump.wList = ["tracker", "mpot0", "hpot0", "mpot1", "hpot1", "mpot2", "hpot2"];
 setInterval(inv_dump, configs.mode.inv_dump.interval)
 map_key("O", "snippet", "toggle_mode(configs.mode.inv_dump)");
-
+setInterval(Attack_mode, 250)
 
 function update_configs() {
   configs.char = parent.character
@@ -39,7 +44,7 @@ function update_configs() {
 
 function ck_a_wList(item, arr) {
   var found = false;
-  //log("checking wlist")
+  log("checking wlist")
   for (i in arr) {
     if (item.name == arr[i]) {
       return true;
@@ -50,7 +55,7 @@ function ck_a_wList(item, arr) {
 
 
 function ck_range(tar, range) {
-  //log("checking range")
+  log("checking range")
   if (tar !== null) {
     if (Math.sqrt((character.real_x - tar.real_x) *
         (character.real_x - tar.real_x) +
@@ -80,12 +85,13 @@ function ck_range_by_name(name, range) {
 
 
 function inv_dump() {
+  log("invdumping")
   if (configs.mode.inv_dump.enabled & ck_range_by_name(configs.mode.inv_dump.sendTo, 320)) {
     send_gold(configs.mode.inv_dump.sendTo, 99999999)
-    var s
-    for (s in character.items) {
+    for (var s = 0; s < character.items.length; s++) {
       if (character.items[s] !== null) {
         if (ck_a_wList(character.items[s], configs.mode.inv_dump.wList) != true) {
+          //this needs json stringifyed
           log("sending " + character.items[s] + " to " + configs.mode.inv_dump.sendTo)
           send_item(configs.mode.inv_dump.sendTo, s, 9999);
           break;
@@ -106,8 +112,11 @@ function getItemSlot(name) {
   return -1;
 }
 
+setInterval(function() {
+  character.on("cm", function(m){ on_com_mes(m.name, m.message) });
+}, 500)
 
-function on_cm(n, d) {
+function on_com_mes(n, d) {
   log("cm from " + n + ": " + d)
   if (n == "loots") {
     if (d == "what_pots_do_you_need?") {
@@ -120,41 +129,43 @@ function on_cm(n, d) {
 function request_pots(n) {
   log("requesting pots firing")
   var requests = {}
-  for (pot in pots_to_request) {
-    log("checking " + pot + " for request")
+  for (const pot in pots_to_request) {
+    //log("checking " + pot + " for request")
     var pslot = character.items[getItemSlot(pot)]
     var needed = {}
     var count = 0
     //log(pslot.q + " pots found of the needed " + pots_to_request[pot])
-    log("checking quantity from slot")
+    //log("checking quantity from slot")
     if (pslot == undefined) {
       needed.name = pot
       needed.q = pots_to_request[pot]
-      log("pslot q tested undefigned")
+      //log("pslot q tested undefigned")
 
     } else if (pslot.q < pots_to_request[pot]) {
-      log("need pots")
+      //log("need pots")
       needed.name = pot
       needed.q = pots_to_request[pot] - pslot.q
-      log("looks like we need " + JSON.stringify(needed))
+      //log("looks like we need " + JSON.stringify(needed))
 
     } else if (pslot.q >= pots_to_request[pot]) {
-      log("dont need pots")
+      //log("dont need pots")
     } else {
-      log("something went wrong man")
+      //log("something went wrong man")
     }
 
     if (needed.name !== undefined) {
 
       log("requesting " + needed.pot + needed.keys)
       send_cm(n, needed)
+    } else {
+      log("no pots needed thanks!")
     }
   }
 }
 
 
-setInterval(function() {
-
+function Attack_mode() {
+  log("firing attack mode")
   if (character.hp < useHpPot || character.mp < useMpPot) use_hp_or_mp();
   loot();
 
@@ -173,7 +184,8 @@ setInterval(function() {
     }
   }
 
-  if (!in_attack_range(target)) {
+  var walk_to_mob = false
+  if (!in_attack_range(target) && walk_to_mob == true) {
     move(
       character.x + (target.x - character.x) / 2,
       character.y + (target.y - character.y) / 2
@@ -184,4 +196,4 @@ setInterval(function() {
     attack(target);
   }
 
-}, 1000 / 4); // Loops every 1/4 seconds.
+}
