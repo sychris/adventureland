@@ -113,7 +113,18 @@ class meters{
 		parent.socket.removeListener('game_log', parent.socket._callbacks.$game_log[this.log_listener]);
 	}
 }
-var m = new meters({});
+
+var asdf = parent.$('#bottomrightcorner').find('#meters')
+//log(asdf)
+if(asdf.length == 0){
+	var m = new meters({});
+	log("meter not found")
+} else {
+	log("meter found")	
+}
+
+
+//var m = new meters({});
 function on_destroy(){
 	clear_drawings();
 	m.on_destroy();
