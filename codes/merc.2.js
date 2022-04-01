@@ -1,5 +1,6 @@
 //Merc
 log("Starting merc script")
+
 //test area
 //send_item("Sychris", getItemSlot("mpot0"), 2)
 
@@ -9,17 +10,9 @@ log("Starting merc script")
 // convert pots_to_buy to a map
 
 load_code(10)
-
-//-----------------------------sockets stuff---------------------------------
-
-//not sure if this is needed or even works
-//parent.socket.removeAllListeners();
-//parent.socket.onAny((eventName, ...args) => {
-//  log(eventName, args)
-//});
-
+load_code(13) //temperarly here insted of init while i test and dessign
 //Configs
-configs.mode.upgrade.enable = 1
+
 var enable_buying_pots = 1
 var pots_to_buy = {
   //ItemName, Count
@@ -29,18 +22,17 @@ var pots_to_buy = {
 }
 
 
-configs.mode.exchangeItems = false
-
-var top_up_pots_enable = true
-
+configs.mode.exchangeItems.enabled = false
+configs.mode.give_pots.enabled = 0
+configs.mode.upgrade.enable = 1
 configs.mode.luck.enabled = 1
-
-
-var regen_to_percent = 80
-
-
-
 configs.mode.sell.enabled = true
+
+configs.mode.regen.to_percent = 80
+
+
+
+
 configs.mode.sell.items.set('test_orb', 0)
 configs.mode.sell.items.set('hpamulet', 0)
 configs.mode.sell.items.set('wand', 0)
@@ -49,26 +41,27 @@ configs.mode.sell.items.set('hpbelt', 0)
 configs.mode.sell.items.set('cclaw', 0)
 
 
-pontyitems = []
+
 
 //intervals
-var luck_players_interval = 1000
-var top_up_pots_Interval = 10000
+
+
 var regen_mp_Interval = 1000
 
-//setInterval(pri,1000)
-setInterval(exchangeSlotZero, 2000);
+//setInterval(sellPrimals,1000)
+setInterval(exchangeSlotZero, configs.mode.exchangeItems.interval);
 setInterval(moveToPlayer, 180000)
 setInterval(sellmode, configs.mode.sell.interval);
-setInterval(upgrade_check, 750);
-setInterval(luck_players, luck_players_interval);
-setInterval(top_up_pots, top_up_pots_Interval);
+setInterval(upgrade_check, configs.mode.upgrade.interval);
+setInterval(luck_players, configs.mode.luck.interval);
+setInterval(top_up_pots, configs.mode.give_pots.interval);
 setInterval(regen_mp, regen_mp_Interval);
-setInterval(buy_pots, top_up_pots_Interval);
+setInterval(buy_pots, configs.mode.give_pots.interval);
 //setInterval(getPontyData,50000)
 //setInterval(buyPontyItems,1000)
+
 function exchangeSlotZero() {
-  if(configs.mode.exchangeItems)   exchange(0)
+  if(configs.mode.exchangeItems.enabled)   exchange(0)
 }
 
 function npcInRange(npcName) {
@@ -85,7 +78,7 @@ function npcInRange(npcName) {
   return false
 }
 
-function pri() {
+function sellPrimals() {
   if (parent.character.slots.trade3 == null) {
     log("no more offerings")
     if (slot = getItemSlot("offering") == -1) parent.buy("offering")
@@ -119,7 +112,7 @@ function getPontyData() {
   parent.socket.once("secondhands", (pontyData) => {
     for (item of pontyData) {
       if (stuffToBuy.includes(item.name)) {
-        pontyitems.push(item.rid)
+        configs.mode.buyPonty.itemsList.push(item.rid)
         log("found " + item.name + " from Ponty")
       }
     }
@@ -129,98 +122,18 @@ function getPontyData() {
 }
 
 function buyPontyItems() {
-  if (pontyitems) {
-    while (buy = pontyitems.pop()) {
+  if (configs.mode.buyPonty.itemsList) {
+    while (buy = configs.mode.buyPonty.itemsList.pop()) {
       parent.socket.emit("sbuy", {"rid": buy});}
   }
 }
 
 
 
-function regen_mp() {
-  if(configs.mode.regen.enable){
-    if (is_on_cooldown("regen_mp")) return
-    var mp_percent = character.mp / character.max_mp
-    mp_percent = mp_percent * 100
-    //log(mp_percent)
-    if (mp_percent < configs.mode.regen.to_percent) {
-      //log("regening")
-      use_skill("regen_mp")
-    }
-  }
-}
-
-
-
-//Internal vals
-
-
-//Functions
-
-
-
-
-function top_up_pots() {
-  if (top_up_pots_enable == true) {
-    for (ppl in configs.mode.give_pots.donate_pots_to) {
-      //log("looking for " + configs.mode.give_pots.donate_pots_to[ppl])
-      var charac = get_player(configs.mode.give_pots.donate_pots_to[ppl])
-      if (ck_range(charac, 320)) {
-        log("sent top up query to " + charac.name)
-        send_cm(charac.name, "what_pots_do_you_need?")
-      }
-    }
-  }
-}
-
-function ck_range_by_name(name, range) {
-  var c = get_player(name)
-  if (ck_range(c, range)) {
-    return true
-  } else {
-    return false
-  }
-}
-
 function send_item_by_name(player, item, quantity) {
   send_item(player, getItemSlot(item), quantity)
 }
 
-
-
-
-
-
-
-
-
-function ck_range(tar, range) {
-  //log("checking range")
-  if (tar !== null) {
-    if (Math.sqrt((character.real_x - tar.real_x) * (character.real_x - tar.real_x) + 
-      (character.real_y - tar.real_y) * (character.real_y - tar.real_y)) < range) {
-      return true;
-    } else {
-      return false;
-    }
-  } else return false; //was null
-}
-
-function get_grade(item) {
-  return parent.G.items[item.name].grades;
-}
-
-// Returns the item slot and the item given the slot to start from and a filter.
-function find_item(filter) {
-  for (let i = 0; i < character.items.length; i++) {
-    let item = character.items[i];
-    
-    if (item && filter(item))
-      return [i, character.items[i]];
-  }
-  
-  return [-1, null];
-}
 
 function buy_pots() {
   //log(pots_to_buy)
@@ -238,3 +151,34 @@ function buy_pots() {
     }
   }
 }
+//The Map object holds key-value pairs and remembers the original insertion order of the keys. Any value (both objects and primitive values) may be used as either a key or a value.
+/*
+var test = new map()
+test.set("asdf",0)
+test.set("jkl",1000)
+
+log(test.size) //== 2
+test.delete(asdf) //removes asdf size now == 1
+
+log(test.get("jkl"))          //logs 1000
+log(test.get("doesentExist")) //atempts to log undefigned
+log(test.has("jkl"))          //logs true
+log(test.has("doesentExist")) //logs false
+
+ways to iterate
+for (const [key, value] of myMap) {
+  log(key + ' = ' + value)
+}
+
+for (const key of myMap.keys()) {
+  log(key)
+}
+
+for (const value of myMap.values()) {
+  log(value)
+}
+
+myMap.forEach(function(value, key) {
+  log(key + ' = ' + value)
+})
+*/

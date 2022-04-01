@@ -5,6 +5,8 @@ const Hpots = ["hpot0","hpot1","hpot2"]
 const Mpots = ["mpot0","mpot1","mpot2"]
 const myToons = ["Sychris","mrshoots","Normon","loots"];
 
+
+
 //----------------------------------gui----------------------------------
 log("loading gui addons")
 //dps meter
@@ -55,3 +57,11 @@ log("Initilization compleate")
 
 //load_code 30 == party code
 load_code(30)
+
+function on_destroy() // called just before the CODE is destroyed
+{
+  clear_drawings();
+  clear_buttons();
+  uiCon.on_destroy(); //ui configs
+  m.on_destroy();     //dps_meters
+}

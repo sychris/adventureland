@@ -8,25 +8,16 @@ configs.mode.give_pots.invetval = 1000
 
 configs.mode.sell.enabled = true
 
-configs.mode.exchangeItems = new Object;
-configs.mode.exchangeItems.enabled = true
-configs.mode.exchangeItems.interval = 2000
+configs.mode.exchangeItems = false
 
-configs.mode.giveOutPots = new Object;
-configs.mode.giveOutPots.enabled = true
-configs.mode.giveOutPots.interval = 10000
+
 
 configs.mode.regen = new Object();
 configs.mode.regen.enable = true
 configs.mode.regen.to_percent = 80
 
-configs.mode.buyPonty = new Object;
-configs.mode.buyPonty.itemsList = []
-
-
 configs.mode.luck = new Object();
 configs.mode.luck.enabled = 1
-configs.mode.luck.interval = 1000
 configs.mode.luck.fname = "Luck Mode"
 configs.mode.luck.lastLuck = Date.now()
 

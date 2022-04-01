@@ -115,7 +115,3 @@ class meters{
 }
 log("loading meters")
 var m = new meters({});
-function on_destroy(){
-	clear_drawings();
-	m.on_destroy();
-}
