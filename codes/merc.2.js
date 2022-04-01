@@ -10,7 +10,7 @@ log("Starting merc script")
 // convert pots_to_buy to a map
 
 load_code(10)
-load_code(13) //temperarly here insted of init while i test and dessign
+load_code(14) //temperarly here insted of init while i test and dessign
 //Configs
 
 var enable_buying_pots = 1
