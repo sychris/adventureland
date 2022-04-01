@@ -1,0 +1,1 @@
+import("D:\\coding_projects\\adventureland\\mage.js" )

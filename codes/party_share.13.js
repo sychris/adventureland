@@ -1,4 +1,3 @@
-//Party Share
 
 function new_render_party() {
     var b = "";

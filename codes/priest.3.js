@@ -1,28 +1,53 @@
 // priest
 log("starting the priest script")
-//test area
+//test area asdf
 
 
+//Init
+var configs = new Object();
+configs.ctype = character.ctype;
+configs.inv = new Object();
+configs.inv.dump = new Object();
+configs.mode = new Object();
+configs.mode.heal = new Object();
+configs.mode.attack = new Object();
+configs.mode.move = new Object();
+configs.party = new Object();
+configs.pots = new Object();
+configs.party.members = Object.keys(parent.party);
 
-//Configs
+//Healz Configs
+configs.mode.heal.enabled = 1
+configs.mode.heal.interval = 250
 
-var heal_mode_enable = 1
-var attack_mode_enable = 1
-var movement_mode_enable = 2 // 0: none stay still, 1:moves in range of target, 2:tightly follows leader
-var leader = "Sychris"
-var useHpPot = 500
-var useMpPot = 500
-var party_names = Object.keys(parent.party);
-var heal_mode_interval = 250
-var attack_mode_interval = 250
-var movement_mode_interval = 250
 
+//Attacker Configs
+configs.mode.attack.enabled = 1
+configs.mode.attack.interval = 250
 map_key("Q","snippet","switch_move_mode();");
 
+//Merc Configs
+
+
+//Everyone Configs
+configs.mode.move.enabled = 2
+configs.mode.move.interval = 250
+configs.mode.move.leader = "Sychris"
+
+configs.pots.useHpPotAtPercentAtPercent = 50
+configs.pots.useMpPotAtPercent = 50
+configs.pots.useHpPotType = "hpot0"
+configs.pots.useMpPotType = "mpot0"
+
+configs.inv.dump.enabled = 1
+configs.inv.dump.wList = [];
+
+
+
 //intervals
-setInterval(heal_mode, heal_mode_interval);
-setInterval(Attack_mode, attack_mode_interval);
-setInterval(movement_mode, movement_mode_interval);
+setInterval(heal_mode, configs.mode.heal.interval);
+setInterval(Attack_mode, configs.mode.attack.interval);
+setInterval(movement_mode, configs.mode.move.interval);
 
 //internal vals
 
@@ -30,9 +55,7 @@ setInterval(movement_mode, movement_mode_interval);
 
 //functions
 
-var enable_inv_dump = 0
-var send_to = "loots"
-setInterval(inv_dump,1000)
+
 function inv_dump(){
   if(enable_inv_dump){
     send_gold(send_to,99999999)
@@ -50,8 +73,9 @@ function inv_dump(){
 }
 
 
+
 function movement_mode(){
-  switch(movement_mode_enable){
+  switch(configs.mode.move.enabled){
     case 0:
       return;
       break;
@@ -67,7 +91,7 @@ function movement_mode(){
   }
       break;
     case 2:
-      var target=get_player(leader);
+      var target=get_player(configs.mode.move.leader);
       if(target){ //make sure target is targetable
         if(
           target.x-character.x > 10 || target.y-character.y > 10 ||
@@ -80,22 +104,22 @@ function movement_mode(){
       }
       break;
     default:
-      log("bad movement_mode_enable option")
+      log("bad configs.mode.move.enabled option")
   }
 
 }
 
 function heal_mode(){
-  if(heal_mode_enable || check_idle()){
+  if(configs.mode.heal.enabled || check_idle()){
     pot_and_loot();
     
     var na;
-    //log(party_names);
-    for (na in party_names){
-      //log(party_names[na])
-      if(party_names[na] !== null){
+    //log(configs.party.members);
+    for (na in configs.party.members){
+      //log(configs.party.members[na])
+      if(configs.party.members[na] !== null){
         
-        p = get_player(party_names[na]);
+        p = get_player(configs.party.members[na]);
         if(p){
           if(p.rip){
             log(p.name + " is dead O.O")
@@ -113,7 +137,7 @@ function heal_mode(){
 }
 
 function Attack_mode(){
-  if(!attack_mode_enable || character.rip || is_moving(character)) return;
+  if(!configs.mode.attack.enabled || character.rip || is_moving(character)) return;
 
   var target=get_targeted_monster();
   if(!target || !in_attack_range(target))
@@ -135,7 +159,11 @@ function Attack_mode(){
 }
 
 function pot_and_loot(){
-  if(character.hp<useHpPot || character.mp<useMpPot) use_hp_or_mp();
+  var uhp = configs.pots.useHpPotAtPercent / 100
+  var ump = configs.pots.useMpPotAtPercent / 100
+  if(character.hp / character.max_hp < uhp || character.mp / character.max_mp < ump){
+    use_hp_or_mp();
+  } 
   loot();
 
 }
@@ -149,10 +177,10 @@ function check_idle(){
 }
 
 function switch_move_mode(){
-  if(movement_mode_enable <= 1){
-    movement_mode_enable ++
+  if(configs.mode.move.enabled <= 1){
+    configs.mode.move.enabled ++
   } else{
-    movement_mode_enable = 0
+    configs.mode.move.enabled = 0
   }
-  log("movement mode set to " + movement_mode_enable)
+  log("movement mode set to " + configs.mode.move.enabled)
 }
