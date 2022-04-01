@@ -44,7 +44,12 @@ load_code(20)
 if(configs.is_combat) load_code(21)
 //load_code 23 == util ranger
 if (character.ctype == "ranger")  load_code(23)
+//load_code 24 == util merchant
+if (character.ctype == "merchant")  load_code(24)
+
 log("Initilization compleate")
+
+
 
 //----------------------------------other routines----------------------------------
 

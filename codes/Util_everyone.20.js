@@ -10,23 +10,17 @@ function ck_a_wList(item, arr) {
 }
 
 //----------------------------------range----------------------------------
+
 function ck_range(tar, range) {
-    //log("checking range")
-    if (tar !== null) {
-      if (Math.sqrt((character.real_x - tar.real_x) *
-          (character.real_x - tar.real_x) +
-          (character.real_y - tar.real_y) *
-          (character.real_y - tar.real_y)) < range) {
-        //log("fun ck_range true")
-        return true;
-      } else {
-        //log("ck_range False")
-        return false;
-      }
+  //log("checking range")
+  if (tar !== null) {
+    if (Math.sqrt((character.real_x - tar.real_x) * (character.real_x - tar.real_x) + 
+      (character.real_y - tar.real_y) * (character.real_y - tar.real_y)) < range) {
+      return true;
     } else {
-      //log("Atempting to ck_range something null")
       return false;
     }
+  } else return false; //was null
 }
 
 
@@ -56,6 +50,7 @@ function getItemSlot(name) {
   log("item not found")
   return -1;
 }
+
 function getItemQuantity(name) {
   var count = 0
   //log("looking for item")
@@ -80,6 +75,11 @@ function sellmode(){
     }
   }
 }
+
+function get_grade(item) {
+  return parent.G.items[item.name].grades;
+}
+
 //----------------------------------potions----------------------------------
 function updatePotions(){
   for (let pot in Hpots){configs.pots.current_potions.set(Hpots[pot],getItemQuantity(Hpots[pot]))}
@@ -122,7 +122,7 @@ function checkHpMp(){
   }
   
 }
-//--------------------------------------------------------------------setmgs
+//-----------------------------------setmgs-------------------------------------
 setInterval(setmsg,1000);
 function setmsg(){
   set_message(character.cc);

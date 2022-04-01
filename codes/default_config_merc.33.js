@@ -1,4 +1,5 @@
 log("loading default_config_merc")
+
 configs.mode.give_pots = new Object();
 configs.mode.give_pots.fname = "Give Potions Mode"
 configs.mode.give_pots.donate_pots_to = ["Sychris","mrshoots","Normon"]
@@ -7,34 +8,51 @@ configs.mode.give_pots.invetval = 1000
 
 configs.mode.sell.enabled = true
 
+configs.mode.exchangeItems = new Object;
+configs.mode.exchangeItems.enabled = true
+configs.mode.exchangeItems.interval = 2000
+
+configs.mode.giveOutPots = new Object;
+configs.mode.giveOutPots.enabled = true
+configs.mode.giveOutPots.interval = 10000
+
 configs.mode.regen = new Object();
 configs.mode.regen.enable = true
 configs.mode.regen.to_percent = 80
 
+configs.mode.buyPonty = new Object;
+configs.mode.buyPonty.itemsList = []
+
+
 configs.mode.luck = new Object();
+configs.mode.luck.enabled = 1
+configs.mode.luck.interval = 1000
 configs.mode.luck.fname = "Luck Mode"
+configs.mode.luck.lastLuck = Date.now()
 
 configs.mode.upgrade = new Object();
 configs.mode.upgrade.fname = "Upgrade Mode"
 configs.mode.upgrade.enabled = 0
 configs.mode.upgrade.interval = 1000
-configs.mode.upgrade.max_level = 8; //Max level it will stop upgrading items at if enabled
+
+configs.mode.buyPots = new Object();
+configs.mode.buyPots.enabled = 1
 
 configs.mode.upgrade.upgradeWhitelist =
   {
     //ItemName, Max Level
-    pyjamas: upgradeMaxLevel,
-    bunnyears: upgradeMaxLevel,
+    pyjamas: 7,
+    bunnyears: 7,
     bow: 7,
-    carrotsword: upgradeMaxLevel,
+    carrotsword: 7,
     cclaw: 7,
     firestaff: 7,
     fireblade: 7,
-    slimestaff: 7,
+    slimestaff: 8,
     sshield: 7,
     shield: 7,
     shoes: 7,
-    staff: 7,
+    staff: 6,
     gloves: 7,
     coat: 7,
     helmet: 7,
@@ -55,7 +73,7 @@ configs.mode.upgrade.upgradeWhitelist =
     mittens: 7,
     ornamentstaff: 7,
     candycanesword: 7,
-    warmscarf: 7,
+    warmscarf: 6,
     t2bow: 7,
     pmace: 7,
     basher: 7,
@@ -64,11 +82,19 @@ configs.mode.upgrade.upgradeWhitelist =
     wingedboots: 7,
     wattire: 7,
     wbreeches: 7,
-    wcap: 7,
+    wcap: 8,
     wgloves: 7,
-	stinger: 7,
+    stinger: 7,
     wshoes: 7,
-	quiver: 7
+    quiver: 7,
+    merry: 6,
+    tshirt0: 6,
+    tshirt1: 6,
+    handofmidas: 3,
+    pmaceofthedead: 5,
+    hbow: 7,
+    frankypants: 5,
+    vboots: 4
   };
 
   configs.mode.upgrade.combineWhitelist =
@@ -79,7 +105,7 @@ configs.mode.upgrade.upgradeWhitelist =
     strearring: 3,
     intearring: 3,
     dexearring: 3,
-    hpbelt: 3,
+    hpbelt: 4,
     ringsj: 3,
     strring: 3,
     intring: 3,
@@ -89,9 +115,10 @@ configs.mode.upgrade.upgradeWhitelist =
     intamulet: 3,
     stramulet: 3,
     vitearring: 3,
-    hpamulet: 2,
+    hpamulet: 4,
     dexbelt: 3,
     intbelt: 3,
-    strbelt: 3
+    strbelt: 3,
+    orbg: 2
   }
 

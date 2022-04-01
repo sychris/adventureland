@@ -13,7 +13,7 @@ load_code(10)
 //-----------------------------sockets stuff---------------------------------
 
 //not sure if this is needed or even works
-//parent.socket.removeAllListeners();
+//socket.removeAllListeners();
 //parent.socket.onAny((eventName, ...args) => {
 //  log(eventName, args)
 //});
