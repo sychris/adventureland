@@ -28,3 +28,4 @@ parent.render_party = new_render_party;
 setInterval(function(){
 	new_render_party();
 }, 1000);
+

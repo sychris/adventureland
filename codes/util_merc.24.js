@@ -100,7 +100,7 @@ function on_cm(n, d) {
   if (n == "Sychris" || "Normon" || "mrshoots") {
     //if we have pots
     
-    log("sending " + n + " " + d.q + " " + d.name)
+    //log("sending " + n + " " + d.q + " " + d.name)
     slot = getItemSlot(d.name)
     //dont sent if item not found
     if(slot != -1) send_item(n, getItemSlot(d.name), d.q)

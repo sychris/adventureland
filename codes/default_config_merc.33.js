@@ -4,7 +4,7 @@ configs.mode.give_pots = new Object();
 configs.mode.give_pots.fname = "Give Potions Mode"
 configs.mode.give_pots.donate_pots_to = ["Sychris","mrshoots","Normon"]
 configs.mode.give_pots.enabled = 0
-configs.mode.give_pots.invetval = 1000
+configs.mode.give_pots.interval = 5000
 
 configs.mode.sell.enabled = true
 
@@ -17,7 +17,9 @@ configs.mode.regen.enable = true
 configs.mode.regen.to_percent = 80
 
 configs.mode.luck = new Object();
+
 configs.mode.luck.enabled = 1
+configs.mode.luck.interval = 1000
 configs.mode.luck.fname = "Luck Mode"
 configs.mode.luck.lastLuck = Date.now()
 
@@ -43,7 +45,7 @@ configs.mode.upgrade.upgradeWhitelist =
     sshield: 7,
     shield: 7,
     shoes: 7,
-    staff: 6,
+    staff: 8,
     gloves: 7,
     coat: 7,
     helmet: 7,

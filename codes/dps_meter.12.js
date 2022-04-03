@@ -114,4 +114,4 @@ class meters{
 	}
 }
 log("loading meters")
-var m = new meters({});
+var met = new meters({});

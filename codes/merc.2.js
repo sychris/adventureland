@@ -10,8 +10,7 @@ log("Starting merc script")
 // convert pots_to_buy to a map
 
 load_code(10)
-load_code(14) //temperarly here insted of init while i test and dessign
-//Configs
+
 
 var enable_buying_pots = 1
 var pots_to_buy = {
@@ -23,7 +22,7 @@ var pots_to_buy = {
 
 
 configs.mode.exchangeItems.enabled = false
-configs.mode.give_pots.enabled = 0
+configs.mode.give_pots.enabled = 1
 configs.mode.upgrade.enable = 1
 configs.mode.luck.enabled = 1
 configs.mode.sell.enabled = true
@@ -63,6 +62,7 @@ setInterval(buy_pots, configs.mode.give_pots.interval);
 function exchangeSlotZero() {
   if(configs.mode.exchangeItems.enabled)   exchange(0)
 }
+
 
 function npcInRange(npcName) {
   map = parent.G.maps[character.map]

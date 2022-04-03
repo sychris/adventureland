@@ -9,12 +9,15 @@ const myToons = ["Sychris","mrshoots","Normon","loots"];
 
 //----------------------------------gui----------------------------------
 log("loading gui addons")
-//dps meter
-load_code(11)
+
 //log filter
+load_code(11)
+//dps meter
 load_code(12)
 //party_share
 load_code(13)
+
+//load_code(14)
 
 add_top_button("electron_dev_tools", "DEV", function() { parent.electron_dev_tools(); })
 
@@ -60,8 +63,10 @@ load_code(30)
 
 function on_destroy() // called just before the CODE is destroyed
 {
+  met.on_destroy();     //dps_meters
+  //uiCon.on_destroy(); //ui configs
+  
   clear_drawings();
   clear_buttons();
-  uiCon.on_destroy(); //ui configs
-  m.on_destroy();     //dps_meters
+  
 }
