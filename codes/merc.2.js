@@ -107,7 +107,7 @@ wait = (seconds) =>
 
 function getPontyData() {
   
-  var stuffToBuy = ["seashell", "merry", "quiver", "ringsj", "intring", "wattire", "staff", "tshirt0", "tshirt1", "wbook0", "intearring", "dexearring"]
+  var stuffToBuy = ["wshoes","t2bow","seashell", "merry", "quiver", "ringsj", "intring", "wattire", "staff", "tshirt0", "tshirt1", "wbook0", "intearring", "dexearring"]
   
   parent.socket.once("secondhands", (pontyData) => {
     for (item of pontyData) {
@@ -119,6 +119,7 @@ function getPontyData() {
     //show_json(pontyData)
   })
   parent.socket.emit("secondhands")
+  buyPontyItems()
 }
 
 function buyPontyItems() {

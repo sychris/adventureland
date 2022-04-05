@@ -10,7 +10,12 @@ configs.mode.sell.enabled = true
 
 configs.mode.exchangeItems = false
 
+configs.mode.exchangeItems = new Object;
+configs.mode.exchangeItems.enabled = true
+configs.mode.exchangeItems.interval = 2000
 
+configs.mode.buyPonty = new Object;
+configs.mode.buyPonty.itemsList = []
 
 configs.mode.regen = new Object();
 configs.mode.regen.enable = true
@@ -26,7 +31,7 @@ configs.mode.luck.lastLuck = Date.now()
 configs.mode.upgrade = new Object();
 configs.mode.upgrade.fname = "Upgrade Mode"
 configs.mode.upgrade.enabled = 0
-configs.mode.upgrade.interval = 1000
+configs.mode.upgrade.interval = 300
 
 configs.mode.buyPots = new Object();
 configs.mode.buyPots.enabled = 1
@@ -78,7 +83,7 @@ configs.mode.upgrade.upgradeWhitelist =
     wcap: 8,
     wgloves: 7,
     stinger: 7,
-    wshoes: 7,
+    wshoes: 8,
     quiver: 7,
     merry: 6,
     tshirt0: 6,
@@ -86,7 +91,7 @@ configs.mode.upgrade.upgradeWhitelist =
     handofmidas: 3,
     pmaceofthedead: 5,
     hbow: 7,
-    frankypants: 5,
+    frankypants: 6,
     vboots: 4
   };
 

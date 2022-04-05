@@ -24,6 +24,7 @@ function upgrade_check() {
 }
 
 function upgrade() {
+  if(parent.character.q.upgrade) return;
   for (let i = 0; i < character.items.length; i++) {
     let c = character.items[i];
     
@@ -62,6 +63,7 @@ function upgrade() {
 }
 
 function compound_items() {
+  if(parent.character.q.compound) return;
   let to_compound = character.items.reduce((collection, item, index) => {
     if (item && configs.mode.upgrade.combineWhitelist[item.name] != null && item.level < configs.mode.upgrade.combineWhitelist[item.name]) {
       let key = item.name + item.level;
