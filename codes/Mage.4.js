@@ -1,7 +1,7 @@
 load_code(10)
 
 configs.mode.attack.enabled = 1
-configs.mode.attack.onlyAttack = "crab"
+configs.mode.attack.onlyAttack = "rat"
 
 configs.mode.hpMp.enabled = true
 

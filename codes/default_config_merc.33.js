@@ -14,8 +14,14 @@ configs.mode.exchangeItems = new Object;
 configs.mode.exchangeItems.enabled = true
 configs.mode.exchangeItems.interval = 2000
 
+configs.mode.upgradeNPCItem = new Object
+configs.mode.upgradeNPCItem.item = "staff"
+
 configs.mode.buyPonty = new Object;
+configs.mode.buyPonty.enabled = false
 configs.mode.buyPonty.itemsList = []
+
+configs.mode.buyMercs = new Object;
 
 configs.mode.regen = new Object();
 configs.mode.regen.enable = true
@@ -50,7 +56,7 @@ configs.mode.upgrade.upgradeWhitelist =
     sshield: 7,
     shield: 7,
     shoes: 7,
-    staff: 8,
+    staff: 9,
     gloves: 7,
     coat: 7,
     helmet: 7,
@@ -71,28 +77,32 @@ configs.mode.upgrade.upgradeWhitelist =
     mittens: 7,
     ornamentstaff: 7,
     candycanesword: 7,
-    warmscarf: 6,
+    warmscarf: 7,
     t2bow: 7,
     pmace: 7,
     basher: 7,
     harmor: 5,
     hgloves: 5,
     wingedboots: 7,
-    wattire: 7,
+    wattire: 8,
     wbreeches: 7,
     wcap: 8,
     wgloves: 7,
     stinger: 7,
     wshoes: 8,
-    quiver: 7,
+    quiver: 8,
     merry: 6,
-    tshirt0: 6,
-    tshirt1: 6,
+    tshirt0: 7,
+    tshirt1: 7,
     handofmidas: 3,
     pmaceofthedead: 5,
     hbow: 7,
     frankypants: 6,
-    vboots: 4
+    vboots: 4,
+    ecape: 5,
+    eslippers: 6,
+    eears: 5,
+    pouchbow: 8,
   };
 
   configs.mode.upgrade.combineWhitelist =
@@ -108,7 +118,7 @@ configs.mode.upgrade.upgradeWhitelist =
     strring: 3,
     intring: 3,
     dexring: 3,
-    vitring: 3,
+    vitring: 2,//these are used for amulets of armor and resistence at lvl 2
     dexamulet: 3,
     intamulet: 3,
     stramulet: 3,

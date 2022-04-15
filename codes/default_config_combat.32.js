@@ -10,6 +10,6 @@ configs.mode.attack.allowMoveForAttack = false
 configs.mode.inv_dump = new Object();
 configs.mode.inv_dump.fname = "Inventory Dump Mode"
 configs.mode.inv_dump.enabled = false
-configs.mode.inv_dump.interval = 3000
+configs.mode.inv_dump.interval = 1000
 configs.mode.inv_dump.sendTo = "loots"
 configs.mode.inv_dump.wList = ["tracker", "mpot0", "hpot0", "mpot1", "hpot1", "mpot2", "hpot2"];
