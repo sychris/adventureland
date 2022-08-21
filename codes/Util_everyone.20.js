@@ -76,6 +76,7 @@ function sellmode(){
   }
 }
 
+
 function get_grade(item) {
   return parent.G.items[item.name].grades;
 }
