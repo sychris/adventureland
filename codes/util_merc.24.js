@@ -99,7 +99,8 @@ function compound_items() {
 function on_cm(n, d) {
   log("cm from " + n + ": " + JSON.stringify(d))
   //log(JSON.stringify(d))
-  if (n == "Sychris" || "Normon" || "mrshoots") {
+  //todo place character names in config to handle this
+  if (n == "Sychris" || "Normon" || "mrshoots" || "Name001") {
     //if we have pots
     
     //log("sending " + n + " " + d.q + " " + d.name)
