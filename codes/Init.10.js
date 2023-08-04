@@ -34,7 +34,7 @@ configs.is_combat ? load_code(32) : load_code(33)
 
 //load_code 34 == "default_configs_ranger"
 if (character.ctype == "ranger")  load_code(34)
-
+if (character.ctype == "mage")  load_code(35)
 if (character.ctype == "priest") {
   configs.mode.heal = new Object();
   configs.mode.heal.fname = "Heal Mode"

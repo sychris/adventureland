@@ -12,6 +12,9 @@ configs.mode.loot.enabled = false
 configs.pots.use_Hp_pot_type = "hpot1"
 configs.pots.use_Mp_pot_type = "mpot1"
 
+configs.skills.energize.enabled = true;
+configs.skills.energize.target = "mrshoots"
+
 var useHpPot = 4000
 var useMpPot = 3000
 
@@ -29,12 +32,6 @@ setInterval(combat, 250)
 
 map_key("O", "snippet", "toggle_mode(configs.mode.inv_dump)");
 
-function energize(){
-  if(!useEnargize) return
-
-  let t = get_player("mrshoots")
-  use_skill("energize",t)
-}
 function combat() {
   //log("firing attack mode")
   if (character.hp < useHpPot || character.mp < useMpPot) use_hp_or_mp();
