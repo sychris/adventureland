@@ -3,8 +3,10 @@ log("loading default_config_merc")
 configs.mode.give_pots = new Object();
 configs.mode.give_pots.fname = "Give Potions Mode"
 configs.mode.give_pots.donate_pots_to = myToons
-configs.mode.give_pots.enabled = 0
+configs.mode.give_pots.enabled = true
 configs.mode.give_pots.interval = 5000
+
+
 
 configs.mode.sell.enabled = true
 
@@ -29,7 +31,7 @@ configs.mode.regen.to_percent = 80
 
 configs.mode.luck = new Object();
 
-configs.mode.luck.enabled = 1
+configs.mode.luck.enabled = true
 configs.mode.luck.interval = 1000
 configs.mode.luck.fname = "Luck Mode"
 configs.mode.luck.lastLuck = Date.now()
@@ -40,7 +42,8 @@ configs.mode.upgrade.enabled = 0
 configs.mode.upgrade.interval = 300
 
 configs.mode.buyPots = new Object();
-configs.mode.buyPots.enabled = 1
+configs.mode.buyPots.enabled = true
+configs.mode.buyPots.pots_to_buy = {}
 
 configs.mode.upgrade.upgradeWhitelist =
   {

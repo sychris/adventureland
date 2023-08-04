@@ -69,8 +69,10 @@ function sellmode(){
   for (var item in character.items){
     if(character.items[item] && configs.mode.sell.items.has(character.items[item].name)){
       if(configs.mode.sell.items.get(character.items[item].name) ==  character.items[item].level){
-        game_log("sellable item found in slot " + item)
-        parent.sell(item,1)
+        if(npcInRange("Ponty")) {
+          game_log("sellable item found in slot " + item)
+          parent.sell(item, 1)
+        }
       }
     }
   }

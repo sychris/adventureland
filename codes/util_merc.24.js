@@ -159,7 +159,7 @@ function on_magiport(name) {
 function regen_mp() {
   if(configs.mode.regen.enable){
     if (is_on_cooldown("regen_mp")) return
-    var mp_percent = character.mp / character.max_mp
+    let mp_percent = character.mp / character.max_mp
     mp_percent = mp_percent * 100
     //log(mp_percent)
     if (mp_percent < configs.mode.regen.to_percent) {
@@ -171,7 +171,7 @@ function regen_mp() {
 
 //-----------------------------top up pots---------------------------------
 function top_up_pots() {
-  if (configs.mode.give_pots.enabled == true) {
+  if (configs.mode.give_pots.enabled === true) {
     for (let ppl in configs.mode.give_pots.donate_pots_to) {
       //log("looking for " + configs.mode.give_pots.donate_pots_to[ppl])
       let tempCharacter = get_player(configs.mode.give_pots.donate_pots_to[ppl]);
@@ -184,3 +184,31 @@ function top_up_pots() {
     }
   }
 }
+
+//-----------------------------------buy_pots---------------------------------------
+
+function buy_pots() {
+  //log(pots_to_buy)
+  if(configs.mode.buyPots.enabled === true)
+  for (let pot in configs.mode.buyPots.pots_to_buy) {
+    //log(pot)
+    let current_pots = character.items[getItemSlot(pot)];
+    let buy_count = 0;
+    if (current_pots == undefined) buy_count = configs.mode.buyPots.pots_to_buy[pot]
+    else if (current_pots.q < configs.mode.buyPots.pots_to_buy[pot]) buy_count = configs.mode.buyPots.pots_to_buy[pot] - current_pots.q
+    else if (current_pots.q < 1) buy_count = configs.mode.buyPots.pots_to_buy[pot]
+    //log(current_pots.q)
+    if (buy_count > 0) {
+      log("buying " + buy_count + " " + pot)
+      parent.buy(pot, buy_count)
+    }
+  }
+}
+
+//-----------------------------------send_item_by_name()---------------------------------------
+
+function send_item_by_name(player, item, quantity) {
+  send_item(player, getItemSlot(item), quantity)
+}
+
+

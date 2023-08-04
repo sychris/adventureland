@@ -12,19 +12,19 @@ log("Starting merc script")
 load_code(10)
 
 
-var enable_buying_pots = 1
-var pots_to_buy = {
+configs.mode.buyPots.enabled = true
+configs.mode.buyPots.pots_to_buy = {
   //ItemName, Count
   mpot0: 8000,
   mpot1: 8000,
   hpot0: 5000
 }
 
-
-configs.mode.exchangeItems.enabled = true
-configs.mode.give_pots.enabled = 1
-configs.mode.upgrade.enable = 1
-configs.mode.luck.enabled = 1
+//currently exchanges item in slot 0 with nearby npc
+configs.mode.exchangeItems.enabled = false
+configs.mode.give_pots.enabled = true
+configs.mode.upgrade.enable = true
+configs.mode.luck.enabled = true
 configs.mode.sell.enabled = true
 
 configs.mode.upgradeNPCItem.item = "staff"
@@ -67,7 +67,7 @@ setInterval(buy_pots, configs.mode.give_pots.interval);
 setInterval(getPontyData,50000)
 setInterval(buyPontyItems,1000)
 setInterval(upgradeNPCItem, 1000)
-//setInterval(checkMerchents, 1000) dis somehow brokens
+//setInterval(checkMerchents, 1000) //dis somehow brokens
 
 function exchangeSlotZero() {
   if(configs.mode.exchangeItems.enabled)   exchange(0)
@@ -124,9 +124,7 @@ function checkMerchents(){
           parent.sell(getItemSlot(n),q)
           //and resell
         }
-
       }
-
     }
   }
 }
@@ -186,24 +184,5 @@ function buyPontyItems() {
 
 
 
-function send_item_by_name(player, item, quantity) {
-  send_item(player, getItemSlot(item), quantity)
-}
 
 
-function buy_pots() {
-  //log(pots_to_buy)
-  for (pot in pots_to_buy) {
-    //log(pot)
-    var current_pots = character.items[getItemSlot(pot)]
-    var buy_count = 0
-    if (current_pots == undefined) buy_count = pots_to_buy[pot]
-    else if (current_pots.q < pots_to_buy[pot]) buy_count = pots_to_buy[pot] - current_pots.q
-    else if (current_pots.q < 1) buy_count = pots_to_buy[pot]
-    //log(current_pots.q)
-    if (buy_count > 0) {
-      log("buying " + buy_count + " " + pot)
-      parent.buy(pot, buy_count)
-    }
-  }
-}
