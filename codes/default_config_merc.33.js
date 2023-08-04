@@ -95,7 +95,7 @@ configs.mode.upgrade.upgradeWhitelist =
     tshirt0: 7,
     tshirt1: 7,
     handofmidas: 3,
-    pmaceofthedead: 5,
+    pmaceofthedead: 6,
     hbow: 7,
     frankypants: 6,
     vboots: 4,

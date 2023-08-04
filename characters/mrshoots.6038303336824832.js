@@ -4,7 +4,7 @@ configs.mode.hpMp.enabled = true
 
 configs.mode.attack.enabled = 1
 configs.mode.attack.allowMoveForAttack = false
-configs.mode.attack.onlyAttack = "rat"
+configs.mode.attack.onlyAttack = "crab"
 configs.mode.attack.preferedTarget = "squigtoad"
 
 configs.mode.sell.enabled = false

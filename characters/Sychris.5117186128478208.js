@@ -1,6 +1,6 @@
 load_code(10)
 
-configs.mode.attack.enabled = 1
+configs.mode.attack.enabled = 0
 
 configs.mode.hpMp.enabled = true
 
