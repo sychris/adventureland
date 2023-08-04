@@ -30,11 +30,12 @@ configs.mode.sell.enabled = true
 configs.mode.upgradeNPCItem.item = "staff"
 configs.mode.upgradeNPCItem.enabled = false
 
+
 configs.mode.buyPonty.enabled = false
 
 configs.mode.buyMercs.enabled = true
 configs.mode.buyMercs.maxToSpend = 1000000
-configs.mode.buyMercs.currentSpent = 0
+
 
 
 configs.mode.regen.to_percent = 80
@@ -67,7 +68,7 @@ setInterval(buy_pots, configs.mode.give_pots.interval);
 setInterval(getPontyData,50000)
 setInterval(buyPontyItems,1000)
 setInterval(upgradeNPCItem, 1000)
-//setInterval(checkMerchents, 1000) //dis somehow brokens
+setInterval(checkMerchents, configs.mode.buyMercs.interval) //dis somehow brokens
 
 function exchangeSlotZero() {
   if(configs.mode.exchangeItems.enabled)   exchange(0)
@@ -83,10 +84,10 @@ function upgradeNPCItem(){
 
 function npcInRange(npcName) {
 
-  map = parent.G.maps[character.map]
-  for (npc of map.npcs) {
+  let map = parent.G.maps[character.map]
+  for (let npc of map.npcs) {
     if (npcName == npc.id) {
-      var pos = {}
+      let pos = {}
       pos.x = npc.position[0]
       pos.y = npc.position[1]
       pos.map = character.map
@@ -95,6 +96,7 @@ function npcInRange(npcName) {
   }
   return false
 }
+
 function checkMerchents(){
 
   if(configs.mode.buyMercs.currentSpent > configs.mode.buyMercs.maxToSpend)return
@@ -103,26 +105,27 @@ function checkMerchents(){
     var current = parent.entities[id];
     //makes sure its a player
     if (current && current.type == "character" && !current.npc && current.ctype == "merchant"){
-      for(let slot in current.slots){
-        if(!ck_range(current,400))
-        if(!current.slots[slot] == null) continue //slot emepty
-        log(current.slots[slot])
-        if(!current.slots[slot].rid == null) continue  //not a trade item
-        if(!current.slots[slot].b == null)continue     //not for sell
-        log(current.slots[slot])
-        let pontyBuyPrice = Math.floor(G.items[current.slots[slot].name].g * 0.6) //ponty buy price
-        let rid = current.slots[slot].rid
-        if(current.slots[slot].price <= pontyBuyPrice && configs.mode.buy.items.includes(current.slots[slot].name)){
-          configs.mode.buyMercs.currentSpent += current.slots[slot].price
-          parent.trade_buy(current.slots[slot],current.id,current.slots[slot].rid,current.slots[slot].q||1)
-        }else if(current.slots[slot].price <= pontyBuyPrice){
-          let n = current.slots[slot].name
-          let q = current.slots[slot].q //quantity
-          parent.trade_buy(current.slots[slot],current.id,current.slots[slot].rid,current.slots[slot].q||1)
-          configs.mode.buyMercs.currentSpent += current.slots[slot].price
-          getItemSlot(n)
-          parent.sell(getItemSlot(n),q)
-          //and resell
+      //log(current.name)
+      if(!ck_range(current,400)) {
+        for (let slot in current.slots) {
+
+          if (current.slots[slot] == null) continue //slot empty
+          if (!current.slots[slot].rid == null) continue  //not a trade item
+          if (!current.slots[slot].b == null) continue     //not for sell
+          log(current.slots[slot])
+          let pontyBuyPrice = Math.floor(G.items[current.slots[slot].name].g * 0.6) //ponty buy price
+          if (current.slots[slot].price <= pontyBuyPrice && configs.mode.buy.items.includes(current.slots[slot].name)) {
+            configs.mode.buyMercs.currentSpent += current.slots[slot].price
+            parent.trade_buy(current.slots[slot], current.id, current.slots[slot].rid, current.slots[slot].q || 1)
+          } else if (current.slots[slot].price <= pontyBuyPrice) {
+            let n = current.slots[slot].name
+            let q = current.slots[slot].q //quantity
+            parent.trade_buy(current.slots[slot], current.id, current.slots[slot].rid, current.slots[slot].q || 1)
+            configs.mode.buyMercs.currentSpent += current.slots[slot].price
+            getItemSlot(n)
+            parent.sell(getItemSlot(n), q)
+            //and resell
+          }
         }
       }
     }

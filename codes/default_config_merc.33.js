@@ -24,6 +24,10 @@ configs.mode.buyPonty.enabled = false
 configs.mode.buyPonty.itemsList = []
 
 configs.mode.buyMercs = new Object;
+configs.mode.buyMercs.enabled = true
+configs.mode.buyMercs.maxToSpend = 1000000
+configs.mode.buyMercs.currentSpent = 0
+configs.mode.buyMercs.interval = 10000
 
 configs.mode.regen = new Object();
 configs.mode.regen.enable = true
