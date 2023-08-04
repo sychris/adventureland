@@ -25,7 +25,7 @@ function ck_range(tar, range) {
 
 
 function ck_range_by_name(name, range) {
-    var c = get_player(name)
+    let c = get_player(name)
     if (ck_range(c, range)) {
       return true
     } else {
@@ -52,13 +52,13 @@ function getItemSlot(name) {
 }
 
 function getItemQuantity(name) {
-  var count = 0
+  let count = 0
   //log("looking for item")
-  for (var i = 0; i < character.items.length; i++) {
+  for (let i = 0; i < character.items.length; i++) {
     if (character.items[i] && character.items[i].name == name){
       //basicly if item does not have q property than its quantity is 1 else q property
       //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
-      var tq  = (character.items[i].q === undefined) ? 1 : character.items[i].q
+      let tq  = (character.items[i].q === undefined) ? 1 : character.items[i].q
       count = count + tq
     }
   }
@@ -66,12 +66,14 @@ function getItemQuantity(name) {
 }
 function sellmode(){
   if(!configs.mode.sell.enabled) return
-  for (var item in character.items){
+  for (let item in character.items){
     if(character.items[item] && configs.mode.sell.items.has(character.items[item].name)){
       if(configs.mode.sell.items.get(character.items[item].name) ==  character.items[item].level){
-        if(npcInRange("Ponty")) {
+        if(npcInRange("secondhands")) {
           game_log("sellable item found in slot " + item)
           parent.sell(item, 1)
+        }else{
+          log("ponty out of range")
         }
       }
     }

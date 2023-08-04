@@ -162,7 +162,7 @@ wait = (seconds) =>
   );
 
 function getPontyData() {
-  if(!configs.mode.buyPonty.enabled) return
+  if(!configs.mode.buyPonty.enabled || !npcInRange("secondhands")) return
 
   parent.socket.once("secondhands", (pontyData) => {
     for (item of pontyData) {
@@ -178,7 +178,7 @@ function getPontyData() {
 }
 
 function buyPontyItems() {
-  if(!configs.mode.buyPonty.enabled) return
+  if(!configs.mode.buyPonty.enabled || !npcInRange("secondhands")) return
   if (configs.mode.buyPonty.itemsList) {
     while (buy = configs.mode.buyPonty.itemsList.pop()) {
       parent.socket.emit("sbuy", {"rid": buy});}
