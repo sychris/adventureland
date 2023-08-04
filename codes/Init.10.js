@@ -34,6 +34,7 @@ configs.is_combat ? load_code(32) : load_code(33)
 
 //load_code 34 == "default_configs_ranger"
 if (character.ctype == "ranger")  load_code(34)
+
 if (character.ctype == "priest") {
   configs.mode.heal = new Object();
   configs.mode.heal.fname = "Heal Mode"
@@ -47,10 +48,12 @@ log("loading utils")
 load_code(20)
 //load_code 21 == util_combat
 if(configs.is_combat) load_code(21)
-//load_code 23 == util ranger
+//load_code 23 == util_ranger
 if (character.ctype == "ranger")  load_code(23)
-//load_code 24 == util merchant
+//load_code 24 == util_merchant
 if (character.ctype == "merchant")  load_code(24)
+//load_code 25 == util_mage
+if (character.ctype == "mage")  load_code(25)
 
 log("Initilization compleate")
 
