@@ -100,21 +100,22 @@ function on_cm(name, d) {
   log("cm from " + name + ": " + JSON.stringify(d))
   //log(JSON.stringify(d))
   //todo place character names in config to handle this
+  let slot;
   if (myToons.includes(name)) {
     //if we have pots
-    
+
     //log("sending " + name + " " + d.q + " " + d.name)
     slot = getItemSlot(d.name)
     //dont sent if item not found
-    if(slot != -1) send_item(name, getItemSlot(d.name), d.q)
+    if (slot != -1) send_item(name, getItemSlot(d.name), d.q)
   }
 }
 //-----------------------------Luck---------------------------------
 function luck_players() {
   if (configs.mode.luck.enabled == true) {
     //searches everyone nearby
-    for (id in parent.entities) {
-      var current = parent.entities[id];
+    for (let id in parent.entities) {
+      let current = parent.entities[id];
       //makes sure its a player
       if (current && current.type == "character" && !current.npc && current.ctype != "merchant") {
         //current.s.mluck determines if they already have a mluck boost
@@ -174,9 +175,8 @@ function top_up_pots() {
     for (let ppl in configs.mode.give_pots.donate_pots_to) {
       //log("looking for " + configs.mode.give_pots.donate_pots_to[ppl])
       let tempCharacter = get_player(configs.mode.give_pots.donate_pots_to[ppl]);
-      if(tempCharacter.name == character.name){
 
-      }else if (ck_range(tempCharacter, 320)) {
+      if (tempCharacter.name != character.name && ck_range(tempCharacter, 320)) {
         log("sent top up query to " + tempCharacter.name)
         send_cm(tempCharacter.name, "what_pots_do_you_need?")
       }
