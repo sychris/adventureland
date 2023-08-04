@@ -17,26 +17,28 @@ function inv_dump() {
 
 function request_pots(n) {
   var requests = {}
-  for (const pot in configs.pots.pots_to_request) {
-    log("checking " + pot + " for request")
-    var pslot = character.items[getItemSlot(pot)]
+  for (const potion in configs.pots.pots_to_request) {
+    //log("checking " + potion + " for request")
+    var pslot = character.items[getItemSlot(potion)]
     var needed = {}
     var count = 0
 
     if (!pslot) {
-      needed.name = pot
-      needed.q = configs.pots.pots_to_request[pot]
+      needed.name = potion
+      needed.q = configs.pots.pots_to_request[potion]
 
-    } else if (pslot.q < configs.pots.pots_to_request[pot]) {
-      needed.name = pot
-      needed.q = configs.pots.pots_to_request[pot] - pslot.q
+    } else if (pslot.q < configs.pots.pots_to_request[potion]) {
+      needed.name = potion
+      needed.q = configs.pots.pots_to_request[potion] - pslot.q
       log("looks like we need " + JSON.stringify(needed))
     } 
 
     if (needed.name) {
       log("requesting " + needed.pot + needed.keys)
       send_cm(n, needed)
-    } 
+    } else{
+      //log("not requesting any pots")
+    }
   }
 }
 

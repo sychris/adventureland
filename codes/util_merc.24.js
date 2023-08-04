@@ -96,17 +96,17 @@ function compound_items() {
   }
 }
 //-----------------------------on_cm---------------------------------
-function on_cm(n, d) {
-  log("cm from " + n + ": " + JSON.stringify(d))
+function on_cm(name, d) {
+  log("cm from " + name + ": " + JSON.stringify(d))
   //log(JSON.stringify(d))
   //todo place character names in config to handle this
-  if (n == "Sychris" || "Normon" || "mrshoots" || "Name001") {
+  if (myToons.includes(name)) {
     //if we have pots
     
-    //log("sending " + n + " " + d.q + " " + d.name)
+    //log("sending " + name + " " + d.q + " " + d.name)
     slot = getItemSlot(d.name)
     //dont sent if item not found
-    if(slot != -1) send_item(n, getItemSlot(d.name), d.q)
+    if(slot != -1) send_item(name, getItemSlot(d.name), d.q)
   }
 }
 //-----------------------------Luck---------------------------------

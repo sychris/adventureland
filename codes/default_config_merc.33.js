@@ -2,7 +2,7 @@ log("loading default_config_merc")
 
 configs.mode.give_pots = new Object();
 configs.mode.give_pots.fname = "Give Potions Mode"
-configs.mode.give_pots.donate_pots_to = ["Sychris","mrshoots","Normon"]
+configs.mode.give_pots.donate_pots_to = myToons
 configs.mode.give_pots.enabled = 0
 configs.mode.give_pots.interval = 5000
 
