@@ -171,12 +171,14 @@ function regen_mp() {
 //-----------------------------top up pots---------------------------------
 function top_up_pots() {
   if (configs.mode.give_pots.enabled == true) {
-    for (ppl in configs.mode.give_pots.donate_pots_to) {
+    for (let ppl in configs.mode.give_pots.donate_pots_to) {
       //log("looking for " + configs.mode.give_pots.donate_pots_to[ppl])
-      var charac = get_player(configs.mode.give_pots.donate_pots_to[ppl])
-      if (ck_range(charac, 320)) {
-        log("sent top up query to " + charac.name)
-        send_cm(charac.name, "what_pots_do_you_need?")
+      let tempCharacter = get_player(configs.mode.give_pots.donate_pots_to[ppl]);
+      if(tempCharacter.name == character.name){
+
+      }else if (ck_range(tempCharacter, 320)) {
+        log("sent top up query to " + tempCharacter.name)
+        send_cm(tempCharacter.name, "what_pots_do_you_need?")
       }
     }
   }
