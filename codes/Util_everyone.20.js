@@ -73,7 +73,7 @@ function sellmode(){
           game_log("sellable item found in slot " + item)
           parent.sell(item, 1)
         }else{
-          log("ponty out of range")
+          //log("ponty out of range")
         }
       }
     }
