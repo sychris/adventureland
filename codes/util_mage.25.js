@@ -5,3 +5,38 @@ function energize(){
     use_skill("energize",target)
     log("Energising: " + target.name)
 }
+
+
+function combat() {
+    //log("firing attack mode")
+    if (character.hp < useHpPot || character.mp < useMpPot) use_hp_or_mp();
+    loot();
+
+    if (!configs.mode.attack.enabled || character.rip || is_moving(character)) return;
+
+    var target = null//get_targeted_monster();
+    if (!target) {
+        if(configs.mode.attack.onlyAttack){
+            target = get_nearest_monster({type: configs.mode.attack.onlyAttack});
+        }else{
+            target = get_nearest_monster()
+        }
+        if (target) change_target(target);
+        else {
+            set_message("No Monsters");
+            return;
+        }
+    }
+
+    var walk_to_mob = false
+    if (!in_attack_range(target) && walk_to_mob == true) {
+        move(
+            character.x + (target.x - character.x) / 2,
+            character.y + (target.y - character.y) / 2
+        );
+        // Walk half the distance
+    } else if (can_attack(target)) {
+        set_message("Attacking");
+        attack(target);
+    }
+}
