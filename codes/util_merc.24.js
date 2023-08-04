@@ -121,7 +121,7 @@ function luck_players() {
         //current.s.mluck determines if they already have a mluck boost
         //current.s.mluck.f != character.name determins if you cast it
         //ck_range(current, 320) returns true if player is in range 320
-        if (current.s.mluck && current.s.mluck.f != character.name && ck_range(current, 320)) {
+        if (current.s.mluck && !current.s.mluck.strong && current.s.mluck.f != character.name && ck_range(current, 320)) {
           luck(current);
           log("relucking " + current.name)
           
@@ -176,7 +176,8 @@ function top_up_pots() {
       //log("looking for " + configs.mode.give_pots.donate_pots_to[ppl])
       let tempCharacter = get_player(configs.mode.give_pots.donate_pots_to[ppl]);
 
-      if (tempCharacter.name != character.name && ck_range(tempCharacter, 320)) {
+      //first tempCharacter check is to make sure its not null
+      if (tempCharacter && tempCharacter.name !== character.name && ck_range(tempCharacter, 320)) {
         log("sent top up query to " + tempCharacter.name)
         send_cm(tempCharacter.name, "what_pots_do_you_need?")
       }
