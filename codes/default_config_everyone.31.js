@@ -7,23 +7,23 @@ configs.is_combat = (character.ctype == "merchant") ? false : true
 configs.ctype = character.ctype;
 
 configs.mode = {};
-configs.mode.move = {};
-configs.mode.move.fname = "Movement Mode"
-configs.mode.move.max = 2
+configs.move = {};
+configs.move.fname = "Movement Mode"
+configs.move.max = 2
 
-configs.mode.sell = {}
-configs.mode.sell.enabled = false
-configs.mode.sell.items = new Map()
-configs.mode.sell.interval = 1000
+configs.sell = {}
+configs.sell.enabled = false
+configs.sell.items = new Map()
+configs.sell.interval = 1000
 
-configs.mode.hpMp = {}
-configs.mode.hpMp.enabled = true
-configs.mode.hpMp.interval = 250
+configs.hpMp = {}
+configs.hpMp.enabled = true
+configs.hpMp.interval = 250
 
-configs.mode.skills = {}
+configs.skills = {}
 
-configs.mode.loot = {};
-configs.mode.loot.interval = 200
+configs.loot = {};
+configs.loot.interval = 200
 
 configs.party = {};
 configs.party.leader = "Sychris"

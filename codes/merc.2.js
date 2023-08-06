@@ -8,8 +8,8 @@ log("Starting merc script")
 //show_json(parent.socket.emit('trade_history'))
 
 //todo:
-//convert configs.mode.upgrade.upgradeWhitelist to a map
-//convert configs.mode.upgrade.combineWhitelist to a map
+//convert configs.upgrade.upgradeWhitelist to a map
+//convert configs.upgrade.combineWhitelist to a map
 // convert pots_to_buy to a map
 //auto open and close stall based on movement
 
@@ -17,8 +17,8 @@ log("Starting merc script")
 load_code(10)
 
 
-configs.mode.buyPots.enabled = true
-configs.mode.buyPots.pots_to_buy = {
+configs.buyPots.enabled = true
+configs.buyPots.pots_to_buy = {
   //ItemName, Count
   mpot0: 8000,
   mpot1: 8000,
@@ -26,32 +26,32 @@ configs.mode.buyPots.pots_to_buy = {
 }
 
 //currently exchanges item in slot 0 with nearby npc
-configs.mode.exchangeItems.enabled = false
-configs.mode.give_pots.enabled = true
-configs.mode.upgrade.enable = true
-configs.mode.luck.enabled = true
-configs.mode.sell.enabled = true
-configs.mode.travelToPlayers.enabled = false
-configs.mode.autostall.enabled = true
+configs.exchangeItems.enabled = false
+configs.give_pots.enabled = true
+configs.upgrade.enable = true
+configs.luck.enabled = true
+configs.sell.enabled = true
+configs.travelToPlayers.enabled = false
+configs.autostall.enabled = true
 
-configs.mode.travelToPlayers.targetPlayerName = "Sychris"
+configs.travelToPlayers.targetPlayerName = "Sychris"
 
-configs.mode.upgradeNPCItem.item = "staff"
-configs.mode.upgradeNPCItem.enabled = false
+configs.upgradeNPCItem.item = "staff"
+configs.upgradeNPCItem.enabled = false
 
-configs.mode.buyPonty.enabled = false
+configs.buyPonty.enabled = false
 
-configs.mode.buyMercs.enabled = true
-configs.mode.buyMercs.maxToSpend = 1000000
+configs.buyMercs.enabled = true
+configs.buyMercs.maxToSpend = 1000000
 
-configs.mode.regen.to_percent = 80
+configs.regen.to_percent = 80
 
-configs.mode.sell.items.set('test_orb', 0)
-configs.mode.sell.items.set('hpamulet', 0)
-configs.mode.sell.items.set('wand', 0)
-configs.mode.sell.items.set('stinger', 0)
-configs.mode.sell.items.set('hpbelt', 0)
-configs.mode.sell.items.set('cclaw', 0)
+configs.sell.items.set('test_orb', 0)
+configs.sell.items.set('hpamulet', 0)
+configs.sell.items.set('wand', 0)
+configs.sell.items.set('stinger', 0)
+configs.sell.items.set('hpbelt', 0)
+configs.sell.items.set('cclaw', 0)
 
 
 //intervals
@@ -60,28 +60,28 @@ configs.mode.sell.items.set('cclaw', 0)
 var regen_mp_Interval = 1000
 
 //setInterval(sellPrimals,1000)
-setInterval(exchangeSlotZero, configs.mode.exchangeItems.interval);
+setInterval(exchangeSlotZero, configs.exchangeItems.interval);
 setInterval(moveToPlayer, 180000)
-setInterval(sellmode, configs.mode.sell.interval);
-setInterval(upgrade_check, configs.mode.upgrade.interval);
-setInterval(luck_players, configs.mode.luck.interval);
-setInterval(top_up_pots, configs.mode.give_pots.interval);
+setInterval(sellmode, configs.sell.interval);
+setInterval(upgrade_check, configs.upgrade.interval);
+setInterval(luck_players, configs.luck.interval);
+setInterval(top_up_pots, configs.give_pots.interval);
 setInterval(regen_mp, regen_mp_Interval);
-setInterval(buy_pots, configs.mode.give_pots.interval);
+setInterval(buy_pots, configs.give_pots.interval);
 setInterval(getPontyData, 50000)
 setInterval(buyPontyItems, 1000)
 setInterval(upgradeNPCItem, 1000)
-setInterval(checkMerchents, configs.mode.buyMercs.interval)
-//setInterval(travelToPlayers, configs.mode.travelToPlayers.interval)
-setInterval(autostall, configs.mode.autostall.interval)
+setInterval(checkMerchents, configs.buyMercs.interval)
+//setInterval(travelToPlayers, configs.travelToPlayers.interval)
+setInterval(autostall, configs.autostall.interval)
 function exchangeSlotZero() {
-  if (configs.mode.exchangeItems.enabled) exchange(0)
+  if (configs.exchangeItems.enabled) exchange(0)
 }
 
 function upgradeNPCItem() {
-  if (!configs.mode.upgradeNPCItem.enabled) return
-  if (getItemSlot(configs.mode.upgradeNPCItem.item) == -1) {
-    parent.buy(configs.mode.upgradeNPCItem.item, 1)
+  if (!configs.upgradeNPCItem.enabled) return
+  if (getItemSlot(configs.upgradeNPCItem.item) == -1) {
+    parent.buy(configs.upgradeNPCItem.item, 1)
   }
   
 }
@@ -103,8 +103,8 @@ function npcInRange(npcName) {
 
 function checkMerchents() {
   
-  if (configs.mode.buyMercs.currentSpent > configs.mode.buyMercs.maxToSpend) return
-  if (!configs.mode.buyMercs.enabled) return
+  if (configs.buyMercs.currentSpent > configs.buyMercs.maxToSpend) return
+  if (!configs.buyMercs.enabled) return
   for (id in parent.entities) {
     var current = parent.entities[id];
     //makes sure its a player
@@ -118,14 +118,14 @@ function checkMerchents() {
           if (!current.slots[slot].b == null) continue     //not for sell
           log(current.slots[slot])
           let pontyBuyPrice = Math.floor(G.items[current.slots[slot].name].g * 0.6) //ponty buy price
-          if (current.slots[slot].price <= pontyBuyPrice && configs.mode.buy.items.includes(current.slots[slot].name)) {
-            configs.mode.buyMercs.currentSpent += current.slots[slot].price
+          if (current.slots[slot].price <= pontyBuyPrice && configs.buy.items.includes(current.slots[slot].name)) {
+            configs.buyMercs.currentSpent += current.slots[slot].price
             parent.trade_buy(current.slots[slot], current.id, current.slots[slot].rid, current.slots[slot].q || 1)
           } else if (current.slots[slot].price <= pontyBuyPrice) {
             let n = current.slots[slot].name
             let q = current.slots[slot].q //quantity
             parent.trade_buy(current.slots[slot], current.id, current.slots[slot].rid, current.slots[slot].q || 1)
-            configs.mode.buyMercs.currentSpent += current.slots[slot].price
+            configs.buyMercs.currentSpent += current.slots[slot].price
             getItemSlot(n)
             parent.sell(getItemSlot(n), q)
             //and resell
@@ -168,12 +168,12 @@ wait = (seconds) =>
   );
 
 function getPontyData() {
-  if (!configs.mode.buyPonty.enabled || !npcInRange("secondhands")) return
+  if (!configs.buyPonty.enabled || !npcInRange("secondhands")) return
   
   parent.socket.once("secondhands", (pontyData) => {
     for (item of pontyData) {
-      if (configs.mode.buy.items.includes(item.name)) {
-        configs.mode.buyPonty.itemsList.push(item.rid)
+      if (configs.buy.items.includes(item.name)) {
+        configs.buyPonty.itemsList.push(item.rid)
         log("found " + item.name + " from Ponty")
       }
     }
@@ -184,9 +184,9 @@ function getPontyData() {
 }
 
 function buyPontyItems() {
-  if (!configs.mode.buyPonty.enabled || !npcInRange("secondhands")) return
-  if (configs.mode.buyPonty.itemsList) {
-    while (buy = configs.mode.buyPonty.itemsList.pop()) {
+  if (!configs.buyPonty.enabled || !npcInRange("secondhands")) return
+  if (configs.buyPonty.itemsList) {
+    while (buy = configs.buyPonty.itemsList.pop()) {
       parent.socket.emit("sbuy", {"rid": buy});
     }
   }

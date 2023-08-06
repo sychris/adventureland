@@ -73,10 +73,10 @@ function getItemQuantity(name) {
 }
 
 function sellmode() {
-  if (!configs.mode.sell.enabled) return
+  if (!configs.sell.enabled) return
   for (let item in character.items) {
-    if (character.items[item] && configs.mode.sell.items.has(character.items[item].name)) {
-      if (configs.mode.sell.items.get(character.items[item].name) == character.items[item].level) {
+    if (character.items[item] && configs.sell.items.has(character.items[item].name)) {
+      if (configs.sell.items.get(character.items[item].name) == character.items[item].level) {
         if (npcInRange("secondhands")) {
           game_log("sellable item found in slot " + item)
           parent.sell(item, 1)
@@ -120,7 +120,7 @@ function getBiggestMPot() {
 }
 
 function checkHpMp() {
-  if (!configs.mode.hpMp.enabled == true) return
+  if (!configs.hpMp.enabled == true) return
   updatePotions()
   
   if (mssince(configs.pots.last_pot_used) < 1000) return

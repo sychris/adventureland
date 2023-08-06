@@ -1,68 +1,68 @@
 log("loading default_config_merc")
 
-configs.mode.give_pots = {};
-configs.mode.give_pots.fname = "Give Potions Mode"
-configs.mode.give_pots.donate_pots_to = myToons
-configs.mode.give_pots.enabled = true
-configs.mode.give_pots.interval = 5000
+configs.give_pots = {};
+configs.give_pots.fname = "Give Potions Mode"
+configs.give_pots.donate_pots_to = myToons
+configs.give_pots.enabled = true
+configs.give_pots.interval = 5000
 
-configs.mode.travelToPlayers = {}
-configs.mode.travelToPlayers.enabled = false
-configs.mode.travelToPlayers.interval = 900000 //900,000 is 15 min
-configs.mode.travelToPlayers.targetPlayerName = "Sychris"
-configs.mode.travelToPlayers.state = "init"
-configs.mode.travelToPlayers.idle = {}
-configs.mode.travelToPlayers.idle.map = "main"
-configs.mode.travelToPlayers.idle.pos = ""
-configs.mode.travelToPlayers.lastPickupTime = null
+configs.travelToPlayers = {}
+configs.travelToPlayers.enabled = false
+configs.travelToPlayers.interval = 900000 //900,000 is 15 min
+configs.travelToPlayers.targetPlayerName = "Sychris"
+configs.travelToPlayers.state = "init"
+configs.travelToPlayers.idle = {}
+configs.travelToPlayers.idle.map = "main"
+configs.travelToPlayers.idle.pos = ""
+configs.travelToPlayers.lastPickupTime = null
 
-configs.mode.autostall = {}
-configs.mode.autostall.enabled = true
-configs.mode.autostall.interval = 1000
+configs.autostall = {}
+configs.autostall.enabled = true
+configs.autostall.interval = 500
 
-configs.mode.sell.enabled = true
+configs.sell.enabled = true
 
-configs.mode.exchangeItems = false
+configs.exchangeItems = false
 
-configs.mode.exchangeItems = {};
-configs.mode.exchangeItems.enabled = true
-configs.mode.exchangeItems.interval = 2000
+configs.exchangeItems = {};
+configs.exchangeItems.enabled = true
+configs.exchangeItems.interval = 2000
 
-configs.mode.upgradeNPCItem = {}
-configs.mode.upgradeNPCItem.item = "staff"
+configs.upgradeNPCItem = {}
+configs.upgradeNPCItem.item = "staff"
 
-configs.mode.buyPonty = {};
-configs.mode.buyPonty.enabled = false
-configs.mode.buyPonty.itemsList = []
+configs.buyPonty = {};
+configs.buyPonty.enabled = false
+configs.buyPonty.itemsList = []
 
-configs.mode.buyMercs = {};
-configs.mode.buyMercs.enabled = true
-configs.mode.buyMercs.maxToSpend = 1000000
-configs.mode.buyMercs.currentSpent = 0
-configs.mode.buyMercs.interval = 10000
+configs.buyMercs = {};
+configs.buyMercs.enabled = true
+configs.buyMercs.maxToSpend = 1000000
+configs.buyMercs.currentSpent = 0
+configs.buyMercs.interval = 10000
 
-configs.mode.regen = {};
-configs.mode.regen.enable = true
-configs.mode.regen.to_percent = 80
+configs.regen = {};
+configs.regen.enable = true
+configs.regen.to_percent = 80
 
-configs.mode.luck = {};
+configs.luck = {};
 
-configs.mode.luck.enabled = true
-configs.mode.luck.interval = 1000
-configs.mode.luck.fname = "Luck Mode"
-configs.mode.luck.lastLuck = Date.now()
+configs.luck.enabled = true
+configs.luck.interval = 1000
+configs.luck.fname = "Luck Mode"
+configs.luck.lastLuck = Date.now()
 
-configs.mode.upgrade = {};
-configs.mode.upgrade.fname = "Upgrade Mode"
-configs.mode.upgrade.enabled = 0
-configs.mode.upgrade.interval = 300
+configs.upgrade = {};
+configs.upgrade.fname = "Upgrade Mode"
+configs.upgrade.enabled = 0
+configs.upgrade.interval = 300
 
-configs.mode.buyPots = {};
-configs.mode.buyPots.enabled = true
-configs.mode.buyPots.pots_to_buy = {}
+configs.buyPots = {};
+configs.buyPots.enabled = true
+configs.buyPots.pots_to_buy = {}
 
 
-configs.mode.upgrade.upgradeWhitelist =
+configs.upgrade.upgradeWhitelist =
   {
     //ItemName, Max Level
     pyjamas: 7,
@@ -127,7 +127,7 @@ configs.mode.upgrade.upgradeWhitelist =
     tshirt2: 3,
   };
 
-configs.mode.upgrade.combineWhitelist =
+configs.upgrade.combineWhitelist =
   {
     //ItemName, Max Level
     wbook0: 3,

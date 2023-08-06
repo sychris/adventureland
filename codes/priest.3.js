@@ -9,30 +9,30 @@ configs.ctype = character.ctype;
 configs.inv = {};
 configs.inv.dump = {};
 configs.mode = {};
-configs.mode.heal = {};
-configs.mode.attack = {};
-configs.mode.move = {};
+configs.heal = {};
+configs.attack = {};
+configs.move = {};
 configs.party = {};
 configs.pots = {};
 configs.party.members = Object.keys(parent.party);
 
 //Healz Configs
-configs.mode.heal.enabled = 1
-configs.mode.heal.interval = 250
+configs.heal.enabled = 1
+configs.heal.interval = 250
 
 
 //Attacker Configs
-configs.mode.attack.enabled = 1
-configs.mode.attack.interval = 250
+configs.attack.enabled = 1
+configs.attack.interval = 250
 map_key("Q", "snippet", "switch_move_mode();");
 
 //Merc Configs
 
 
 //Everyone Configs
-configs.mode.move.enabled = 2
-configs.mode.move.interval = 250
-configs.mode.move.leader = "Sychris"
+configs.move.enabled = 2
+configs.move.interval = 250
+configs.move.leader = "Sychris"
 
 configs.pots.useHpPotAtPercentAtPercent = 50
 configs.pots.useMpPotAtPercent = 50
@@ -44,9 +44,9 @@ configs.inv.dump.wList = [];
 
 
 //intervals
-setInterval(heal_mode, configs.mode.heal.interval);
-setInterval(Attack_mode, configs.mode.attack.interval);
-setInterval(movement_mode, configs.mode.move.interval);
+setInterval(heal_mode, configs.heal.interval);
+setInterval(Attack_mode, configs.attack.interval);
+setInterval(movement_mode, configs.move.interval);
 
 //internal vals
 
@@ -72,7 +72,7 @@ function inv_dump() {
 
 
 function movement_mode() {
-  switch (configs.mode.move.enabled) {
+  switch (configs.move.enabled) {
     case 0:
       return;
       break;
@@ -87,7 +87,7 @@ function movement_mode() {
       }
       break;
     case 2:
-      var target = get_player(configs.mode.move.leader);
+      var target = get_player(configs.move.leader);
       if (target) { //make sure target is targetable
         if (
           target.x - character.x > 10 || target.y - character.y > 10 ||
@@ -100,13 +100,13 @@ function movement_mode() {
       }
       break;
     default:
-      log("bad configs.mode.move.enabled option")
+      log("bad configs.move.enabled option")
   }
   
 }
 
 function heal_mode() {
-  if (configs.mode.heal.enabled || check_idle()) {
+  if (configs.heal.enabled || check_idle()) {
     pot_and_loot();
     
     var na;
@@ -133,7 +133,7 @@ function heal_mode() {
 }
 
 function Attack_mode() {
-  if (!configs.mode.attack.enabled || character.rip || is_moving(character)) return;
+  if (!configs.attack.enabled || character.rip || is_moving(character)) return;
   
   var target = get_targeted_monster();
   if (!target || !in_attack_range(target)) {
@@ -170,10 +170,10 @@ function check_idle() {
 }
 
 function switch_move_mode() {
-  if (configs.mode.move.enabled <= 1) {
-    configs.mode.move.enabled++
+  if (configs.move.enabled <= 1) {
+    configs.move.enabled++
   } else {
-    configs.mode.move.enabled = 0
+    configs.move.enabled = 0
   }
-  log("movement mode set to " + configs.mode.move.enabled)
+  log("movement mode set to " + configs.move.enabled)
 }

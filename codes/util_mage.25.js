@@ -11,12 +11,12 @@ function combat() {
   if (character.hp < useHpPot || character.mp < useMpPot) use_hp_or_mp();
   loot();
   
-  if (!configs.mode.attack.enabled || character.rip || is_moving(character)) return;
+  if (!configs.attack.enabled || character.rip || is_moving(character)) return;
   
   var target = null//get_targeted_monster();
   if (!target) {
-    if (configs.mode.attack.onlyAttack) {
-      target = get_nearest_monster({type: configs.mode.attack.onlyAttack});
+    if (configs.attack.onlyAttack) {
+      target = get_nearest_monster({type: configs.attack.onlyAttack});
     } else {
       target = get_nearest_monster()
     }

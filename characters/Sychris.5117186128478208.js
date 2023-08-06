@@ -1,15 +1,15 @@
 //Init
 load_code(10)
 
-configs.mode.attack.enabled = 1
-configs.mode.attack.onlyAttack = "crab"
+configs.attack.enabled = 1
+configs.attack.onlyAttack = "crab"
 
-configs.mode.hpMp.enabled = true
+configs.hpMp.enabled = true
 
-configs.mode.inv_dump.enabled = true
-configs.mode.inv_dump.interval = 3000
+configs.inv_dump.enabled = true
+configs.inv_dump.interval = 3000
 
-configs.mode.loot.enabled = false
+configs.loot.enabled = false
 
 configs.pots.use_Hp_pot_type = "hpot1"
 configs.pots.use_Mp_pot_type = "mpot1"
@@ -28,8 +28,8 @@ configs.pots.pots_to_request = {
 }
 
 setInterval(energize, configs.skills.energize.interval)
-setInterval(lootmode, configs.mode.loot.interval);
-setInterval(inv_dump, configs.mode.inv_dump.interval)
+setInterval(lootmode, configs.loot.interval);
+setInterval(inv_dump, configs.inv_dump.interval)
 setInterval(combat, 250)
 
-map_key("O", "snippet", "toggle_mode(configs.mode.inv_dump)");
+map_key("O", "snippet", "toggle_mode(configs.inv_dump)");

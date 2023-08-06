@@ -9,7 +9,7 @@ function threeShot() {
   if (is_on_cooldown("3shot")) return false;
   if (character.mp >= 300 && parent.character.level >= 60) {
     for (id in parent.entities) {
-      if (parent.entities[id].mtype == configs.mode.attack.onlyAttack && parent.entities[id].type == "monster" && is_in_range(parent.entities[id], "3shot") && targets.length < 3) {
+      if (parent.entities[id].mtype == configs.attack.onlyAttack && parent.entities[id].type == "monster" && is_in_range(parent.entities[id], "3shot") && targets.length < 3) {
         targets.push(parent.entities[id]);
       }
     }

@@ -1,19 +1,19 @@
 load_code(10)
 
-configs.mode.hpMp.enabled = true
+configs.hpMp.enabled = true
 
-configs.mode.attack.enabled = 1
-configs.mode.attack.allowMoveForAttack = false
-configs.mode.attack.onlyAttack = "crab"
-configs.mode.attack.preferedTarget = "squigtoad"
+configs.attack.enabled = 1
+configs.attack.allowMoveForAttack = false
+configs.attack.onlyAttack = "crab"
+configs.attack.preferedTarget = "squigtoad"
 
-configs.mode.sell.enabled = false
-configs.mode.sell.items.set('stinger', 0)
+configs.sell.enabled = false
+configs.sell.items.set('stinger', 0)
 
-configs.mode.inv_dump.enabled = true
-configs.mode.inv_dump.interval = 1000 //overiding 3000
+configs.inv_dump.enabled = true
+configs.inv_dump.interval = 1000 //overiding 3000
 
-configs.mode.loot.enabled = true
+configs.loot.enabled = true
 
 configs.skills.threeShot = true
 
@@ -32,12 +32,12 @@ var hpMeditate = 90
 var mpPotPercent = 50
 var mpMeditate = 100
 
-setInterval(lootmode, configs.mode.loot.interval);
-setInterval(sellmode, configs.mode.sell.interval);
-setInterval(checkHpMp, configs.mode.hpMp.interval); // Loops every 1/10 seconds.
-setInterval(combat, configs.mode.attack.interval); // Loops every 1/4 seconds.
-setInterval(inv_dump, configs.mode.inv_dump.interval)
-map_key("O", "snippet", "toggle_mode(configs.mode.inv_dump)");
+setInterval(lootmode, configs.loot.interval);
+setInterval(sellmode, configs.sell.interval);
+setInterval(checkHpMp, configs.hpMp.interval); // Loops every 1/10 seconds.
+setInterval(combat, configs.attack.interval); // Loops every 1/4 seconds.
+setInterval(inv_dump, configs.inv_dump.interval)
+map_key("O", "snippet", "toggle_mode(configs.inv_dump)");
 
 function on_party_request(name) // called by the inviter's name - request = someone requesting to join your existing party
 {
@@ -50,7 +50,7 @@ function combat() {
   
   //game_log("tick")
   //is combat mode is off character is dead or moving than pass combat for now
-  if (!configs.mode.attack.enabled || character.rip || is_moving(character)) return;
+  if (!configs.attack.enabled || character.rip || is_moving(character)) return;
   if (character.ctype == "ranger") combatRanger()
 }
 
@@ -87,8 +87,8 @@ function getTarget() {
 function standardAttack() {
   var target = get_targeted_monster();
   if (!target) {
-    if (configs.mode.attack.onlyAttack) {
-      target = get_nearest_monster({type: configs.mode.attack.onlyAttack});
+    if (configs.attack.onlyAttack) {
+      target = get_nearest_monster({type: configs.attack.onlyAttack});
     } else {
       target = get_nearest_monster()
     }
@@ -100,7 +100,7 @@ function standardAttack() {
   }
   
   
-  if (!is_in_range(target) && configs.mode.attack.allowMoveForAttack) {
+  if (!is_in_range(target) && configs.attack.allowMoveForAttack) {
     move(
       character.x + (target.x - character.x) / 2,
       character.y + (target.y - character.y) / 2

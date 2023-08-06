@@ -17,7 +17,7 @@ function find_item(filter) {
 //-----------------------------------upgrading/compounding---------------------------------------
 //todo exclude current sell list
 function upgrade_check() {
-  if (configs.mode.upgrade.enable) {
+  if (configs.upgrade.enable) {
     //log("firing upgrade_check")
     if (parent != null && parent.socket != null && npcInRange("newupgrade")) {
       upgrade();
@@ -32,7 +32,7 @@ function upgrade() {
     let c = character.items[i];
     
     if (c) {
-      var level = configs.mode.upgrade.upgradeWhitelist[c.name];
+      var level = configs.upgrade.upgradeWhitelist[c.name];
       //log("attempting upgrade on " + c.name + " level: " + level)
       if (level && c.level < level) {
         let grades = get_grade(c);
@@ -68,7 +68,7 @@ function upgrade() {
 function compound_items() {
   if (parent.character.q.compound) return;
   let to_compound = character.items.reduce((collection, item, index) => {
-    if (item && configs.mode.upgrade.combineWhitelist[item.name] != null && item.level < configs.mode.upgrade.combineWhitelist[item.name]) {
+    if (item && configs.upgrade.combineWhitelist[item.name] != null && item.level < configs.upgrade.combineWhitelist[item.name]) {
       let key = item.name + item.level;
       !collection.has(key) ? collection.set(key, [item.level, item_grade(item), index]) : collection.get(key).push(index);
     }
@@ -116,7 +116,7 @@ function on_cm(name, d) {
 
 //-----------------------------Luck---------------------------------
 function luck_players() {
-  if (configs.mode.luck.enabled == true) {
+  if (configs.luck.enabled == true) {
     for (let id in parent.entities) {
       let current = parent.entities[id];
       if (current && current.type == "character" && !current.npc && current.ctype != "merchant") {
@@ -137,13 +137,13 @@ function luck_players() {
 //todo get rid of manual time checking and use cooldown check
 function luck(target) {
   // Luck only if not on cd (cd is .1sec).
-  if ((Date.now() - configs.mode.luck.lastLuck > 100)) {
+  if ((Date.now() - configs.luck.lastLuck > 100)) {
     parent.socket.emit("skill", {
       name: "mluck",
       id: target.id
     });
     set_message(target.name);
-    configs.mode.luck.lastLuck = Date.now();
+    configs.luck.lastLuck = Date.now();
   }
 }
 
@@ -157,12 +157,12 @@ function on_magiport(name) {
 //this is used on the merc as he is non combat and theres no real need to blow potions to speed up
 //only real thing mp is used for is luck and upgrade spells
 function regen_mp() {
-  if (configs.mode.regen.enable) {
+  if (configs.regen.enable) {
     if (is_on_cooldown("regen_mp")) return
     let mp_percent = character.mp / character.max_mp
     mp_percent = mp_percent * 100
     //log(mp_percent)
-    if (mp_percent < configs.mode.regen.to_percent) {
+    if (mp_percent < configs.regen.to_percent) {
       //log("regening")
       use_skill("regen_mp")
     }
@@ -172,10 +172,10 @@ function regen_mp() {
 //-----------------------------top up pots---------------------------------
 //todo rename this so its name indicates its for merc
 function top_up_pots() {
-  if (configs.mode.give_pots.enabled === true) {
-    for (let ppl in configs.mode.give_pots.donate_pots_to) {
-      //log("looking for " + configs.mode.give_pots.donate_pots_to[ppl])
-      let tempCharacter = get_player(configs.mode.give_pots.donate_pots_to[ppl]);
+  if (configs.give_pots.enabled === true) {
+    for (let ppl in configs.give_pots.donate_pots_to) {
+      //log("looking for " + configs.give_pots.donate_pots_to[ppl])
+      let tempCharacter = get_player(configs.give_pots.donate_pots_to[ppl]);
       
       //first tempCharacter check is to make sure its not null
       if (tempCharacter && tempCharacter.name !== character.name && ck_range(tempCharacter, 320)) {
@@ -190,14 +190,14 @@ function top_up_pots() {
 //todo add range check
 function buy_pots() {
   //log(pots_to_buy)
-  if (configs.mode.buyPots.enabled === true)
-    for (let pot in configs.mode.buyPots.pots_to_buy) {
+  if (configs.buyPots.enabled === true)
+    for (let pot in configs.buyPots.pots_to_buy) {
       //log(pot)
       let current_pots = character.items[getItemSlot(pot)];
       let buy_count = 0;
-      if (current_pots == undefined) buy_count = configs.mode.buyPots.pots_to_buy[pot]
-      else if (current_pots.q < configs.mode.buyPots.pots_to_buy[pot]) buy_count = configs.mode.buyPots.pots_to_buy[pot] - current_pots.q
-      else if (current_pots.q < 1) buy_count = configs.mode.buyPots.pots_to_buy[pot]
+      if (current_pots == undefined) buy_count = configs.buyPots.pots_to_buy[pot]
+      else if (current_pots.q < configs.buyPots.pots_to_buy[pot]) buy_count = configs.buyPots.pots_to_buy[pot] - current_pots.q
+      else if (current_pots.q < 1) buy_count = configs.buyPots.pots_to_buy[pot]
       //log(current_pots.q)
       if (buy_count > 0) {
         log("buying " + buy_count + " " + pot)
@@ -219,8 +219,8 @@ function send_item_by_name(player, item, quantity) {
 //  awaiting items
 //  moving to idle
 //  idling
-//check if configs.mode.travelToPlayers.targetPlayerName is on map
-//if configs.mode.travelToPlayers.targetPlayerName is on map
+//check if configs.travelToPlayers.targetPlayerName is on map
+//if configs.travelToPlayers.targetPlayerName is on map
 
 //-----------------------------------autostall---------------------------------------
 function autostall(){

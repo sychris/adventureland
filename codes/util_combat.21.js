@@ -1,13 +1,13 @@
 function inv_dump() {
   //log("invdumping")
-  if (configs.mode.inv_dump.enabled & ck_range_by_name(configs.mode.inv_dump.sendTo, 320)) {
-    send_gold(configs.mode.inv_dump.sendTo, 99999999)
+  if (configs.inv_dump.enabled & ck_range_by_name(configs.inv_dump.sendTo, 320)) {
+    send_gold(configs.inv_dump.sendTo, 99999999)
     for (var s = 0; s < character.items.length; s++) {
       if (character.items[s] !== null) {
-        if (ck_a_wList(character.items[s], configs.mode.inv_dump.wList) != true) {
+        if (ck_a_wList(character.items[s], configs.inv_dump.wList) != true) {
           //this needs json stringifyed
-          log("sending " + character.items[s] + " to " + configs.mode.inv_dump.sendTo)
-          send_item(configs.mode.inv_dump.sendTo, s, 9999);
+          log("sending " + character.items[s] + " to " + configs.inv_dump.sendTo)
+          send_item(configs.inv_dump.sendTo, s, 9999);
           break;
         }
       }
