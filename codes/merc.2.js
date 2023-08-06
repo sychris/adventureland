@@ -4,10 +4,15 @@ log("Starting merc script")
 //test area
 //send_item("Sychris", getItemSlot("mpot0"), 2)
 
+//this shows trade history
+//show_json(parent.socket.emit('trade_history'))
+
 //todo:
 //convert configs.mode.upgrade.upgradeWhitelist to a map
 //convert configs.mode.upgrade.combineWhitelist to a map
 // convert pots_to_buy to a map
+//auto open and close stall based on movement
+
 
 load_code(10)
 
@@ -26,19 +31,20 @@ configs.mode.give_pots.enabled = true
 configs.mode.upgrade.enable = true
 configs.mode.luck.enabled = true
 configs.mode.sell.enabled = true
+configs.mode.travelToPlayers.enabled = false
+configs.mode.autostall.enabled = true
+
+configs.mode.travelToPlayers.targetPlayerName = "Sychris"
 
 configs.mode.upgradeNPCItem.item = "staff"
-configs.mode.upgradeNPCItem.enabled = true
-
+configs.mode.upgradeNPCItem.enabled = false
 
 configs.mode.buyPonty.enabled = false
 
 configs.mode.buyMercs.enabled = true
 configs.mode.buyMercs.maxToSpend = 1000000
 
-
 configs.mode.regen.to_percent = 80
-
 
 configs.mode.sell.items.set('test_orb', 0)
 configs.mode.sell.items.set('hpamulet', 0)
@@ -65,8 +71,9 @@ setInterval(buy_pots, configs.mode.give_pots.interval);
 setInterval(getPontyData, 50000)
 setInterval(buyPontyItems, 1000)
 setInterval(upgradeNPCItem, 1000)
-setInterval(checkMerchents, configs.mode.buyMercs.interval) //dis somehow brokens
-
+setInterval(checkMerchents, configs.mode.buyMercs.interval)
+//setInterval(travelToPlayers, configs.mode.travelToPlayers.interval)
+setInterval(autostall, configs.mode.autostall.interval)
 function exchangeSlotZero() {
   if (configs.mode.exchangeItems.enabled) exchange(0)
 }

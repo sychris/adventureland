@@ -1,5 +1,5 @@
-//-----------------------------upgrade/compounding---------------------------------
-
+//-----------------------------item_filtering---------------------------------
+//todo this should be for everyone?
 //this is used in the upgrade stuff
 // Returns the item slot and the item given the slot to start from and a filter.
 function find_item(filter) {
@@ -13,6 +13,9 @@ function find_item(filter) {
   return [-1, null];
 }
 
+
+//-----------------------------------upgrading/compounding---------------------------------------
+//todo exclude current sell list
 function upgrade_check() {
   if (configs.mode.upgrade.enable) {
     //log("firing upgrade_check")
@@ -97,10 +100,9 @@ function compound_items() {
 }
 
 //-----------------------------on_cm---------------------------------
+//todo rename to indicate either merc only or add logic and merge for everyone
 function on_cm(name, d) {
   log("cm from " + name + ": " + JSON.stringify(d))
-  //log(JSON.stringify(d))
-  //todo place character names in config to handle this
   let slot;
   if (myToons.includes(name)) {
     //if we have pots
@@ -131,10 +133,11 @@ function luck_players() {
   }
 }
 
+//todo integrate in to luck players
+//todo get rid of manual time checking and use cooldown check
 function luck(target) {
   // Luck only if not on cd (cd is .1sec).
   if ((Date.now() - configs.mode.luck.lastLuck > 100)) {
-    //log("emiting mluck")
     parent.socket.emit("skill", {
       name: "mluck",
       id: target.id
@@ -150,9 +153,9 @@ function on_magiport(name) {
 }
 
 //-----------------------------regen mp---------------------------------
+//todo move this to everyones utils mages can use this for giving mana without pots
 //this is used on the merc as he is non combat and theres no real need to blow potions to speed up
 //only real thing mp is used for is luck and upgrade spells
-
 function regen_mp() {
   if (configs.mode.regen.enable) {
     if (is_on_cooldown("regen_mp")) return
@@ -167,6 +170,7 @@ function regen_mp() {
 }
 
 //-----------------------------top up pots---------------------------------
+//todo rename this so its name indicates its for merc
 function top_up_pots() {
   if (configs.mode.give_pots.enabled === true) {
     for (let ppl in configs.mode.give_pots.donate_pots_to) {
@@ -183,7 +187,7 @@ function top_up_pots() {
 }
 
 //-----------------------------------buy_pots---------------------------------------
-
+//todo add range check
 function buy_pots() {
   //log(pots_to_buy)
   if (configs.mode.buyPots.enabled === true)
@@ -203,9 +207,30 @@ function buy_pots() {
 }
 
 //-----------------------------------send_item_by_name()---------------------------------------
-
+//todo this should be in everyone_util but by other classes are doing this already duplicate?
 function send_item_by_name(player, item, quantity) {
   send_item(player, getItemSlot(item), quantity)
 }
 
+//-----------------------------------travelToPlayers---------------------------------------
+//possible states:
+//  init //script just started
+//  moving to player
+//  awaiting items
+//  moving to idle
+//  idling
+//check if configs.mode.travelToPlayers.targetPlayerName is on map
+//if configs.mode.travelToPlayers.targetPlayerName is on map
 
+//-----------------------------------autostall---------------------------------------
+function autostall(){
+  if(character.moving == true){
+    if(character.stand !== false){
+      close_stand()
+    }
+  }else{
+    if(!character.stand !== false){
+      open_stand()
+    }
+  }
+}

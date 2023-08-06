@@ -6,6 +6,20 @@ configs.mode.give_pots.donate_pots_to = myToons
 configs.mode.give_pots.enabled = true
 configs.mode.give_pots.interval = 5000
 
+configs.mode.travelToPlayers = {}
+configs.mode.travelToPlayers.enabled = false
+configs.mode.travelToPlayers.interval = 900000 //900,000 is 15 min
+configs.mode.travelToPlayers.targetPlayerName = "Sychris"
+configs.mode.travelToPlayers.state = "init"
+configs.mode.travelToPlayers.idle = {}
+configs.mode.travelToPlayers.idle.map = "main"
+configs.mode.travelToPlayers.idle.pos = ""
+configs.mode.travelToPlayers.lastPickupTime = null
+
+configs.mode.autostall = {}
+configs.mode.autostall.enabled = true
+configs.mode.autostall.interval = 1000
+
 configs.mode.sell.enabled = true
 
 configs.mode.exchangeItems = false
@@ -46,6 +60,7 @@ configs.mode.upgrade.interval = 300
 configs.mode.buyPots = {};
 configs.mode.buyPots.enabled = true
 configs.mode.buyPots.pots_to_buy = {}
+
 
 configs.mode.upgrade.upgradeWhitelist =
   {
