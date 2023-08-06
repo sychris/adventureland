@@ -222,8 +222,8 @@ function send_item_by_name(player, item, quantity) {
 //check if configs.travelToPlayers.targetPlayerName is on map
 //if configs.travelToPlayers.targetPlayerName is on map
 
-//-----------------------------------autostall---------------------------------------
-function autostall(){
+//-----------------------------------autoStand---------------------------------------
+function autoStand(){
   if(character.moving == true){
     if(character.stand !== false){
       close_stand()

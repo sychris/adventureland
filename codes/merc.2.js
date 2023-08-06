@@ -32,7 +32,7 @@ configs.upgrade.enable = true
 configs.luck.enabled = true
 configs.sell.enabled = true
 configs.travelToPlayers.enabled = false
-configs.autostall.enabled = true
+configs.autoStand.enabled = true
 
 configs.travelToPlayers.targetPlayerName = "Sychris"
 
@@ -73,7 +73,7 @@ setInterval(buyPontyItems, 1000)
 setInterval(upgradeNPCItem, 1000)
 setInterval(checkMerchents, configs.buyMercs.interval)
 //setInterval(travelToPlayers, configs.travelToPlayers.interval)
-setInterval(autostall, configs.autostall.interval)
+setInterval(autoStand, configs.autoStand.interval)
 function exchangeSlotZero() {
   if (configs.exchangeItems.enabled) exchange(0)
 }

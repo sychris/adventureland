@@ -16,9 +16,9 @@ configs.travelToPlayers.idle.map = "main"
 configs.travelToPlayers.idle.pos = ""
 configs.travelToPlayers.lastPickupTime = null
 
-configs.autostall = {}
-configs.autostall.enabled = true
-configs.autostall.interval = 500
+configs.autoStand = {}
+configs.autoStand.enabled = true
+configs.autoStand.interval = 500
 
 configs.sell.enabled = true
 
@@ -52,15 +52,14 @@ configs.luck.interval = 1000
 configs.luck.fname = "Luck Mode"
 configs.luck.lastLuck = Date.now()
 
-configs.upgrade = {};
-configs.upgrade.fname = "Upgrade Mode"
-configs.upgrade.enabled = 0
-configs.upgrade.interval = 300
-
 configs.buyPots = {};
 configs.buyPots.enabled = true
 configs.buyPots.pots_to_buy = {}
 
+configs.upgrade = {};
+configs.upgrade.fname = "Upgrade Mode"
+configs.upgrade.enabled = 0
+configs.upgrade.interval = 300
 
 configs.upgrade.upgradeWhitelist =
   {
