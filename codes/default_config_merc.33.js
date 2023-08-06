@@ -1,51 +1,49 @@
 log("loading default_config_merc")
 
-configs.mode.give_pots = new Object();
+configs.mode.give_pots = {};
 configs.mode.give_pots.fname = "Give Potions Mode"
 configs.mode.give_pots.donate_pots_to = myToons
 configs.mode.give_pots.enabled = true
 configs.mode.give_pots.interval = 5000
 
-
-
 configs.mode.sell.enabled = true
 
 configs.mode.exchangeItems = false
 
-configs.mode.exchangeItems = new Object;
+configs.mode.exchangeItems = {};
 configs.mode.exchangeItems.enabled = true
 configs.mode.exchangeItems.interval = 2000
 
-configs.mode.upgradeNPCItem = new Object
+configs.mode.upgradeNPCItem = {}
 configs.mode.upgradeNPCItem.item = "staff"
 
-configs.mode.buyPonty = new Object;
+configs.mode.buyPonty = {};
 configs.mode.buyPonty.enabled = false
 configs.mode.buyPonty.itemsList = []
 
-configs.mode.buyMercs = new Object;
+configs.mode.buyMercs = {};
 configs.mode.buyMercs.enabled = true
 configs.mode.buyMercs.maxToSpend = 1000000
 configs.mode.buyMercs.currentSpent = 0
 configs.mode.buyMercs.interval = 10000
 
-configs.mode.regen = new Object();
+configs.mode.regen = {};
 configs.mode.regen.enable = true
 configs.mode.regen.to_percent = 80
 
-configs.mode.luck = new Object();
+configs.mode.luck = {};
 
 configs.mode.luck.enabled = true
 configs.mode.luck.interval = 1000
 configs.mode.luck.fname = "Luck Mode"
 configs.mode.luck.lastLuck = Date.now()
 
-configs.mode.upgrade = new Object();
+configs.mode.upgrade = {};
 configs.mode.upgrade.fname = "Upgrade Mode"
 configs.mode.upgrade.enabled = 0
 configs.mode.upgrade.interval = 300
 
-configs.mode.buyPots = new Object();
+configs.mode.buyPots = {};
 configs.mode.buyPots.enabled = true
 configs.mode.buyPots.pots_to_buy = {}
 
@@ -63,7 +61,8 @@ configs.mode.upgrade.upgradeWhitelist =
     sshield: 7,
     shield: 7,
     shoes: 7,
-    staff: 9,
+    staff: 8,
+    sword: 7,
     gloves: 7,
     coat: 7,
     helmet: 7,
@@ -110,9 +109,10 @@ configs.mode.upgrade.upgradeWhitelist =
     eslippers: 6,
     eears: 5,
     pouchbow: 8,
+    tshirt2: 3,
   };
 
-  configs.mode.upgrade.combineWhitelist =
+configs.mode.upgrade.combineWhitelist =
   {
     //ItemName, Max Level
     wbook0: 3,

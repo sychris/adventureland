@@ -24,7 +24,7 @@ function upgrade_check() {
 }
 
 function upgrade() {
-  if(parent.character.q.upgrade) return;
+  if (parent.character.q.upgrade) return;
   for (let i = 0; i < character.items.length; i++) {
     let c = character.items[i];
     
@@ -63,7 +63,7 @@ function upgrade() {
 }
 
 function compound_items() {
-  if(parent.character.q.compound) return;
+  if (parent.character.q.compound) return;
   let to_compound = character.items.reduce((collection, item, index) => {
     if (item && configs.mode.upgrade.combineWhitelist[item.name] != null && item.level < configs.mode.upgrade.combineWhitelist[item.name]) {
       let key = item.name + item.level;
@@ -84,7 +84,7 @@ function compound_items() {
       log("compounding")
       if (character.mp > 200) use_skill("massproductionpp")
       else if (character.mp > 20) use_skill("massproduction")
-
+      
       parent.socket.emit('compound', {
         items: [c[i], c[i + 1], c[i + 2]],
         scroll_num: scroll,
@@ -95,6 +95,7 @@ function compound_items() {
     }
   }
 }
+
 //-----------------------------on_cm---------------------------------
 function on_cm(name, d) {
   log("cm from " + name + ": " + JSON.stringify(d))
@@ -103,24 +104,20 @@ function on_cm(name, d) {
   let slot;
   if (myToons.includes(name)) {
     //if we have pots
-
+    
     //log("sending " + name + " " + d.q + " " + d.name)
     slot = getItemSlot(d.name)
     //dont sent if item not found
     if (slot != -1) send_item(name, getItemSlot(d.name), d.q)
   }
 }
+
 //-----------------------------Luck---------------------------------
 function luck_players() {
   if (configs.mode.luck.enabled == true) {
-    //searches everyone nearby
     for (let id in parent.entities) {
       let current = parent.entities[id];
-      //makes sure its a player
       if (current && current.type == "character" && !current.npc && current.ctype != "merchant") {
-        //current.s.mluck determines if they already have a mluck boost
-        //current.s.mluck.f != character.name determins if you cast it
-        //ck_range(current, 320) returns true if player is in range 320
         if (current.s.mluck && !current.s.mluck.strong && current.s.mluck.f != character.name && ck_range(current, 320)) {
           luck(current);
           log("relucking " + current.name)
@@ -149,7 +146,7 @@ function luck(target) {
 
 //-----------------------------on_magiport---------------------------------
 function on_magiport(name) {
-  if(myToons.includes(name)) accept_magiport(name)
+  if (myToons.includes(name)) accept_magiport(name)
 }
 
 //-----------------------------regen mp---------------------------------
@@ -157,7 +154,7 @@ function on_magiport(name) {
 //only real thing mp is used for is luck and upgrade spells
 
 function regen_mp() {
-  if(configs.mode.regen.enable){
+  if (configs.mode.regen.enable) {
     if (is_on_cooldown("regen_mp")) return
     let mp_percent = character.mp / character.max_mp
     mp_percent = mp_percent * 100
@@ -175,7 +172,7 @@ function top_up_pots() {
     for (let ppl in configs.mode.give_pots.donate_pots_to) {
       //log("looking for " + configs.mode.give_pots.donate_pots_to[ppl])
       let tempCharacter = get_player(configs.mode.give_pots.donate_pots_to[ppl]);
-
+      
       //first tempCharacter check is to make sure its not null
       if (tempCharacter && tempCharacter.name !== character.name && ck_range(tempCharacter, 320)) {
         log("sent top up query to " + tempCharacter.name)
@@ -189,20 +186,20 @@ function top_up_pots() {
 
 function buy_pots() {
   //log(pots_to_buy)
-  if(configs.mode.buyPots.enabled === true)
-  for (let pot in configs.mode.buyPots.pots_to_buy) {
-    //log(pot)
-    let current_pots = character.items[getItemSlot(pot)];
-    let buy_count = 0;
-    if (current_pots == undefined) buy_count = configs.mode.buyPots.pots_to_buy[pot]
-    else if (current_pots.q < configs.mode.buyPots.pots_to_buy[pot]) buy_count = configs.mode.buyPots.pots_to_buy[pot] - current_pots.q
-    else if (current_pots.q < 1) buy_count = configs.mode.buyPots.pots_to_buy[pot]
-    //log(current_pots.q)
-    if (buy_count > 0) {
-      log("buying " + buy_count + " " + pot)
-      parent.buy(pot, buy_count)
+  if (configs.mode.buyPots.enabled === true)
+    for (let pot in configs.mode.buyPots.pots_to_buy) {
+      //log(pot)
+      let current_pots = character.items[getItemSlot(pot)];
+      let buy_count = 0;
+      if (current_pots == undefined) buy_count = configs.mode.buyPots.pots_to_buy[pot]
+      else if (current_pots.q < configs.mode.buyPots.pots_to_buy[pot]) buy_count = configs.mode.buyPots.pots_to_buy[pot] - current_pots.q
+      else if (current_pots.q < 1) buy_count = configs.mode.buyPots.pots_to_buy[pot]
+      //log(current_pots.q)
+      if (buy_count > 0) {
+        log("buying " + buy_count + " " + pot)
+        parent.buy(pot, buy_count)
+      }
     }
-  }
 }
 
 //-----------------------------------send_item_by_name()---------------------------------------
