@@ -23,8 +23,8 @@ configs.pots.pots_to_request = {
   hpot0: 1000
 }
 
-setInterval(energize,2000)
-setInterval(lootmode,configs.mode.loot.interval);
+setInterval(energize, 2000)
+setInterval(lootmode, configs.mode.loot.interval);
 setInterval(inv_dump, configs.mode.inv_dump.interval)
 setInterval(combat, 250)
 

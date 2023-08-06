@@ -4,16 +4,16 @@ log("starting the priest script")
 
 
 //Init
-var configs = new Object();
+var configs = {};
 configs.ctype = character.ctype;
-configs.inv = new Object();
-configs.inv.dump = new Object();
-configs.mode = new Object();
-configs.mode.heal = new Object();
-configs.mode.attack = new Object();
-configs.mode.move = new Object();
-configs.party = new Object();
-configs.pots = new Object();
+configs.inv = {};
+configs.inv.dump = {};
+configs.mode = {};
+configs.mode.heal = {};
+configs.mode.attack = {};
+configs.mode.move = {};
+configs.party = {};
+configs.pots = {};
 configs.party.members = Object.keys(parent.party);
 
 //Healz Configs
@@ -24,7 +24,7 @@ configs.mode.heal.interval = 250
 //Attacker Configs
 configs.mode.attack.enabled = 1
 configs.mode.attack.interval = 250
-map_key("Q","snippet","switch_move_mode();");
+map_key("Q", "snippet", "switch_move_mode();");
 
 //Merc Configs
 
@@ -43,7 +43,6 @@ configs.inv.dump.enabled = 1
 configs.inv.dump.wList = [];
 
 
-
 //intervals
 setInterval(heal_mode, configs.mode.heal.interval);
 setInterval(Attack_mode, configs.mode.attack.interval);
@@ -52,19 +51,18 @@ setInterval(movement_mode, configs.mode.move.interval);
 //internal vals
 
 
-
 //functions
 
 
-function inv_dump(){
-  if(enable_inv_dump){
-    send_gold(send_to,99999999)
+function inv_dump() {
+  if (enable_inv_dump) {
+    send_gold(send_to, 99999999)
     log("invdumpung")
     //log(character.items)
-    for(s in character.items){
-    //log("checking " + character.items[s])
-      if(character.items[s] !== null){
-      //log(character.items[s])
+    for (s in character.items) {
+      //log("checking " + character.items[s])
+      if (character.items[s] !== null) {
+        //log(character.items[s])
         send_item(send_to, s, 9999);
         break;
       }
@@ -73,59 +71,57 @@ function inv_dump(){
 }
 
 
-
-function movement_mode(){
-  switch(configs.mode.move.enabled){
+function movement_mode() {
+  switch (configs.mode.move.enabled) {
     case 0:
       return;
       break;
     case 1:
-    var target=get_targeted_monster();
-      if(!in_attack_range(target))
-      {
+      var target = get_targeted_monster();
+      if (!in_attack_range(target)) {
         move(
-        character.x+(target.x-character.x)/2,
-        character.y+(target.y-character.y)/2
+          character.x + (target.x - character.x) / 2,
+          character.y + (target.y - character.y) / 2
         );
-    // Walk half the distance
-  }
+        // Walk half the distance
+      }
       break;
     case 2:
-      var target=get_player(configs.mode.move.leader);
-      if(target){ //make sure target is targetable
-        if(
-          target.x-character.x > 10 || target.y-character.y > 10 ||
-          target.x-character.x < -10 || target.y-character.y < -10
-          ){
-          move(character.x+(target.x-character.x)/2,character.y+(target.y-character.y)/2);
+      var target = get_player(configs.mode.move.leader);
+      if (target) { //make sure target is targetable
+        if (
+          target.x - character.x > 10 || target.y - character.y > 10 ||
+          target.x - character.x < -10 || target.y - character.y < -10
+        ) {
+          move(character.x + (target.x - character.x) / 2, character.y + (target.y - character.y) / 2);
         }
-      }else{
+      } else {
         log("movement mode is not able to locate target")
       }
       break;
     default:
       log("bad configs.mode.move.enabled option")
   }
-
+  
 }
 
-function heal_mode(){
-  if(configs.mode.heal.enabled || check_idle()){
+function heal_mode() {
+  if (configs.mode.heal.enabled || check_idle()) {
     pot_and_loot();
     
     var na;
     //log(configs.party.members);
-    for (na in configs.party.members){
+    for (na in configs.party.members) {
       //log(configs.party.members[na])
-      if(configs.party.members[na] !== null){
+      if (configs.party.members[na] !== null) {
         
         p = get_player(configs.party.members[na]);
-        if(p){
-          if(p.rip){
+        if (p) {
+          if (p.rip) {
             log(p.name + " is dead O.O")
-          }else{
+          } else {
             //log(p.hp / p.max_hp)
-            if(p.hp / p.max_hp < .75){
+            if (p.hp / p.max_hp < .75) {
               //log("healing " + p.name);
               heal(p);
             }
@@ -136,50 +132,47 @@ function heal_mode(){
   }
 }
 
-function Attack_mode(){
-  if(!configs.mode.attack.enabled || character.rip || is_moving(character)) return;
-
-  var target=get_targeted_monster();
-  if(!target || !in_attack_range(target))
-  {
-    target=get_nearest_monster(); //min_xp:100,max_att:120
-    if(target) change_target(target);
-    else
-    {
+function Attack_mode() {
+  if (!configs.mode.attack.enabled || character.rip || is_moving(character)) return;
+  
+  var target = get_targeted_monster();
+  if (!target || !in_attack_range(target)) {
+    target = get_nearest_monster(); //min_xp:100,max_att:120
+    if (target) change_target(target);
+    else {
       set_message("No Monsters");
       return;
     }
   }
- 
-  if(can_attack(target))
-  {
+  
+  if (can_attack(target)) {
     set_message("Attacking");
     attack(target);
   }
 }
 
-function pot_and_loot(){
+function pot_and_loot() {
   var uhp = configs.pots.useHpPotAtPercent / 100
   var ump = configs.pots.useMpPotAtPercent / 100
-  if(character.hp / character.max_hp < uhp || character.mp / character.max_mp < ump){
+  if (character.hp / character.max_hp < uhp || character.mp / character.max_mp < ump) {
     use_hp_or_mp();
-  } 
+  }
   loot();
-
+  
 }
 
-function check_idle(){
-  if(character.rip || is_moving(character)){
+function check_idle() {
+  if (character.rip || is_moving(character)) {
     return false
-  }else{
-      return true
+  } else {
+    return true
   }
 }
 
-function switch_move_mode(){
-  if(configs.mode.move.enabled <= 1){
-    configs.mode.move.enabled ++
-  } else{
+function switch_move_mode() {
+  if (configs.mode.move.enabled <= 1) {
+    configs.mode.move.enabled++
+  } else {
     configs.mode.move.enabled = 0
   }
   log("movement mode set to " + configs.mode.move.enabled)

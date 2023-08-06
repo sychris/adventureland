@@ -1,13 +1,13 @@
 log("loading default_config_combat")
 
-configs.mode.attack = new Object();
+configs.mode.attack = {};
 configs.mode.attack.fname = "Attack Mode"
 configs.mode.attack.onlyAttack = null
 configs.mode.attack.enabled = 1
 configs.mode.attack.interval = 250
 configs.mode.attack.allowMoveForAttack = false
 
-configs.mode.inv_dump = new Object();
+configs.mode.inv_dump = {};
 configs.mode.inv_dump.fname = "Inventory Dump Mode"
 configs.mode.inv_dump.enabled = false
 configs.mode.inv_dump.interval = 1000
