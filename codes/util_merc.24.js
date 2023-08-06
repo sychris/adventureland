@@ -219,6 +219,20 @@ function send_item_by_name(player, item, quantity) {
 //  awaiting items
 //  moving to idle
 //  idling
+
+//would be great is we could check inventory status
+function travelToPlayers() {
+  log("util_merc.travelToPlayers not yet implemented")
+  if (configs.travelToPlayers.lastPickupTime == null) {
+    if (character.map == configs.travelToPlayers.idle.map) {
+      //start pickup
+    } else {
+      //log("on unknown map")
+    }
+  } else {
+    //check if its time to pick up items
+  }
+}
 //check if configs.travelToPlayers.targetPlayerName is on map
 //if configs.travelToPlayers.targetPlayerName is on map
 
