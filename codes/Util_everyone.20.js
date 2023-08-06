@@ -1,3 +1,4 @@
+log("loading_utils_everyone")
 function ck_a_wList(item, arr) {
   var found = false;
   //log("checking wlist")
@@ -33,8 +34,24 @@ function ck_range_by_name(name, range) {
   }
 }
 
-//----------------------------------modes----------------------------------
-function lootmode() {
+
+function npcInRange(npcName) {
+  
+  let map = parent.G.maps[character.map]
+  for (let npc of map.npcs) {
+    if (npcName == npc.id) {
+      let pos = {}
+      pos.x = npc.position[0]
+      pos.y = npc.position[1]
+      pos.map = character.map
+      if (simple_distance(character, pos) < 400) return true
+    }
+  }
+  return false
+}
+
+//----------------------------------loot----------------------------------
+function autoLoot() {
   loot();
 }
 
@@ -88,6 +105,13 @@ function sellmode() {
   }
 }
 
+function exchangeSlotZero() {
+  if (configs.exchangeItems.enabled) exchange(0)
+}
+
+function getItemValue(itemName) {
+  return G.items[itemName].g
+}
 
 function get_grade(item) {
   return parent.G.items[item.name].grades;
@@ -144,8 +168,50 @@ function checkHpMp() {
 }
 
 //-----------------------------------setmgs-------------------------------------
-setInterval(setmsg, 1000);
+
 
 function setmsg() {
   set_message(character.cc);
+}
+
+//-----------------------------------movement---------------------------------------
+
+
+function moveToPlayer() {
+  smart_move("Sychris")
+  goHome = async () => {
+    if (await this.wait(60)) {
+      use_skill("use_town")
+    }
+  }
+}
+
+//-----------------------------------party---------------------------------------
+
+
+function partyCall() {
+  if (configs.party.leader == character.name) {
+    myToons.forEach(function (name) {
+      if (!parent.party.hasOwnProperty(name) && get_player(name) != null && character.name != name) {
+        log("Sending Invite to: " + name);
+        send_party_invite(name);
+      }
+    });
+  }
+}
+
+//todo one of these are redundant?
+function on_party_request(name) // called by the inviter's name - request = someone requesting to join your existing party
+{
+  
+  if (configs.party.leader == name) {
+    accept_party_request(name);
+  }
+}
+
+function on_party_invite(name) // called by the inviter's name - request = someone requesting to join your existing party
+{
+  if (configs.party.leader == name) {
+    accept_party_invite(name);
+  }
 }

@@ -9,7 +9,7 @@ configs.hpMp.enabled = true
 configs.inv_dump.enabled = true
 configs.inv_dump.interval = 3000
 
-configs.loot.enabled = false
+configs.autoLoot.enabled = true
 
 configs.pots.use_Hp_pot_type = "hpot1"
 configs.pots.use_Mp_pot_type = "mpot1"
@@ -27,8 +27,10 @@ configs.pots.pots_to_request = {
   hpot0: 1000
 }
 
+//this is where all the intervals etc are
+load_code(40)
+
 setInterval(energize, configs.skills.energize.interval)
-setInterval(lootmode, configs.loot.interval);
 setInterval(inv_dump, configs.inv_dump.interval)
 setInterval(combat, 250)
 

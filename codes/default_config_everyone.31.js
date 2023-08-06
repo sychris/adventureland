@@ -22,8 +22,9 @@ configs.hpMp.interval = 250
 
 configs.skills = {}
 
-configs.loot = {};
-configs.loot.interval = 200
+configs.autoLoot = {};
+configs.autoLoot.enabled = true // this is not checked yet
+configs.autoLoot.interval = 200
 
 configs.party = {};
 configs.party.leader = "Sychris"

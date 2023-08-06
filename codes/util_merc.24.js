@@ -1,3 +1,4 @@
+log("loading util_merc")
 //-----------------------------item_filtering---------------------------------
 //todo this should be for everyone?
 //this is used in the upgrade stuff
@@ -248,3 +249,100 @@ function autoStand(){
     }
   }
 }
+
+//-----------------------------------sell primals---------------------------------------
+
+function sellPrimals() {
+  if (parent.character.slots.trade3 == null) {
+    log("no more offerings")
+    if (getItemSlot("offering") == -1) parent.buy("offering")
+    
+    let slot = getItemSlot("offering")
+    if (slot != -1) {
+      //safty check that primal ess price has not changed
+      if(getItemValue("offering") == 27420000) {
+        trade(getItemSlot("offering"), 3, 32904000, quantity)
+      }else log("price of primal offerings has changed!!!!")
+    }
+  }
+}
+
+//-----------------------------------buyPontyItems---------------------------------------
+
+wait = (seconds) =>
+  new Promise(resolve =>
+    setTimeout(() => resolve(true), seconds * 1000)
+  );
+
+function getPontyData() {
+  if (!configs.buyPonty.enabled || !npcInRange("secondhands")) return
+  
+  parent.socket.once("secondhands", (pontyData) => {
+    for (item of pontyData) {
+      if (configs.buy.items.includes(item.name)) {
+        configs.buyPonty.itemsList.push(item.rid)
+        log("found " + item.name + " from Ponty")
+      }
+    }
+    //show_json(pontyData)
+  })
+  parent.socket.emit("secondhands")
+  buyPontyItems()
+}
+
+
+function buyPontyItems() {
+  if (!configs.buyPonty.enabled || !npcInRange("secondhands")) return
+  if (configs.buyPonty.itemsList) {
+    while (buy = configs.buyPonty.itemsList.pop()) {
+      parent.socket.emit("sbuy", {"rid": buy});
+    }
+  }
+}
+
+//-----------------------------------checkMerchents---------------------------------------
+
+function checkMerchents() {
+  
+  if (configs.buyMercs.currentSpent > configs.buyMercs.maxToSpend) return
+  if (!configs.buyMercs.enabled) return
+  for (id in parent.entities) {
+    var current = parent.entities[id];
+    //makes sure its a player
+    if (current && current.type == "character" && !current.npc && current.ctype == "merchant") {
+      //log(current.name)
+      if (!ck_range(current, 400)) {
+        for (let slot in current.slots) {
+          
+          if (current.slots[slot] == null) continue //slot empty
+          if (!current.slots[slot].rid == null) continue  //not a trade item
+          if (!current.slots[slot].b == null) continue     //not for sell
+          //log(current.slots[slot])
+          let pontyBuyPrice = Math.floor(G.items[current.slots[slot].name].g * 0.6) //ponty buy price
+          if (current.slots[slot].price <= pontyBuyPrice && configs.buy.items.includes(current.slots[slot].name)) {
+            configs.buyMercs.currentSpent += current.slots[slot].price
+            parent.trade_buy(current.slots[slot], current.id, current.slots[slot].rid, current.slots[slot].q || 1)
+          } else if (current.slots[slot].price <= pontyBuyPrice) {
+            let n = current.slots[slot].name
+            let q = current.slots[slot].q //quantity
+            parent.trade_buy(current.slots[slot], current.id, current.slots[slot].rid, current.slots[slot].q || 1)
+            configs.buyMercs.currentSpent += current.slots[slot].price
+            getItemSlot(n)
+            parent.sell(getItemSlot(n), q)
+            //and resell
+          }
+        }
+      }
+    }
+  }
+}
+
+//-----------------------------------upgradeNPCItem---------------------------------------
+function upgradeNPCItem() {
+  if (!configs.upgradeNPCItem.enabled) return
+  if (getItemSlot(configs.upgradeNPCItem.item) == -1) {
+    parent.buy(configs.upgradeNPCItem.item, 1)
+  }
+  
+}
+

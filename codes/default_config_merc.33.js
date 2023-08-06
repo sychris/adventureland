@@ -19,7 +19,6 @@ configs.travelToPlayers.lastPickupTime = null
 configs.autoStand = {}
 configs.autoStand.enabled = true
 configs.autoStand.interval = 500
-
 configs.sell.enabled = true
 
 configs.exchangeItems = false
@@ -75,7 +74,7 @@ configs.upgrade.upgradeWhitelist =
     sshield: 7,
     shield: 7,
     shoes: 7,
-    staff: 8,
+    staff: 6,
     sword: 7,
     gloves: 7,
     coat: 7,
