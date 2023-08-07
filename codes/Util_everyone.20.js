@@ -1,4 +1,5 @@
 log("loading_utils_everyone")
+
 function ck_a_wList(item, arr) {
   var found = false;
   //log("checking wlist")
@@ -15,13 +16,9 @@ function ck_a_wList(item, arr) {
 function ck_range(tar, range) {
   //log("checking range")
   if (tar !== null) {
-    if (Math.sqrt((character.real_x - tar.real_x) * (character.real_x - tar.real_x) +
-      (character.real_y - tar.real_y) * (character.real_y - tar.real_y)) < range) {
-      return true;
-    } else {
-      return false;
-    }
-  } else return false; //was null
+    return Math.sqrt((character.real_x - tar.real_x) * (character.real_x - tar.real_x) +
+      (character.real_y - tar.real_y) * (character.real_y - tar.real_y)) < range;
+  }
 }
 
 
@@ -66,12 +63,12 @@ function getMpPercent() {
 
 //----------------------------------items----------------------------------
 function getItemSlot(name) {
-  for (var i = 0; i < character.items.length; i++) {
+  for (let i = 0; i < character.items.length; i++) {
     if (character.items[i] && character.items[i].name == name) {
       return i;
     }
   }
-  log("item not found")
+  log("item not found: " + name)
   return -1;
 }
 
@@ -89,7 +86,7 @@ function getItemQuantity(name) {
   return count;
 }
 
-function sellmode() {
+function autoSell() {
   if (!configs.sell.enabled) return
   for (let item in character.items) {
     if (character.items[item] && configs.sell.items.has(character.items[item].name)) {
@@ -127,44 +124,36 @@ function updatePotions() {
   }
 }
 
-function getBiggestHPot() {
-  updatePotions()
-  for (let pot in Hpots) {
-    if (configs.pots.current_potions.get(Hpots[pot]) > 1) return Hpots[pot]
-  }
-  return "regen_hp"
-}
-
-function getBiggestMPot() {
-  updatePotions()
-  for (let pot in Mpots) {
-    if (configs.pots.current_potions.get(Mpots[pot]) > 1) return Mpots[pot]
-  }
-  return "regen_mp"
-}
-
 function checkHpMp() {
   if (!configs.hpMp.enabled == true) return
+  if (is_on_cooldown("use_hp")) return
+  getHpPercent() < getMpPercent() ? restoreHp() : restoreMp()
+}
+
+function restoreHp() {
   updatePotions()
-  
-  if (mssince(configs.pots.last_pot_used) < 1000) return
-  var currentHpDown = character.max_hp - character.hp
-  
-  if (10 > getMpPercent()) consume(getItemSlot(getBiggestMPot()))
-  if (hpPotPercent > getHpPercent()) {
-    use_skill("use_hp");
-    configs.pots.last_pot_used = new Date()
-  } else if (hpMeditate > getHpPercent()) {
-    use_skill("regen_hp");
-    configs.pots.last_pot_used = new Date()
-  } else if (mpPotPercent > getMpPercent()) {
-    use_skill("use_mp");
-    configs.pots.last_pot_used = new Date()
-  } else if (mpMeditate > getMpPercent()) {
-    use_skill("regen_mp");
-    configs.pots.last_pot_used = new Date()
+  if (configs.hpMp.useHpot1.enabled = true && getHpPercent() < configs.hpMp.useHpot1.percent && getItemSlot("hpot1") != -1) {
+    equip(getItemSlot("hpot1"))
+  } else if (configs.hpMp.useHpot0.enabled = true && getHpPercent() < configs.hpMp.useHpot0.percent && getItemSlot("hpot0") != -1) {
+    equip(getItemSlot("hpot0"))
+  } else if (configs.hpMp.hpMeditate.enabled = true && getHpPercent() < configs.hpMp.hpMeditate.percent) {
+    use_skill("regen_hp")
   }
-  
+}
+
+function restoreMp() {
+  if (configs.hpMp.useMpot1.enabled = true && getMpPercent() < configs.hpMp.useMpot1.percent && getItemSlot("mpot1") != -1) {
+    equip(getItemSlot("mpot1"))
+    log("using mpot1")
+    log(getItemSlot("mpot0"))
+  } else if (configs.hpMp.useMpot0.enabled = true && getMpPercent() < configs.hpMp.useMpot0.percent && getItemSlot("mpot0") != -1) {
+    equip(getItemSlot("mpot0"))
+    log("using mpot0 from slot: " + getItemSlot("mpot0"))
+    
+  } else if (configs.hpMp.mpMeditate.enabled = true && getMpPercent() < configs.hpMp.mpMeditate.percent) {
+    use_skill("regen_mp")
+    log("using regen_mp")
+  }
 }
 
 //-----------------------------------setmgs-------------------------------------

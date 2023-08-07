@@ -16,9 +16,7 @@ configs.sell.enabled = false
 configs.sell.items = new Map()
 configs.sell.interval = 1000
 
-configs.hpMp = {}
-configs.hpMp.enabled = true
-configs.hpMp.interval = 250
+
 
 configs.skills = {}
 
@@ -32,14 +30,45 @@ configs.party.leader = "Sychris"
 
 configs.skills = {}
 
+configs.hpMp = {}
+configs.hpMp.enabled = true
+configs.hpMp.interval = 250
+
+configs.hpMp.useHpot1 = {}
+configs.hpMp.useHpot1.enabled = true
+configs.hpMp.useHpot1.percent = 20
+
+configs.hpMp.useHpot0 = {}
+configs.hpMp.useHpot0.enabled = true
+configs.hpMp.useHpot0.percent = 50
+
+configs.hpMp.hpMeditate = {}
+configs.hpMp.hpMeditate.Enabled = true
+configs.hpMp.hpMeditate.percent = 90
+
+configs.hpMp.useMpot1 = {}
+configs.hpMp.useMpot1.enabled = true
+configs.hpMp.useMpot1.percent = 20
+
+configs.hpMp.useMpot0 = {}
+configs.hpMp.useMpot0.enabled = true
+configs.hpMp.useMpot0.percent = 50
+
+configs.hpMp.mpMeditate = {}
+configs.hpMp.mpMeditate.Enabled = true
+configs.hpMp.mpMeditate.percent = 90
+
+
+
+
+
+
+
+
 configs.pots = {}
 configs.pots.current_potions = new Map();
-configs.pots.last_pot_used = new Date()
 configs.pots.allow_buying_use_pot_types = false //not yet implemented
-configs.pots.use_Hp_pot_at_percent = 50
-configs.pots.use_Mp_pot_at_percent = 50
-configs.pots.use_Hp_pot_type = "hpot0"
-configs.pots.use_Mp_pot_type = "mpot0"
+
 configs.pots.pots_to_request = {
   //ItemName, Count
   mpot0: 1000,

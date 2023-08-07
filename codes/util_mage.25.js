@@ -8,7 +8,7 @@ function energize() {
 
 function combat() {
   //log("firing attack mode")
-  if (character.hp < useHpPot || character.mp < useMpPot) use_hp_or_mp();
+
   loot();
   
   if (!configs.attack.enabled || character.rip || is_moving(character)) return;

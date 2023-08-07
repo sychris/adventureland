@@ -1,6 +1,19 @@
 load_code(10)
 
 configs.hpMp.enabled = true
+configs.hpMp.useMpot1.enabled = true
+configs.hpMp.useMpot1.percent = 20
+configs.hpMp.useMpot0.enabled = true
+configs.hpMp.useMpot0.percent = 50
+configs.hpMp.mpMeditate.Enabled = true
+configs.hpMp.mpMeditate.percent = 90
+
+configs.hpMp.useHpot1.enabled = true
+configs.hpMp.useHpot1.percent = 20
+configs.hpMp.useHpot0.enabled = true
+configs.hpMp.useHpot0.percent = 50
+configs.hpMp.hpMeditate.Enabled = true
+configs.hpMp.hpMeditate.percent = 90
 
 configs.attack.enabled = 1
 configs.attack.allowMoveForAttack = false
@@ -25,18 +38,16 @@ configs.pots.pots_to_request = {
   hpot1: 500
 }
 
-var minMpPercentForThreeShot = 25
 
-var hpPotPercent = 99
-var hpMeditate = 90
-var mpPotPercent = 50
-var mpMeditate = 100
+
+
+
+
+var minMpPercentForThreeShot = 25
 
 
 
 load_code(40)
-setInterval(checkHpMp, configs.hpMp.interval); // Loops every 1/10 seconds.
-setInterval(combat, configs.attack.interval); // Loops every 1/4 seconds.
-setInterval(inv_dump, configs.inv_dump.interval)
-map_key("O", "snippet", "toggle_mode(configs.inv_dump)");
+
+
 

@@ -37,9 +37,9 @@ configs.autoStand.enabled = true
 configs.travelToPlayers.targetPlayerName = "Sychris"
 
 configs.upgradeNPCItem.item = "staff"
-configs.upgradeNPCItem.enabled = true
+configs.upgradeNPCItem.enabled = false
 
-configs.buyPonty.enabled = false
+configs.buyPonty.enabled = true
 
 configs.buyMercs.enabled = true
 configs.buyMercs.maxToSpend = 1000000
@@ -52,6 +52,10 @@ configs.sell.items.set('wand', 0)
 configs.sell.items.set('stinger', 0)
 configs.sell.items.set('hpbelt', 0)
 configs.sell.items.set('cclaw', 0)
+
+configs.buyPonty.itemsList = [
+  "dexamulet",
+]
 
 var regen_mp_Interval = 1000
 

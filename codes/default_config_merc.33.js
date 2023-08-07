@@ -74,7 +74,7 @@ configs.upgrade.upgradeWhitelist =
     sshield: 7,
     shield: 7,
     shoes: 7,
-    staff: 6,
+    staff: 7,
     sword: 7,
     gloves: 7,
     coat: 7,

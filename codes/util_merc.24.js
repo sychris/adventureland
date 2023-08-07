@@ -276,7 +276,7 @@ wait = (seconds) =>
 
 function getPontyData() {
   if (!configs.buyPonty.enabled || !npcInRange("secondhands")) return
-  
+  log("checking Ponty's items")
   parent.socket.once("secondhands", (pontyData) => {
     for (item of pontyData) {
       if (configs.buy.items.includes(item.name)) {
