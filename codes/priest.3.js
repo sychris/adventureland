@@ -137,7 +137,7 @@ function Attack_mode() {
   
   var target = get_targeted_monster();
   if (!target || !in_attack_range(target)) {
-    target = get_nearest_monster(); //min_xp:100,max_att:120
+    target = getNearestMonster(); //min_xp:100,max_att:120
     if (target) change_target(target);
     else {
       set_message("No Monsters");
