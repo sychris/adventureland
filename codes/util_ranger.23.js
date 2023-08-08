@@ -10,7 +10,7 @@ function combat() {
 
 function combatRanger() {
   if (configs.skills.threeShot && threeShot()) return
-  if (standardAttack()) return
+  if (standardAttack()) return //the return is here just so that any future stuff wont break
 }
 
 function threeShot() {
