@@ -17,6 +17,13 @@ configs.sell.items = new Map()
 configs.sell.interval = 1000
 
 
+configs.sell.items.set('test_orb', 0)
+configs.sell.items.set('hpamulet', 0)
+configs.sell.items.set('wand', 0)
+configs.sell.items.set('stinger', 0)
+configs.sell.items.set('hpbelt', 0)
+configs.sell.items.set('cclaw', 0)
+
 
 configs.skills = {}
 
@@ -37,6 +44,12 @@ configs.hpMp.interval = 250
 configs.hpMp.useHpot1 = {}
 configs.hpMp.useHpot1.enabled = true
 configs.hpMp.useHpot1.percent = 20
+
+
+configs.autocraft = {}
+configs.autocraft.enabled = false
+configs.autocraft.item = ""
+configs.autocraft.interval = 100
 
 configs.hpMp.useHpot0 = {}
 configs.hpMp.useHpot0.enabled = true

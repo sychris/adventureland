@@ -30,17 +30,17 @@ function upgrade_check() {
 function upgrade() {
   if (parent.character.q.upgrade) return;
   for (let i = 0; i < character.items.length; i++) {
-    let c = character.items[i];
-    
-    if (c) {
-      var level = configs.upgrade.upgradeWhitelist[c.name];
-      //log("attempting upgrade on " + c.name + " level: " + level)
-      if (level && c.level < level) {
-        let grades = get_grade(c);
+    let itemSlot = character.items[i];
+    //slot not null and item not in sell list
+    if (itemSlot && !configs.sell.items.has(itemSlot.name)) {
+      var level = configs.upgrade.upgradeWhitelist[itemSlot.name];
+      //log("attempting upgrade on " + itemSlot.name + " level: " + level)
+      if (level && itemSlot.level < level) {
+        let grades = get_grade(itemSlot);
         let scrollname;
-        if (c.level < grades[0])
+        if (itemSlot.level < grades[0])
           scrollname = 'scroll0';
-        else if (c.level < grades[1])
+        else if (itemSlot.level < grades[1])
           scrollname = 'scroll1';
         else
           scrollname = 'scroll2';
@@ -58,7 +58,7 @@ function upgrade() {
           item_num: i,
           scroll_num: scroll_slot,
           offering_num: null,
-          clevel: c.level
+          clevel: itemSlot.level
         });
         return;
       }
@@ -69,7 +69,7 @@ function upgrade() {
 function compound_items() {
   if (parent.character.q.compound) return;
   let to_compound = character.items.reduce((collection, item, index) => {
-    if (item && configs.upgrade.combineWhitelist[item.name] != null && item.level < configs.upgrade.combineWhitelist[item.name]) {
+    if (item && configs.upgrade.combineWhitelist[item.name] != null && !configs.sell.items.has(item.name) &&item.level < configs.upgrade.combineWhitelist[item.name]) {
       let key = item.name + item.level;
       !collection.has(key) ? collection.set(key, [item.level, item_grade(item), index]) : collection.get(key).push(index);
     }
@@ -269,36 +269,28 @@ function sellPrimals() {
 
 //-----------------------------------buyPontyItems---------------------------------------
 
-wait = (seconds) =>
-  new Promise(resolve =>
-    setTimeout(() => resolve(true), seconds * 1000)
-  );
-
-function getPontyData() {
-  if (!configs.buyPonty.enabled || !npcInRange("secondhands")) return
-  log("checking Ponty's items")
-  parent.socket.once("secondhands", (pontyData) => {
-    for (item of pontyData) {
-      if (configs.buy.items.includes(item.name)) {
-        configs.buyPonty.itemsList.push(item.rid)
-        log("found " + item.name + " from Ponty")
-      }
-    }
-    //show_json(pontyData)
-  })
-  parent.socket.emit("secondhands")
-  buyPontyItems()
-}
 
 
 function buyPontyItems() {
   if (!configs.buyPonty.enabled || !npcInRange("secondhands")) return
-  if (configs.buyPonty.itemsList) {
-    while (buy = configs.buyPonty.itemsList.pop()) {
-      parent.socket.emit("sbuy", {"rid": buy});
+  // Set up the handler
+  let itemsBought = 0
+  parent.socket.once("secondhands", function(data) {
+    for(let d of data) {
+      if (configs.buyPonty.itemsList.includes(d.name)) {
+        game_log(`BUY ${d.name}!`)
+        // We want this item based on our list
+        parent.socket.emit("sbuy", { "rid": d.rid })
+      } else {
+        //game_log(`DON'T BUY ${d.name}!`)
+      }
     }
-  }
+  });
+  
+  // Attempt to buy stuff
+  parent.socket.emit("secondhands");
 }
+
 
 //-----------------------------------checkMerchents---------------------------------------
 

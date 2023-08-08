@@ -21,6 +21,8 @@ configs.attack.onlyAttack = "crab"
 
 configs.hpMp.enabled = true
 
+configs.sell.enabled = true
+
 configs.inv_dump.enabled = true
 configs.inv_dump.interval = 3000
 

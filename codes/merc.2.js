@@ -7,6 +7,9 @@ load_code(10)
 //this shows trade history
 //show_json(parent.socket.emit('trade_history'))
 
+//this shows crafting chance and grace value
+//parent.upgrade(26, locate_item("scroll0"), null, true, true).then(e=>show_json(e));
+
 //todo:
 //convert configs.upgrade.upgradeWhitelist to a map
 //convert configs.upgrade.combineWhitelist to a map
@@ -36,8 +39,11 @@ configs.autoStand.enabled = true
 
 configs.travelToPlayers.targetPlayerName = "Sychris"
 
+configs.autocraft.enabled = false
+configs.autocraft.item = "cake"
+
 configs.upgradeNPCItem.item = "staff"
-configs.upgradeNPCItem.enabled = false
+configs.upgradeNPCItem.enabled = true
 
 configs.buyPonty.enabled = true
 
@@ -55,6 +61,12 @@ configs.sell.items.set('cclaw', 0)
 
 configs.buyPonty.itemsList = [
   "dexamulet",
+  "stramulet",
+  "intamulet",
+  "intring",
+  "intearring",
+  "dexring",
+  "dexearring"
 ]
 
 var regen_mp_Interval = 1000

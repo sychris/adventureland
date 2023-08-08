@@ -72,6 +72,12 @@ function getItemSlot(name) {
   return -1;
 }
 
+function autoCraft(){
+  if(!configs.autocraft.enabled)return
+  if(configs.autocraft.item == "")return
+  auto_craft(configs.autocraft.item)
+}
+
 function getItemQuantity(name) {
   let count = 0
   //log("looking for item")
@@ -204,3 +210,9 @@ function on_party_invite(name) // called by the inviter's name - request = someo
     accept_party_invite(name);
   }
 }
+
+
+wait = (seconds) =>
+  new Promise(resolve =>
+    setTimeout(() => resolve(true), seconds * 1000)
+  );

@@ -20,7 +20,7 @@ configs.attack.allowMoveForAttack = false
 configs.attack.onlyAttack = "crab"
 configs.attack.preferedTarget = "squigtoad"
 
-configs.sell.enabled = false
+configs.sell.enabled = true
 configs.sell.items.set('stinger', 0)
 
 configs.inv_dump.enabled = true

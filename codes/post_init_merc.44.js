@@ -8,8 +8,7 @@ setInterval(luck_players, configs.luck.interval);
 setInterval(top_up_pots, configs.give_pots.interval);
 setInterval(regen_mp, regen_mp_Interval);
 setInterval(buy_pots, configs.give_pots.interval);
-setInterval(getPontyData, 50000)
-setInterval(buyPontyItems, 1000)
+setInterval(buyPontyItems, 30000)
 setInterval(upgradeNPCItem, 1000)
 setInterval(checkMerchents, configs.buyMercs.interval)
 //setInterval(travelToPlayers, configs.travelToPlayers.interval)

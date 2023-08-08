@@ -19,6 +19,7 @@ configs.travelToPlayers.lastPickupTime = null
 configs.autoStand = {}
 configs.autoStand.enabled = true
 configs.autoStand.interval = 500
+
 configs.sell.enabled = true
 
 configs.exchangeItems = false
