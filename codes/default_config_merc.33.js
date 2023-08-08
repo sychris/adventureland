@@ -8,12 +8,14 @@ configs.give_pots.interval = 5000
 
 configs.travelToPlayers = {}
 configs.travelToPlayers.enabled = false
-configs.travelToPlayers.interval = 900000 //900,000 is 15 min
+configs.travelToPlayers.interval = 10000
+configs.travelToPlayers.delay = 900000 //900,000 is 15 min
 configs.travelToPlayers.targetPlayerName = "Sychris"
 configs.travelToPlayers.state = "init"
 configs.travelToPlayers.idle = {}
 configs.travelToPlayers.idle.map = "main"
-configs.travelToPlayers.idle.pos = ""
+configs.travelToPlayers.idle.x = -204
+configs.travelToPlayers.idle.y = -78
 configs.travelToPlayers.lastPickupTime = null
 
 configs.autoStand = {}

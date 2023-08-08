@@ -17,9 +17,6 @@ load_code(10)
 //auto open and close stall based on movement
 
 
-
-
-
 configs.buyPots.enabled = true
 configs.buyPots.pots_to_buy = {
   //ItemName, Count
@@ -34,7 +31,7 @@ configs.give_pots.enabled = true
 configs.upgrade.enable = true
 configs.luck.enabled = true
 configs.sell.enabled = true
-configs.travelToPlayers.enabled = false
+configs.travelToPlayers.enabled = true
 configs.autoStand.enabled = true
 
 configs.travelToPlayers.targetPlayerName = "Sychris"

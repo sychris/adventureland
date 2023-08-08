@@ -69,7 +69,7 @@ function upgrade() {
 function compound_items() {
   if (parent.character.q.compound) return;
   let to_compound = character.items.reduce((collection, item, index) => {
-    if (item && configs.upgrade.combineWhitelist[item.name] != null && !configs.sell.items.has(item.name) &&item.level < configs.upgrade.combineWhitelist[item.name]) {
+    if (item && configs.upgrade.combineWhitelist[item.name] != null && !configs.sell.items.has(item.name) && item.level < configs.upgrade.combineWhitelist[item.name]) {
       let key = item.name + item.level;
       !collection.has(key) ? collection.set(key, [item.level, item_grade(item), index]) : collection.get(key).push(index);
     }
@@ -101,18 +101,35 @@ function compound_items() {
 }
 
 //-----------------------------on_cm---------------------------------
-//todo rename to indicate either merc only or add logic and merge for everyone
-function on_cm(name, d) {
-  log("cm from " + name + ": " + JSON.stringify(d))
+function onPotsRequest(data, name) {
+  
   let slot;
   if (myToons.includes(name)) {
     //if we have pots
     
-    //log("sending " + name + " " + d.q + " " + d.name)
-    slot = getItemSlot(d.name)
+    //log("sending " + name + " " + data.q + " " + data.name)
+    slot = getItemSlot(data.name)
     //dont sent if item not found
-    if (slot != -1) send_item(name, getItemSlot(d.name), d.q)
+    if (slot != -1) send_item(name, getItemSlot(data.name), data.q)
   }
+  
+}
+
+//todo rename to indicate either merc only or add logic and merge for everyone
+function on_cm(name, data) {
+  //log("cm from " + name + ": " + JSON.stringify(data))
+  if (!myToons.includes(name)) {
+    log("cm from unknown player!!!")
+    return "bad player"
+  }
+  if (!data.type) return "no type present on cm.data"
+  if (data.type == "pots") onPotsRequest(data, name);
+  if (data.type == "transport_pos") {
+    log("refiring travelToPlayers")
+    log(travelToPlayers(name, data, true))//map data sent
+  }
+  
+  
 }
 
 //-----------------------------Luck---------------------------------
@@ -222,29 +239,59 @@ function send_item_by_name(player, item, quantity) {
 //  idling
 
 //would be great is we could check inventory status
-function travelToPlayers() {
-  log("util_merc.travelToPlayers not yet implemented")
+function travelToPlayers(name = "sychris", pos = null, forceTravel = false) {
+  //return log("util_merc.travelToPlayers not yet implemented")
+  
   if (configs.travelToPlayers.lastPickupTime == null) {
-    if (character.map == configs.travelToPlayers.idle.map) {
-      //start pickup
-    } else {
-      //log("on unknown map")
-    }
-  } else {
-    //check if its time to pick up items
+    //this insures that we have a wait after starting code before we run off
+    //that way if your working on code you dont get side tracked
+    configs.travelToPlayers.lastPickupTime = Date.now()
+    return "initialized"
   }
+  if (forceTravel == false) {
+    if (Date.now() < configs.travelToPlayers.lastPickupTime + configs.travelToPlayers.delay) return "not ready"
+  }
+  if (!pos) {
+    send_cm(name, "pos_for_transport")
+    return "sending cm for transport_pos"
+  }
+  if (!character.map == configs.travelToPlayers.idle.map) return "not on idle map"
+  
+  configs.travelToPlayers.lastPickupTime = Date.now()
+  smart_move(pos).then(waitAndUseTown)
+  
 }
+
+function waitAndUseTown() {
+  log("waiting 30 seconds")
+  setTimeout(useTown, 30000)
+}
+
+function useTown() {
+  log("using town")
+  use_skill("use_town")
+  setTimeout(moveToMySpot, 10000)
+}
+
+function moveToMySpot() {
+  let spot = {}
+  spot.map = configs.travelToPlayers.idle.map
+  spot.x = null
+  spot.y = null
+  smart_move(spot)
+}
+
 //check if configs.travelToPlayers.targetPlayerName is on map
 //if configs.travelToPlayers.targetPlayerName is on map
 
 //-----------------------------------autoStand---------------------------------------
-function autoStand(){
-  if(character.moving == true){
-    if(character.stand !== false){
+function autoStand() {
+  if (character.moving == true) {
+    if (character.stand !== false) {
       close_stand()
     }
-  }else{
-    if(!character.stand !== false){
+  } else {
+    if (!character.stand !== false) {
       open_stand()
     }
   }
@@ -260,9 +307,9 @@ function sellPrimals() {
     let slot = getItemSlot("offering")
     if (slot != -1) {
       //safty check that primal ess price has not changed
-      if(getItemValue("offering") == 27420000) {
+      if (getItemValue("offering") == 27420000) {
         trade(getItemSlot("offering"), 3, 32904000, quantity)
-      }else log("price of primal offerings has changed!!!!")
+      } else log("price of primal offerings has changed!!!!")
     }
   }
 }
@@ -270,17 +317,16 @@ function sellPrimals() {
 //-----------------------------------buyPontyItems---------------------------------------
 
 
-
 function buyPontyItems() {
   if (!configs.buyPonty.enabled || !npcInRange("secondhands")) return
   // Set up the handler
   let itemsBought = 0
-  parent.socket.once("secondhands", function(data) {
-    for(let d of data) {
+  parent.socket.once("secondhands", function (data) {
+    for (let d of data) {
       if (configs.buyPonty.itemsList.includes(d.name)) {
         game_log(`BUY ${d.name}!`)
         // We want this item based on our list
-        parent.socket.emit("sbuy", { "rid": d.rid })
+        parent.socket.emit("sbuy", {"rid": d.rid})
       } else {
         //game_log(`DON'T BUY ${d.name}!`)
       }

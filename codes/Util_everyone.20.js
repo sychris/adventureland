@@ -72,9 +72,9 @@ function getItemSlot(name) {
   return -1;
 }
 
-function autoCraft(){
-  if(!configs.autocraft.enabled)return
-  if(configs.autocraft.item == "")return
+function autoCraft() {
+  if (!configs.autocraft.enabled) return
+  if (configs.autocraft.item == "") return
   auto_craft(configs.autocraft.item)
 }
 
@@ -169,17 +169,6 @@ function setmsg() {
   set_message(character.cc);
 }
 
-//-----------------------------------movement---------------------------------------
-
-
-function moveToPlayer() {
-  smart_move("Sychris")
-  goHome = async () => {
-    if (await this.wait(60)) {
-      use_skill("use_town")
-    }
-  }
-}
 
 //-----------------------------------party---------------------------------------
 

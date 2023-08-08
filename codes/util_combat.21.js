@@ -15,12 +15,13 @@ function inv_dump() {
   }
 }
 
-function request_pots(n) {
+function request_pots(name) {
   var requests = {}
   for (const potion in configs.pots.pots_to_request) {
     //log("checking " + potion + " for request")
     var pslot = character.items[getItemSlot(potion)]
     var needed = {}
+    needed.type = "pots"
     var count = 0
     
     if (!pslot) {
@@ -35,7 +36,7 @@ function request_pots(n) {
     
     if (needed.name) {
       log("requesting " + needed.pot + needed.keys)
-      send_cm(n, needed)
+      send_cm(name, needed)
     } else {
       //log("not requesting any pots")
     }
@@ -43,15 +44,31 @@ function request_pots(n) {
 }
 
 
-function on_cm(n, d) {
-  log("cm from " + n + ": " + d)
-  if (n == "loots" && d == "what_pots_do_you_need?") request_pots(n)
+function getMyPOS() {
+  let pos = {}
+  pos.x = character.x
+  pos.y = character.y
+  pos.map = character.map
+  return pos
+}
+
+function sendPOS(name) {
+  let posCM = getMyPOS()
+  posCM.type = "transport_pos"
+  log(JSON.stringify(posCM))
+  send_cm(name, posCM).then((msg) => log(msg))
+}
+
+function on_cm(name, data) {
+  log("cm from " + name + ": " + data)
+  if (name != "loots") log("cm from unknown sender!!: " + name + "data: " + JSON.stringify(data))
+  if (data == "what_pots_do_you_need?") request_pots(name)
+  if (data == "pos_for_transport") sendPOS(name)
 }
 
 //-----------------------------------targeting---------------------------------------
 
-function getNearestMonster(args)
-{
+function getNearestMonster(args) {
   //args:
   // max_att: max attack
   // min_xp: min XP
@@ -59,31 +76,30 @@ function getNearestMonster(args)
   // no_target: Only pick monsters that don't have any target
   // path_check: Checks if the character can move to the target
   // type: Type of the monsters, for example "goo", can be referenced from `show_json(G.monsters)` [08/02/17]
-  var min_d=999,target=null;
+  var min_d = 999, target = null;
   
-  if(!args) args={};
-  if(args && args.target && args.target.name) args.target=args.target.name;
-  if(args && args.type=="monster") game_log("get_nearest_monster: you used monster.type, which is always 'monster', use monster.mtype instead");
-  if(args && args.mtype) game_log("get_nearest_monster: you used 'mtype', you should use 'type'");
+  if (!args) args = {};
+  if (args && args.target && args.target.name) args.target = args.target.name;
+  if (args && args.type == "monster") game_log("get_nearest_monster: you used monster.type, which is always 'monster', use monster.mtype instead");
+  if (args && args.mtype) game_log("get_nearest_monster: you used 'mtype', you should use 'type'");
   
-  for(id in parent.entities)
-  {
-    var current=parent.entities[id];
-    if(current.type!="monster" || !current.visible || current.dead) continue;
-    if(args.type){
-      if(Array.isArray(args.type)){
-        if(!args.type.includes(current.mtype)) continue;
-      }else if(typeof args.type === 'string' || args.type instanceof String){
-        if(current.mtype!=args.type) continue;
+  for (id in parent.entities) {
+    var current = parent.entities[id];
+    if (current.type != "monster" || !current.visible || current.dead) continue;
+    if (args.type) {
+      if (Array.isArray(args.type)) {
+        if (!args.type.includes(current.mtype)) continue;
+      } else if (typeof args.type === 'string' || args.type instanceof String) {
+        if (current.mtype != args.type) continue;
       }
     }
-    if(args.min_xp && current.xp<args.min_xp) continue;
-    if(args.max_att && current.attack>args.max_att) continue;
-    if(args.target && current.target!=args.target) continue;
-    if(args.no_target && current.target && current.target!=character.name) continue;
-    if(args.path_check && !can_move_to(current)) continue;
-    var c_dist=parent.distance(character,current);
-    if(c_dist<min_d) min_d=c_dist,target=current;
+    if (args.min_xp && current.xp < args.min_xp) continue;
+    if (args.max_att && current.attack > args.max_att) continue;
+    if (args.target && current.target != args.target) continue;
+    if (args.no_target && current.target && current.target != character.name) continue;
+    if (args.path_check && !can_move_to(current)) continue;
+    var c_dist = parent.distance(character, current);
+    if (c_dist < min_d) min_d = c_dist, target = current;
   }
   return target;
 }
