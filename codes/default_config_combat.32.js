@@ -2,7 +2,7 @@ log("loading default_config_combat")
 
 configs.attack = {};
 configs.attack.fname = "Attack Mode"
-configs.attack.onlyAttack = null
+configs.attack.onlyAttack = undefined //null to disable can be string or list
 configs.attack.enabled = 1
 configs.attack.interval = 250
 configs.attack.allowMoveForAttack = false
