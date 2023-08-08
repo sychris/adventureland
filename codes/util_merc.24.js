@@ -239,7 +239,7 @@ function send_item_by_name(player, item, quantity) {
 //  idling
 
 //would be great is we could check inventory status
-function travelToPlayers(name = "sychris", pos = null, forceTravel = false) {
+function travelToPlayers(name = configs.travelToPlayers.targetPlayerName, pos = null, forceTravel = false) {
   //return log("util_merc.travelToPlayers not yet implemented")
   
   if (configs.travelToPlayers.lastPickupTime == null) {
@@ -318,7 +318,8 @@ function sellPrimals() {
 
 
 function buyPontyItems() {
-  if (!configs.buyPonty.enabled || !npcInRange("secondhands")) return
+  if (!configs.buyPonty.enabled) return "disabled"
+  if (!npcInRange("secondhands")) return "ponty out of range"
   // Set up the handler
   let itemsBought = 0
   parent.socket.once("secondhands", function (data) {
