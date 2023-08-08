@@ -1,5 +1,9 @@
 function energize() {
-  if (!configs.skills.energize.enabled || is_on_cooldown("energize") || character.mp == 0) return
+  if (!configs.skills.energize.enabled) return
+  if (!configs.skills.energize.target)return
+  if (is_on_cooldown("energize"))return
+  if (character.mp == 0) return
+  if (!ck_range_by_name(configs.skills.energize.target,320)) return
   let target = get_player(configs.skills.energize.target)
   use_skill("energize", target)
   log("Energising: " + target.name)
@@ -16,9 +20,9 @@ function combat() {
   var target = null//get_targeted_monster();
   if (!target) {
     if (configs.attack.onlyAttack) {
-      target = get_nearest_monster({type: configs.attack.onlyAttack});
+      target = getNearestMonster({type: configs.attack.onlyAttack});
     } else {
-      target = get_nearest_monster()
+      target = getNearestMonster()
     }
     if (target) change_target(target);
     else {

@@ -39,9 +39,9 @@ function standardAttack() {
   let target = get_targeted_monster();
   if (!target) {
     if (configs.attack.onlyAttack) {
-      target = get_nearest_monster({type: configs.attack.onlyAttack});
+      target = getNearestMonster({type: configs.attack.onlyAttack});
     } else {
-      target = get_nearest_monster()
+      target = getNearestMonster()
     }
     if (target) change_target(target);
     else {
