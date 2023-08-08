@@ -48,3 +48,42 @@ function on_cm(n, d) {
   if (n == "loots" && d == "what_pots_do_you_need?") request_pots(n)
 }
 
+//-----------------------------------targeting---------------------------------------
+
+function getNearestMonster(args)
+{
+  //args:
+  // max_att: max attack
+  // min_xp: min XP
+  // target: Only return monsters that target this "name" or player object
+  // no_target: Only pick monsters that don't have any target
+  // path_check: Checks if the character can move to the target
+  // type: Type of the monsters, for example "goo", can be referenced from `show_json(G.monsters)` [08/02/17]
+  var min_d=999,target=null;
+  
+  if(!args) args={};
+  if(args && args.target && args.target.name) args.target=args.target.name;
+  if(args && args.type=="monster") game_log("get_nearest_monster: you used monster.type, which is always 'monster', use monster.mtype instead");
+  if(args && args.mtype) game_log("get_nearest_monster: you used 'mtype', you should use 'type'");
+  
+  for(id in parent.entities)
+  {
+    var current=parent.entities[id];
+    if(current.type!="monster" || !current.visible || current.dead) continue;
+    if(args.type){
+      if(Array.isArray(args.type)){
+        if(!args.type.includes(current.mtype)) continue;
+      }else if(typeof args.type === 'string' || args.type instanceof String){
+        if(current.mtype!=args.type) continue;
+      }
+    }
+    if(args.min_xp && current.xp<args.min_xp) continue;
+    if(args.max_att && current.attack>args.max_att) continue;
+    if(args.target && current.target!=args.target) continue;
+    if(args.no_target && current.target && current.target!=character.name) continue;
+    if(args.path_check && !can_move_to(current)) continue;
+    var c_dist=parent.distance(character,current);
+    if(c_dist<min_d) min_d=c_dist,target=current;
+  }
+  return target;
+}
