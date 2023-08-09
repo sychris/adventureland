@@ -126,6 +126,7 @@ configs.upgrade.upgradeWhitelist =
     eears: 5,
     pouchbow: 8,
     tshirt2: 3,
+    mcape: 5,
   };
 
 configs.upgrade.combineWhitelist =
@@ -137,7 +138,7 @@ configs.upgrade.combineWhitelist =
     intearring: 3,
     dexearring: 3,
     hpbelt: 4,
-    ringsj: 3,
+    ringsj: 4,
     strring: 3,
     intring: 3,
     dexring: 3,

@@ -117,7 +117,7 @@ function onPotsRequest(data, name) {
 
 //todo rename to indicate either merc only or add logic and merge for everyone
 function on_cm(name, data) {
-  //log("cm from " + name + ": " + JSON.stringify(data))
+  log("cm from " + name + ": " + JSON.stringify(data))
   if (!myToons.includes(name)) {
     log("cm from unknown player!!!")
     return "bad player"
@@ -208,20 +208,21 @@ function top_up_pots() {
 //todo add range check
 function buy_pots() {
   //log(pots_to_buy)
-  if (configs.buyPots.enabled === true)
-    for (let pot in configs.buyPots.pots_to_buy) {
-      //log(pot)
-      let current_pots = character.items[getItemSlot(pot)];
-      let buy_count = 0;
-      if (current_pots == undefined) buy_count = configs.buyPots.pots_to_buy[pot]
-      else if (current_pots.q < configs.buyPots.pots_to_buy[pot]) buy_count = configs.buyPots.pots_to_buy[pot] - current_pots.q
-      else if (current_pots.q < 1) buy_count = configs.buyPots.pots_to_buy[pot]
-      //log(current_pots.q)
-      if (buy_count > 0) {
-        log("buying " + buy_count + " " + pot)
-        parent.buy(pot, buy_count)
-      }
+  if (!configs.buyPots.enabled === true) return "buy pots disabled"
+  if (!npcInRange("secondhands")) return "ponty out of range"
+  
+  for (let pot in configs.buyPots.pots_to_buy) {
+    let current_pots = character.items[getItemSlot(pot)];
+    let buy_count = 0;
+    if (current_pots == undefined) buy_count = configs.buyPots.pots_to_buy[pot]
+    else if (current_pots.q < configs.buyPots.pots_to_buy[pot]) buy_count = configs.buyPots.pots_to_buy[pot] - current_pots.q
+    else if (current_pots.q < 1) buy_count = configs.buyPots.pots_to_buy[pot]
+    //log(current_pots.q)
+    if (buy_count > 0) {
+      log("buying " + buy_count + " " + pot)
+      parent.buy(pot, buy_count)
     }
+  }
 }
 
 //-----------------------------------send_item_by_name()---------------------------------------
@@ -241,7 +242,7 @@ function send_item_by_name(player, item, quantity) {
 //would be great is we could check inventory status
 function travelToPlayers(name = configs.travelToPlayers.targetPlayerName, pos = null, forceTravel = false) {
   //return log("util_merc.travelToPlayers not yet implemented")
-  
+  if (!configs.travelToPlayers.enabled) return "thavelToPlayers disabled"
   if (configs.travelToPlayers.lastPickupTime == null) {
     //this insures that we have a wait after starting code before we run off
     //that way if your working on code you dont get side tracked
