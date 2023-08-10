@@ -26,12 +26,12 @@ configs.buyPots.pots_to_buy = {
 }
 
 //currently exchanges item in slot 0 with nearby npc
-configs.exchangeItems.enabled = true
+configs.exchangeItems.enabled = false
 configs.give_pots.enabled = true
 configs.upgrade.enable = true
 configs.luck.enabled = true
 configs.sell.enabled = true
-configs.travelToPlayers.enabled = false
+configs.travelToPlayers.enabled = true
 configs.autoStand.enabled = true
 configs.autocraft.enabled = false
 configs.buyPonty.enabled = true
@@ -39,7 +39,7 @@ configs.buyMercs.enabled = true
 
 configs.travelToPlayers.targetPlayerName = "Sychris"
 
-configs.autocraft.item = "cake"
+configs.autocraft.item = "basketofeggs"
 
 configs.upgradeNPCItem.item = "staff"
 configs.upgradeNPCItem.enabled = true
