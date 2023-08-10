@@ -23,6 +23,7 @@ configs.sell.items.set('wand', 0)
 configs.sell.items.set('stinger', 0)
 configs.sell.items.set('hpbelt', 0)
 configs.sell.items.set('cclaw', 0)
+configs.sell.items.set('epyjamas', 0)
 
 
 configs.skills = {}
@@ -70,12 +71,6 @@ configs.hpMp.useMpot0.percent = 50
 configs.hpMp.mpMeditate = {}
 configs.hpMp.mpMeditate.Enabled = true
 configs.hpMp.mpMeditate.percent = 90
-
-
-
-
-
-
 
 
 configs.pots = {}
