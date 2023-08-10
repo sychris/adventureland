@@ -242,8 +242,8 @@ function send_item_by_name(player, item, quantity) {
 //would be great is we could check inventory status
 function travelToPlayers(name = configs.travelToPlayers.targetPlayerName, pos = null, forceTravel = false) {
   //return log("util_merc.travelToPlayers not yet implemented")
-  if (!configs.travelToPlayers.enabled) return "thavelToPlayers disabled"
-  if (configs.travelToPlayers.lastPickupTime == null) {
+  if (!configs.travelToPlayers.enabled) return "travelToPlayers disabled"
+  if (!configs.travelToPlayers.lastPickupTime) {
     //this insures that we have a wait after starting code before we run off
     //that way if your working on code you dont get side tracked
     configs.travelToPlayers.lastPickupTime = Date.now()
@@ -253,13 +253,14 @@ function travelToPlayers(name = configs.travelToPlayers.targetPlayerName, pos = 
     if (Date.now() < configs.travelToPlayers.lastPickupTime + configs.travelToPlayers.delay) return "not ready"
   }
   if (!pos) {
-    send_cm(name, "pos_for_transport")
-    return "sending cm for transport_pos"
+    let response = send_cm(name, "pos_for_transport")
+    return "sending cm for transport_pos: " + response
   }
   if (!character.map == configs.travelToPlayers.idle.map) return "not on idle map"
   
   configs.travelToPlayers.lastPickupTime = Date.now()
   smart_move(pos).then(waitAndUseTown)
+  return "moving"
   
 }
 
