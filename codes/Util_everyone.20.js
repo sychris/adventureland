@@ -154,8 +154,7 @@ function restoreHp() {
 function restoreMp() {
   if (configs.hpMp.useMpot1.enabled = true && getMpPercent() < configs.hpMp.useMpot1.percent && getItemSlot("mpot1") != -1) {
     equip(getItemSlot("mpot1"))
-    writeToLog("using mpot1")
-    writeToLog(getItemSlot("mpot0"))
+    writeToLog("using mpot1 from slot:" + getItemSlot("mpot0"))
   } else if (configs.hpMp.useMpot0.enabled = true && getMpPercent() < configs.hpMp.useMpot0.percent && getItemSlot("mpot0") != -1) {
     equip(getItemSlot("mpot0"))
     writeToLog("using mpot0 from slot: " + getItemSlot("mpot0"))
