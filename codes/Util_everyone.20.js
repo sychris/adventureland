@@ -1,8 +1,8 @@
-log("loading_utils_everyone")
+writeToLog("loading_utils_everyone")
 
 function ck_a_wList(item, arr) {
   var found = false;
-  //log("checking wlist")
+  //writeToLog("checking wlist")
   for (i in arr) {
     if (item.name == arr[i]) {
       return true;
@@ -14,7 +14,7 @@ function ck_a_wList(item, arr) {
 //----------------------------------range----------------------------------
 
 function ck_range(tar, range) {
-  //log("checking range")
+  //writeToLog("checking range")
   if (tar !== null) {
     return Math.sqrt((character.real_x - tar.real_x) * (character.real_x - tar.real_x) +
       (character.real_y - tar.real_y) * (character.real_y - tar.real_y)) < range;
@@ -68,7 +68,7 @@ function getItemSlot(name) {
       return i;
     }
   }
-  log("item not found: " + name)
+  writeToLog("item not found: " + name)
   return -1;
 }
 
@@ -80,7 +80,7 @@ function autoCraft() {
 
 function getItemQuantity(name) {
   let count = 0
-  //log("looking for item")
+  //writeToLog("looking for item")
   for (let i = 0; i < character.items.length; i++) {
     if (character.items[i] && character.items[i].name == name) {
       //basicly if item does not have q property than its quantity is 1 else q property
@@ -98,10 +98,10 @@ function autoSell() {
     if (character.items[item] && configs.sell.items.has(character.items[item].name)) {
       if (configs.sell.items.get(character.items[item].name) == character.items[item].level) {
         if (npcInRange("secondhands")) {
-          game_log("sellable item found in slot " + item)
+          writeToLog("sellable item found in slot " + item)
           parent.sell(item, 1)
         } else {
-          //log("ponty out of range")
+          //writeToLog("ponty out of range")
         }
       }
     }
@@ -118,6 +118,10 @@ function getItemValue(itemName) {
 
 function get_grade(item) {
   return parent.G.items[item.name].grades;
+}
+
+function getCurrentPotions() {
+  
 }
 
 //----------------------------------potions----------------------------------
@@ -150,15 +154,15 @@ function restoreHp() {
 function restoreMp() {
   if (configs.hpMp.useMpot1.enabled = true && getMpPercent() < configs.hpMp.useMpot1.percent && getItemSlot("mpot1") != -1) {
     equip(getItemSlot("mpot1"))
-    log("using mpot1")
-    log(getItemSlot("mpot0"))
+    writeToLog("using mpot1")
+    writeToLog(getItemSlot("mpot0"))
   } else if (configs.hpMp.useMpot0.enabled = true && getMpPercent() < configs.hpMp.useMpot0.percent && getItemSlot("mpot0") != -1) {
     equip(getItemSlot("mpot0"))
-    log("using mpot0 from slot: " + getItemSlot("mpot0"))
+    writeToLog("using mpot0 from slot: " + getItemSlot("mpot0"))
     
   } else if (configs.hpMp.mpMeditate.enabled = true && getMpPercent() < configs.hpMp.mpMeditate.percent) {
     use_skill("regen_mp")
-    log("using regen_mp")
+    writeToLog("using regen_mp")
   }
 }
 
@@ -177,7 +181,7 @@ function partyCall() {
   if (configs.party.leader == character.name) {
     myToons.forEach(function (name) {
       if (!parent.party.hasOwnProperty(name) && get_player(name) != null && character.name != name) {
-        log("Sending Invite to: " + name);
+        writeToLog("Sending Invite to: " + name);
         send_party_invite(name);
       }
     });

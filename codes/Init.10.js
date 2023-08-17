@@ -1,4 +1,5 @@
-log("#10 Init script")
+load_code(15) //load the file logger
+writeToLog("#10 Init script")
 
 //----------------------------------const----------------------------------
 const Hpots = ["hpot0", "hpot1", "hpot2"]
@@ -7,7 +8,7 @@ const myToons = ["Sychris", "mrshoots", "Normon", "loots", "Name001"];
 
 
 //----------------------------------gui----------------------------------
-log("loading gui addons")
+writeToLog("loading gui addons")
 
 //log filter
 load_code(11)
@@ -26,7 +27,7 @@ add_top_button("electron_dev_tools", "DEV", function () {
 
 //----------------------------------configs load_code(3x)----------------------------------
 //config_everyone
-log("loading configs")
+writeToLog("loading configs")
 
 
 load_code(31) //default_config_everyone
@@ -44,7 +45,7 @@ if (character.ctype == "priest") { //not really enough yet to warrant own file
 
 
 //----------------------------------utils load_code(2x)----------------------------------
-log("loading utils")
+writeToLog("loading utils")
 //load_code 20 == util_everyone
 load_code(20)
 //load_code 21 == util_combat
@@ -56,7 +57,7 @@ if (character.ctype == "merchant") load_code(24)
 //load_code 25 == util_mage
 if (character.ctype == "mage") load_code(25)
 
-log("Initialization complete")
+writeToLog("Initialization complete")
 
 
 //----------------------------------other routines----------------------------------

@@ -1,4 +1,4 @@
-log("loading default_config_combat")
+writeToLog("loading default_config_combat")
 
 configs.attack = {};
 configs.attack.fname = "Attack Mode"

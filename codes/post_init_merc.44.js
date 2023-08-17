@@ -1,5 +1,5 @@
 //post init/intervals
-log("loading post_init_merc")
+writeToLog("loading post_init_merc")
 setInterval(sellPrimals, 1000)
 setInterval(exchangeSlotZero, configs.exchangeItems.interval);
 setInterval(upgrade_check, configs.upgrade.interval);
@@ -13,4 +13,4 @@ setInterval(checkMerchents, configs.buyMercs.interval)
 setInterval(travelToPlayers, configs.travelToPlayers.interval)
 setInterval(autoStand, configs.autoStand.interval)
 
-map_key("g", "snippet", "log(travelToPlayers())");
+map_key("g", "snippet", "writeToLog(travelToPlayers())");

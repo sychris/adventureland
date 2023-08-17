@@ -1,7 +1,6 @@
-
 function combat() {
   
-  //game_log("tick")
+  //writeToLog("tick")
   //is combat mode is off character is dead or moving than pass combat for now
   if (!configs.attack.enabled || character.rip || is_moving(character)) return;
   if (character.ctype == "ranger") combatRanger()
@@ -25,7 +24,7 @@ function threeShot() {
     }
     // Use 3-Shot with a Ranger on 3 targets
     if (targets.length > 2) {
-      game_log("fireing 3shot")
+      writeToLog("fireing 3shot")
       use_skill("3shot", targets);
       return true;
     }

@@ -8,7 +8,7 @@ function toggle_mode(mode) {
   } else {
     mode.enabled += 1;
   }
-  log(mode.fname + " has changed to " + mode.enabled)
+  writeToLog(mode.fname + " has changed to " + mode.enabled)
 }
 
 
@@ -28,13 +28,13 @@ setInterval(function () {
   
   // Since we always set "flag" and action to the same value, if they mismatch, it must mean the game was refreshed
   if (get("flag") != action) {
-    game_log("Variable action doesn't match the stored flag therefore the game was refreshed!");
+    writeToLog("Variable action doesn't match the stored flag therefore the game was refreshed!");
     if (get("flag") == "crab") {
-      game_log("Continuing the move to crabs!");
+      writeToLog("Continuing the move to crabs!");
       action = "crab";
       smart_move("crab");
     } else if (get("flag") == "goo") {
-      game_log("Continuing the move to goos!");
+      writeToLog("Continuing the move to goos!");
       action = "goo";
       smart_move("goo");
     }

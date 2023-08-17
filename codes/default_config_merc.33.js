@@ -1,4 +1,4 @@
-log("loading default_config_merc")
+writeToLog("loading default_config_merc")
 
 configs.give_pots = {};
 configs.give_pots.fname = "Give Potions Mode"

@@ -1,4 +1,4 @@
-log("loading default_config_everyone")
+writeToLog("loading default_config_everyone")
 configs = {};
 
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator

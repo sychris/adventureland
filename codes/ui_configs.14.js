@@ -1,5 +1,5 @@
 // atempt at a configuration window
-log("loading ui_configs")
+writeToLog("loading ui_configs")
 
 class ui_configs {
   constructor(args) {

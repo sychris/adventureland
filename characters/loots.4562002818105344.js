@@ -2,7 +2,8 @@
 log("Starting merc script")
 load_code(10)
 //test area
-//send_item("Sychris", getItemSlot("mpot0"), 2)
+load_code(15)
+writeToLog("this is a test 2")
 
 //this shows trade history
 //show_json(parent.socket.emit('trade_history'))
@@ -42,7 +43,7 @@ configs.travelToPlayers.targetPlayerName = "Sychris"
 configs.autocraft.item = "basketofeggs"
 
 configs.upgradeNPCItem.item = "staff"
-configs.upgradeNPCItem.enabled = true
+configs.upgradeNPCItem.enabled = false
 
 configs.buyMercs.maxToSpend = 1000000
 

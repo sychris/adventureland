@@ -1,4 +1,4 @@
-log("loading util_merc")
+writeToLog("loading util_merc")
 //-----------------------------item_filtering---------------------------------
 //todo this should be for everyone?
 //this is used in the upgrade stuff
@@ -19,7 +19,7 @@ function find_item(filter) {
 //todo exclude current sell list
 function upgrade_check() {
   if (configs.upgrade.enable) {
-    //log("firing upgrade_check")
+    //writeToLog("firing upgrade_check")
     if (parent != null && parent.socket != null && npcInRange("newupgrade")) {
       upgrade();
       compound_items();
@@ -34,7 +34,7 @@ function upgrade() {
     //slot not null and item not in sell list
     if (itemSlot && !configs.sell.items.has(itemSlot.name)) {
       var level = configs.upgrade.upgradeWhitelist[itemSlot.name];
-      //log("attempting upgrade on " + itemSlot.name + " level: " + level)
+      //writeToLog("attempting upgrade on " + itemSlot.name + " level: " + level)
       if (level && itemSlot.level < level) {
         let grades = get_grade(itemSlot);
         let scrollname;
@@ -52,8 +52,8 @@ function upgrade() {
         }
         if (character.mp > 200) use_skill("massproductionpp")
         else if (character.mp > 20) use_skill("massproduction")
-        
-        log("upgrading")
+  
+        writeToLog("upgrading")
         parent.socket.emit('upgrade', {
           item_num: i,
           scroll_num: scroll_slot,
@@ -85,7 +85,7 @@ function compound_items() {
         parent.buy(scroll_name);
         return;
       }
-      log("compounding")
+      writeToLog("compounding")
       if (character.mp > 200) use_skill("massproductionpp")
       else if (character.mp > 20) use_skill("massproduction")
       
@@ -106,8 +106,8 @@ function onPotsRequest(data, name) {
   let slot;
   if (myToons.includes(name)) {
     //if we have pots
-    
-    //log("sending " + name + " " + data.q + " " + data.name)
+  
+    //writeToLog("sending " + name + " " + data.q + " " + data.name)
     slot = getItemSlot(data.name)
     //dont sent if item not found
     if (slot != -1) send_item(name, getItemSlot(data.name), data.q)
@@ -117,16 +117,16 @@ function onPotsRequest(data, name) {
 
 //todo rename to indicate either merc only or add logic and merge for everyone
 function on_cm(name, data) {
-  log("cm from " + name + ": " + JSON.stringify(data))
+  writeToLog("cm from " + name + ": " + JSON.stringify(data))
   if (!myToons.includes(name)) {
-    log("cm from unknown player!!!")
+    writeToLog("cm from unknown player!!!")
     return "bad player"
   }
   if (!data.type) return "no type present on cm.data"
   if (data.type == "pots") onPotsRequest(data, name);
   if (data.type == "transport_pos") {
-    log("refiring travelToPlayers")
-    log(travelToPlayers(name, data, true))//map data sent
+    writeToLog("refiring travelToPlayers")
+    writeToLog(travelToPlayers(name, data, true))//map data sent
   }
   
   
@@ -140,11 +140,11 @@ function luck_players() {
       if (current && current.type == "character" && !current.npc && current.ctype != "merchant") {
         if (current.s.mluck && !current.s.mluck.strong && current.s.mluck.f != character.name && ck_range(current, 320)) {
           luck(current);
-          log("relucking " + current.name)
+          writeToLog("relucking " + current.name)
           
         } else if (!current.s.mluck && ck_range(current, 320)) {
           luck(current);
-          log("lucking " + current.name)
+          writeToLog("lucking " + current.name)
         }
       }
     }
@@ -179,9 +179,9 @@ function regen_mp() {
     if (is_on_cooldown("regen_mp")) return
     let mp_percent = character.mp / character.max_mp
     mp_percent = mp_percent * 100
-    //log(mp_percent)
+    //writeToLog(mp_percent)
     if (mp_percent < configs.regen.to_percent) {
-      //log("regening")
+      //writeToLog("regening")
       use_skill("regen_mp")
     }
   }
@@ -192,12 +192,12 @@ function regen_mp() {
 function top_up_pots() {
   if (configs.give_pots.enabled === true) {
     for (let ppl in configs.give_pots.donate_pots_to) {
-      //log("looking for " + configs.give_pots.donate_pots_to[ppl])
+      //writeToLog("looking for " + configs.give_pots.donate_pots_to[ppl])
       let tempCharacter = get_player(configs.give_pots.donate_pots_to[ppl]);
       
       //first tempCharacter check is to make sure its not null
       if (tempCharacter && tempCharacter.name !== character.name && ck_range(tempCharacter, 320)) {
-        log("sent top up query to " + tempCharacter.name)
+        writeToLog("sent top up query to " + tempCharacter.name)
         send_cm(tempCharacter.name, "what_pots_do_you_need?")
       }
     }
@@ -207,7 +207,7 @@ function top_up_pots() {
 //-----------------------------------buy_pots---------------------------------------
 //todo add range check
 function buy_pots() {
-  //log(pots_to_buy)
+  //writeToLog(pots_to_buy)
   if (!configs.buyPots.enabled === true) return "buy pots disabled"
   if (!npcInRange("secondhands")) return "ponty out of range"
   
@@ -217,9 +217,9 @@ function buy_pots() {
     if (current_pots == undefined) buy_count = configs.buyPots.pots_to_buy[pot]
     else if (current_pots.q < configs.buyPots.pots_to_buy[pot]) buy_count = configs.buyPots.pots_to_buy[pot] - current_pots.q
     else if (current_pots.q < 1) buy_count = configs.buyPots.pots_to_buy[pot]
-    //log(current_pots.q)
+    //writeToLog(current_pots.q)
     if (buy_count > 0) {
-      log("buying " + buy_count + " " + pot)
+      writeToLog("buying " + buy_count + " " + pot)
       parent.buy(pot, buy_count)
     }
   }
@@ -241,7 +241,7 @@ function send_item_by_name(player, item, quantity) {
 
 //would be great is we could check inventory status
 function travelToPlayers(name = configs.travelToPlayers.targetPlayerName, pos = null, forceTravel = false) {
-  //return log("util_merc.travelToPlayers not yet implemented")
+  //returnwriteToLog("util_merc.travelToPlayers not yet implemented")
   if (!configs.travelToPlayers.enabled) return "travelToPlayers disabled"
   if (!configs.travelToPlayers.lastPickupTime) {
     //this insures that we have a wait after starting code before we run off
@@ -265,12 +265,12 @@ function travelToPlayers(name = configs.travelToPlayers.targetPlayerName, pos = 
 }
 
 function waitAndUseTown() {
-  log("waiting 30 seconds")
+  writeToLog("waiting 30 seconds")
   setTimeout(useTown, 30000)
 }
 
 function useTown() {
-  log("using town")
+  writeToLog("using town")
   use_skill("use_town")
   setTimeout(moveToMySpot, 10000)
 }
@@ -303,7 +303,7 @@ function autoStand() {
 
 function sellPrimals() {
   if (parent.character.slots.trade3 == null) {
-    log("no more offerings")
+    writeToLog("no more offerings")
     if (getItemSlot("offering") == -1) parent.buy("offering")
     
     let slot = getItemSlot("offering")
@@ -311,7 +311,8 @@ function sellPrimals() {
       //safty check that primal ess price has not changed
       if (getItemValue("offering") == 27420000) {
         trade(getItemSlot("offering"), 3, 32904000, quantity)
-      } else log("price of primal offerings has changed!!!!")
+      }
+      elsewriteToLog("price of primal offerings has changed!!!!")
     }
   }
 }
@@ -327,11 +328,11 @@ function buyPontyItems() {
   parent.socket.once("secondhands", function (data) {
     for (let d of data) {
       if (configs.buyPonty.itemsList.includes(d.name)) {
-        game_log(`BUY ${d.name}!`)
+        writeToLog(`BUY ${d.name}!`)
         // We want this item based on our list
         parent.socket.emit("sbuy", {"rid": d.rid})
       } else {
-        //game_log(`DON'T BUY ${d.name}!`)
+        //writeToLog(`DON'T BUY ${d.name}!`)
       }
     }
   });

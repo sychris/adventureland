@@ -1,12 +1,12 @@
 function inv_dump() {
-  //log("invdumping")
+  //writeToLog("invdumping")
   if (configs.inv_dump.enabled & ck_range_by_name(configs.inv_dump.sendTo, 320)) {
     send_gold(configs.inv_dump.sendTo, 99999999)
     for (var s = 0; s < character.items.length; s++) {
       if (character.items[s] !== null) {
         if (ck_a_wList(character.items[s], configs.inv_dump.wList) != true) {
           //this needs json stringifyed
-          log("sending " + character.items[s] + " to " + configs.inv_dump.sendTo)
+          writeToLog("sending " + character.items[s] + " to " + configs.inv_dump.sendTo)
           send_item(configs.inv_dump.sendTo, s, 9999);
           break;
         }
@@ -18,7 +18,7 @@ function inv_dump() {
 function request_pots(name) {
   var requests = {}
   for (const potion in configs.pots.pots_to_request) {
-    //log("checking " + potion + " for request")
+    //writeToLog("checking " + potion + " for request")
     var pslot = character.items[getItemSlot(potion)]
     var needed = {}
     needed.type = "pots"
@@ -31,14 +31,14 @@ function request_pots(name) {
     } else if (pslot.q < configs.pots.pots_to_request[potion]) {
       needed.name = potion
       needed.q = configs.pots.pots_to_request[potion] - pslot.q
-      log("looks like we need " + JSON.stringify(needed))
+      writeToLog("looks like we need " + JSON.stringify(needed))
     }
     
     if (needed.name) {
-      log("requesting " + needed.pot + needed.keys)
+      writeToLog("requesting " + needed.pot + needed.keys)
       send_cm(name, needed)
     } else {
-      //log("not requesting any pots")
+      //writeToLog("not requesting any pots")
     }
   }
 }
@@ -55,13 +55,13 @@ function getMyPOS() {
 function sendPOS(name) {
   let posCM = getMyPOS()
   posCM.type = "transport_pos"
-  log(JSON.stringify(posCM))
-  send_cm(name, posCM).then((msg) => log(msg))
+  writeToLog(JSON.stringify(posCM))
+  send_cm(name, posCM).then((msg) => writeToLog(msg))
 }
 
 function on_cm(name, data) {
-  log("cm from " + name + ": " + data)
-  if (name != "loots") log("cm from unknown sender!!: " + name + "data: " + JSON.stringify(data))
+  writeToLog("cm from " + name + ": " + data)
+  if (name != "loots") writeToLog("cm from unknown sender!!: " + name + "data: " + JSON.stringify(data))
   if (data == "what_pots_do_you_need?") request_pots(name)
   if (data == "pos_for_transport") sendPOS(name)
 }
@@ -80,8 +80,8 @@ function getNearestMonster(args) {
   
   if (!args) args = {};
   if (args && args.target && args.target.name) args.target = args.target.name;
-  if (args && args.type == "monster") game_log("get_nearest_monster: you used monster.type, which is always 'monster', use monster.mtype instead");
-  if (args && args.mtype) game_log("get_nearest_monster: you used 'mtype', you should use 'type'");
+  if (args && args.type == "monster") writeToLog("get_nearest_monster: you used monster.type, which is always 'monster', use monster.mtype instead");
+  if (args && args.mtype) writeToLog("get_nearest_monster: you used 'mtype', you should use 'type'");
   
   for (id in parent.entities) {
     var current = parent.entities[id];

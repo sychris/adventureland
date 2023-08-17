@@ -1,5 +1,6 @@
 // priest
-log("starting the priest script")
+load_code(15) //load the file logger
+writeToLog("starting the priest script")
 //test area asdf
 
 
@@ -57,12 +58,12 @@ setInterval(movement_mode, configs.mode.move.interval);
 function inv_dump() {
   if (enable_inv_dump) {
     send_gold(send_to, 99999999)
-    log("invdumpung")
-    //log(character.items)
+    writeTowriteToLog("invdumpung")
+    //writeToLog(character.items)
     for (s in character.items) {
-      //log("checking " + character.items[s])
+      //writeToLog("checking " + character.items[s])
       if (character.items[s] !== null) {
-        //log(character.items[s])
+        //writeToLog(character.items[s])
         send_item(send_to, s, 9999);
         break;
       }
@@ -96,11 +97,11 @@ function movement_mode() {
           move(character.x + (target.x - character.x) / 2, character.y + (target.y - character.y) / 2);
         }
       } else {
-        log("movement mode is not able to locate target")
+        writeToLog("movement mode is not able to locate target")
       }
       break;
     default:
-      log("bad configs.mode.move.enabled option")
+      writeToLog("bad configs.mode.move.enabled option")
   }
   
 }
@@ -110,19 +111,19 @@ function heal_mode() {
     pot_and_loot();
     
     var na;
-    //log(configs.party.members);
+    //writeToLog(configs.party.members);
     for (na in configs.party.members) {
-      //log(configs.party.members[na])
+      //writeToLog(configs.party.members[na])
       if (configs.party.members[na] !== null) {
         
         p = get_player(configs.party.members[na]);
         if (p) {
           if (p.rip) {
-            log(p.name + " is dead O.O")
+            writeToLog(p.name + " is dead O.O")
           } else {
-            //log(p.hp / p.max_hp)
+            //writeToLog(p.hp / p.max_hp)
             if (p.hp / p.max_hp < .75) {
-              //log("healing " + p.name);
+              //writeToLog("healing " + p.name);
               heal(p);
             }
           }
@@ -175,5 +176,5 @@ function switch_move_mode() {
   } else {
     configs.mode.move.enabled = 0
   }
-  log("movement mode set to " + configs.mode.move.enabled)
+  writeToLog("movement mode set to " + configs.mode.move.enabled)
 }

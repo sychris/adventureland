@@ -123,5 +123,5 @@ class meters {
   }
 }
 
-log("loading meters")
+writeToLog("loading meters")
 var met = new meters({});
