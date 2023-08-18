@@ -9,7 +9,7 @@ setInterval(regen_mp, regen_mp_Interval);
 setInterval(buy_pots, configs.give_pots.interval);
 setInterval(buyPontyItems, 30000)
 setInterval(upgradeNPCItem, 1000)
-setInterval(checkMerchents, configs.buyMercs.interval)
+setInterval(checkMerchants, configs.buyMercs.interval)
 setInterval(travelToPlayers, configs.travelToPlayers.interval)
 setInterval(autoStand, configs.autoStand.interval)
 

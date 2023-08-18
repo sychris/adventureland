@@ -33,7 +33,7 @@ function upgrade() {
     let itemSlot = character.items[i];
     //slot not null and item not in sell list
     if (itemSlot && !configs.sell.items.has(itemSlot.name)) {
-      var level = configs.upgrade.upgradeWhitelist[itemSlot.name];
+      let level = configs.upgrade.upgradeWhitelist[itemSlot.name];
       //writeToLog("attempting upgrade on " + itemSlot.name + " level: " + level)
       if (level && itemSlot.level < level) {
         let grades = get_grade(itemSlot);
@@ -76,7 +76,7 @@ function compound_items() {
     return collection;
   }, new Map());
   
-  for (var c of to_compound.values()) {
+  for (let c of to_compound.values()) {
     let scroll_name = "cscroll" + c[1];
     
     for (let i = 2; i + 2 < c.length; i += 3) {
@@ -121,8 +121,8 @@ function on_cm(name, data) {
     return "bad player"
   }
   if (!data.type) return "no type present on cm.data"
-  if (data.type == "pots") onPotsRequest(data, name);
-  if (data.type == "transport_pos") {
+  if (data.type === "pots") onPotsRequest(data, name);
+  if (data.type === "transport_pos") {
     writeToLog("refiring travelToPlayers")
     writeToLog(travelToPlayers(name, data, true))//map data sent
   }
@@ -340,14 +340,14 @@ function buyPontyItems() {
 }
 
 
-//-----------------------------------checkMerchents---------------------------------------
+//-----------------------------------checkMerchants---------------------------------------
 
-function checkMerchents() {
+function checkMerchants() {
   
   if (configs.buyMercs.currentSpent > configs.buyMercs.maxToSpend) return
   if (!configs.buyMercs.enabled) return
-  for (id in parent.entities) {
-    var current = parent.entities[id];
+  for (let id in parent.entities) {
+    let current = parent.entities[id];
     //makes sure its a player
     if (current && current.type == "character" && !current.npc && current.ctype == "merchant") {
       //log(current.name)

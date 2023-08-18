@@ -2,9 +2,9 @@ function inv_dump() {
   //writeToLog("invdumping")
   if (configs.inv_dump.enabled & ck_range_by_name(configs.inv_dump.sendTo, 320)) {
     send_gold(configs.inv_dump.sendTo, 99999999)
-    for (var s = 0; s < character.items.length; s++) {
+    for (let s = 0; s < character.items.length; s++) {
       if (character.items[s] !== null) {
-        if (ck_a_wList(character.items[s], configs.inv_dump.wList) != true) {
+        if (ck_a_wList(character.items[s], configs.inv_dump.wList) !== true) {
           //this needs json stringifyed
           writeToLog("sending " + character.items[s] + " to " + configs.inv_dump.sendTo)
           send_item(configs.inv_dump.sendTo, s, 9999);
@@ -22,7 +22,7 @@ function request_pots(name) {
     let needed = {}
     needed.type = "pots"
   
-    if (getItemSlot(potion) == -1) {
+    if (getItemSlot(potion) === -1) {
       needed.name = potion
       needed.q = configs.pots.pots_to_request[potion]
     
@@ -60,9 +60,9 @@ function sendPOS(name) {
 
 function on_cm(name, data) {
   writeToLog("cm from " + name + ": " + data)
-  if (name != "loots") writeToLog("cm from unknown sender!!: " + name + "data: " + JSON.stringify(data))
-  if (data == "what_pots_do_you_need?") request_pots(name)
-  if (data == "pos_for_transport") sendPOS(name)
+  if (name !== "loots") writeToLog("cm from unknown sender!!: " + name + "data: " + JSON.stringify(data))
+  if (data === "what_pots_do_you_need?") request_pots(name)
+  if (data === "pos_for_transport") sendPOS(name)
 }
 
 //-----------------------------------targeting---------------------------------------
@@ -75,7 +75,7 @@ function getNearestMonster(args) {
   // no_target: Only pick monsters that don't have any target
   // path_check: Checks if the character can move to the target
   // type: Type of the monsters, for example "goo", can be referenced from `show_json(G.monsters)` [08/02/17]
-  var min_d = 999, target = null;
+  let min_d = 999, target = null;
   
   if (!args) args = {};
   if (args && args.target && args.target.name) args.target = args.target.name;
@@ -83,7 +83,7 @@ function getNearestMonster(args) {
   if (args && args.mtype) writeToLog("get_nearest_monster: you used 'mtype', you should use 'type'");
   
   for (id in parent.entities) {
-    var current = parent.entities[id];
+    let current = parent.entities[id];
     if (current.type != "monster" || !current.visible || current.dead) continue;
     if (args.type) {
       if (Array.isArray(args.type)) {
@@ -97,7 +97,7 @@ function getNearestMonster(args) {
     if (args.target && current.target != args.target) continue;
     if (args.no_target && current.target && current.target != character.name) continue;
     if (args.path_check && !can_move_to(current)) continue;
-    var c_dist = parent.distance(character, current);
+    let c_dist = parent.distance(character, current);
     if (c_dist < min_d) min_d = c_dist, target = current;
   }
   return target;
