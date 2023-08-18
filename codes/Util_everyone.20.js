@@ -85,8 +85,8 @@ function getItemQuantity(name) {
     if (character.items[i] && character.items[i].name == name) {
       //basicly if item does not have q property than its quantity is 1 else q property
       //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
-      let tq = (character.items[i].q === undefined) ? 1 : character.items[i].q
-      count = count + tq
+      let countInSlot = (character.items[i].q === undefined) ? 1 : character.items[i].q
+      count = count + countInSlot
     }
   }
   return count;
@@ -120,7 +120,7 @@ function get_grade(item) {
   return parent.G.items[item.name].grades;
 }
 
-function getCurrentPotions() {
+function countItem(name) {
   
 }
 
