@@ -16,29 +16,28 @@ function inv_dump() {
 }
 
 function request_pots(name) {
-  var requests = {}
+  let requests = {}
   for (const potion in configs.pots.pots_to_request) {
-    //writeToLog("checking " + potion + " for request")
-    var pslot = character.items[getItemSlot(potion)]
-    var needed = {}
+  
+    let needed = {}
     needed.type = "pots"
-    var count = 0
-    
-    if (!pslot) {
+  
+    if (getItemSlot(potion) == -1) {
       needed.name = potion
       needed.q = configs.pots.pots_to_request[potion]
-      
-    } else if (pslot.q < configs.pots.pots_to_request[potion]) {
-      needed.name = potion
-      needed.q = configs.pots.pots_to_request[potion] - pslot.q
-      writeToLog("looks like we need " + JSON.stringify(needed))
+    
+    } else {
+      let currentCount = getItemQuantity(potion)
+      if (currentCount < configs.pots.pots_to_request[potion]) {
+        needed.name = potion
+        needed.q = configs.pots.pots_to_request[potion] - currentCount
+        writeToLog("looks like we need " + JSON.stringify(needed))
+      }
     }
     
     if (needed.name) {
       writeToLog("requesting " + needed.pot + needed.keys)
       send_cm(name, needed)
-    } else {
-      //writeToLog("not requesting any pots")
     }
   }
 }
