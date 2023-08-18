@@ -105,8 +105,6 @@ function onPotsRequest(data, name) {
   
   let slot;
   if (myToons.includes(name)) {
-    //if we have pots
-  
     //writeToLog("sending " + name + " " + data.q + " " + data.name)
     slot = getItemSlot(data.name)
     //dont sent if item not found
