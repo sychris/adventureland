@@ -1,30 +1,30 @@
 function combat() {
-  
-  //writeToLog("tick")
-  //is combat mode is off character is dead or moving than pass combat for now
-  if (!configs.attack.enabled || character.rip || is_moving(character)) return;
-  if (character.ctype == "ranger") combatRanger()
+  if (!configs.attack.enabled) return
+  if (character.rip) return
+  if (is_moving(character)) return;
+  if (character.ctype === "ranger") combatRanger()
 }
 
 
 function combatRanger() {
   if (configs.skills.threeShot && threeShot()) return
-  if (standardAttack()) return //the return is here just so that any future stuff wont break
+  if (standardAttack()) {
+  } //the return is here just so that any future stuff wont break
 }
 
 function threeShot() {
   
-  var targets = [];
+  let targets = [];
   if (is_on_cooldown("3shot")) return false;
   if (character.mp >= 300 && parent.character.level >= 60) {
     for (let id in parent.entities) {
-      if (parent.entities[id].mtype == configs.attack.onlyAttack && parent.entities[id].type == "monster" && is_in_range(parent.entities[id], "3shot") && targets.length < 3) {
+      if (parent.entities[id].mtype === configs.attack.onlyAttack && parent.entities[id].type === "monster" && is_in_range(parent.entities[id], "3shot") && targets.length < 3) {
         targets.push(parent.entities[id]);
       }
     }
     // Use 3-Shot with a Ranger on 3 targets
     if (targets.length > 2) {
-      writeToLog("fireing 3shot")
+      writeToLog("firing 3shot")
       use_skill("3shot", targets);
       return true;
     }
@@ -82,12 +82,12 @@ function getTarget() {
   // TODO: add more priority checks
   entities.sort((a, b) => {
     // Example: Prioritize those targeting you
-    if (a.target == character.id && b.target !== character.id) return -1
-    if (b.target == character.id && a.target !== character.id) return 1
-    
+    if (a.target === character.id && b.target !== character.id) return -1
+    if (b.target === character.id && a.target !== character.id) return 1
+  
     // Example: Prioritize lower hp entities
     if (a.hp !== b.hp) return a.hp - b.hp
-    
+  
     // No difference in priority
     return 0
   })
