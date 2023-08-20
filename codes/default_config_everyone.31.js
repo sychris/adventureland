@@ -82,3 +82,5 @@ configs.pots.pots_to_request = {
   mpot0: 1000,
   hpot0: 1000
 }
+
+configs.testing = false
