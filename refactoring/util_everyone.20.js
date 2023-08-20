@@ -1,23 +1,17 @@
 //writeToLog("loading_utils_everyone")
 
 function ck_a_wList(item, arr) {
-  let found = false;
-  //writeToLog("checking wlist")
-  for (i in arr) {
-    if (item.name == arr[i]) {
-      return true;
-    }
-  }
-  return found;
+  if (arr.includes(item)) return true;
+  return false;
 }
 
 //----------------------------------range----------------------------------
 
-function ck_range(tar, range) {
+function ck_range(target, range) {
   //writeToLog("checking range")
-  if (tar !== null) {
-    return Math.sqrt((character.real_x - tar.real_x) * (character.real_x - tar.real_x) +
-      (character.real_y - tar.real_y) * (character.real_y - tar.real_y)) < range;
+  if (target !== null) {
+    return Math.sqrt((character.real_x - target.real_x) * (character.real_x - target.real_x) +
+      (character.real_y - target.real_y) * (character.real_y - target.real_y)) < range;
   }
 }
 
@@ -209,4 +203,5 @@ wait = (seconds) =>
     setTimeout(() => resolve(true), seconds * 1000)
   );
 
-module.exports = ck_a_wList;
+module.exports.ck_a_wList = ck_a_wList;
+module.exports.ck_range = ck_range
