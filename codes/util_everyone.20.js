@@ -1,7 +1,7 @@
-writeToLog("loading_utils_everyone")
+//writeToLog("loading_utils_everyone")
 
 function ck_a_wList(item, arr) {
-  var found = false;
+  let found = false;
   //writeToLog("checking wlist")
   for (i in arr) {
     if (item.name == arr[i]) {
@@ -208,3 +208,5 @@ wait = (seconds) =>
   new Promise(resolve =>
     setTimeout(() => resolve(true), seconds * 1000)
   );
+
+module.exports = ck_a_wList;
