@@ -121,7 +121,7 @@ function get_grade(item) {
 }
 
 function countItem(name) {
-  
+
 }
 
 //----------------------------------potions----------------------------------
@@ -208,3 +208,5 @@ wait = (seconds) =>
   new Promise(resolve =>
     setTimeout(() => resolve(true), seconds * 1000)
   );
+
+module.exports = ck_a_wList;
