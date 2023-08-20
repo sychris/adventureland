@@ -1,24 +1,12 @@
 //writeToLog("loading_utils_everyone")
 
-function ck_a_wList(item, arr) {
-  let found = false;
-  //writeToLog("checking wlist")
-  for (i in arr) {
-    if (item.name == arr[i]) {
-      return true;
-    }
-  }
-  return found;
-}
-
 //----------------------------------range----------------------------------
 
-function ck_range(tar, range) {
-  //writeToLog("checking range")
-  if (tar !== null) {
-    return Math.sqrt((character.real_x - tar.real_x) * (character.real_x - tar.real_x) +
-      (character.real_y - tar.real_y) * (character.real_y - tar.real_y)) < range;
-  }
+function ck_range(target, range) {
+  if (target !== null) {
+    return Math.sqrt((character.real_x - target.real_x) * (character.real_x - target.real_x) +
+      (character.real_y - target.real_y) * (character.real_y - target.real_y)) < range;
+  } else return false
 }
 
 
@@ -208,3 +196,8 @@ wait = (seconds) =>
   new Promise(resolve =>
     setTimeout(() => resolve(true), seconds * 1000)
   );
+
+//this is to prevent the game from attempting this as it seams borked but allow unit testing
+if (configs.testing) {
+  module.exports.ck_range = ck_range
+}
