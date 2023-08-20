@@ -5,7 +5,7 @@ function inv_dump() {
     for (let s = 0; s < character.items.length; s++) {
       const currentItem = character.items[s];
       
-      if (currentItem !== null && !ck_a_wList(currentItem, configs.inv_dump.wList)) {
+      if (currentItem !== null && !configs.inv_dump.wList.includes(currentItem)) {
         writeToLog(`Sending ${JSON.stringify(currentItem)} to ${configs.inv_dump.sendTo}`);
         send_item(configs.inv_dump.sendTo, s, 9999);
         break;
