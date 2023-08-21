@@ -33,10 +33,15 @@ configs.autoLoot.enabled = true // this is not checked yet
 configs.autoLoot.interval = 200
 
 configs.party = {};
-configs.party.leader = "Sychris"
+configs.party.leader = "loots"
 
 
 configs.skills = {}
+
+configs.autocraft = {}
+configs.autocraft.enabled = false
+configs.autocraft.item = ""
+configs.autocraft.interval = 100
 
 configs.hpMp = {}
 configs.hpMp.enabled = true
@@ -44,17 +49,11 @@ configs.hpMp.interval = 250
 
 configs.hpMp.useHpot1 = {}
 configs.hpMp.useHpot1.enabled = true
-configs.hpMp.useHpot1.percent = 20
-
-
-configs.autocraft = {}
-configs.autocraft.enabled = false
-configs.autocraft.item = ""
-configs.autocraft.interval = 100
+configs.hpMp.useHpot1.percent = 50
 
 configs.hpMp.useHpot0 = {}
 configs.hpMp.useHpot0.enabled = true
-configs.hpMp.useHpot0.percent = 50
+configs.hpMp.useHpot0.percent = 75
 
 configs.hpMp.hpMeditate = {}
 configs.hpMp.hpMeditate.Enabled = true
@@ -62,11 +61,11 @@ configs.hpMp.hpMeditate.percent = 90
 
 configs.hpMp.useMpot1 = {}
 configs.hpMp.useMpot1.enabled = true
-configs.hpMp.useMpot1.percent = 20
+configs.hpMp.useMpot1.percent = 50
 
 configs.hpMp.useMpot0 = {}
 configs.hpMp.useMpot0.enabled = true
-configs.hpMp.useMpot0.percent = 50
+configs.hpMp.useMpot0.percent = 75
 
 configs.hpMp.mpMeditate = {}
 configs.hpMp.mpMeditate.Enabled = true
