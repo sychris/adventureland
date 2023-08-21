@@ -4,7 +4,7 @@ writeToLog("#10 Init script")
 //----------------------------------const----------------------------------
 const Hpots = ["hpot0", "hpot1", "hpot2"]
 const Mpots = ["mpot0", "mpot1", "mpot2"]
-const myToons = ["Sychris", "mrshoots", "Normon", "loots", "Name001"];
+const myToons = ["Sychris", "mrshoots", "Normon", "loots", "Name001", "MrChops"];
 
 
 //----------------------------------gui----------------------------------
