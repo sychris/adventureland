@@ -8,6 +8,9 @@ writeToLog("this is a test 2")
 //this shows trade history
 //show_json(parent.socket.emit('trade_history'))
 
+//smart_move("cyberland") //moves to cyberland
+//parent.socket.emit("eval",{command: "give spares"}); // gives electronics
+
 //this shows crafting chance and grace value
 //parent.upgrade(26, locate_item("scroll0"), null, true, true).then(e=>show_json(e));
 
@@ -38,7 +41,7 @@ configs.autocraft.enabled = false
 configs.buyPonty.enabled = true
 configs.buyMercs.enabled = true
 
-configs.travelToPlayers.targetPlayerName = "Sychris"
+configs.travelToPlayers.targetPlayerName = "Name001"
 
 configs.autocraft.item = "basketofeggs"
 
