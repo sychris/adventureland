@@ -40,6 +40,7 @@ configs.autoStand.enabled = true
 configs.autocraft.enabled = false
 configs.buyPonty.enabled = true
 configs.buyMercs.enabled = true
+configs.hpMp.enabled = true
 
 configs.travelToPlayers.targetPlayerName = "Name001"
 
@@ -69,7 +70,7 @@ configs.buyPonty.itemsList = [
   "dexearring"
 ]
 
-var regen_mp_Interval = 1000
+let regen_mp_Interval = 1000
 
 //this is where all the intervals etc are
 load_code(40)
