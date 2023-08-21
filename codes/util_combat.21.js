@@ -13,7 +13,7 @@ function combat() {
 }
 
 function combat_warior() {
-
+  standardAttack()
 }
 
 function combatRanger() {
