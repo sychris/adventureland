@@ -46,16 +46,15 @@ if (character.ctype == "priest") { //not really enough yet to warrant own file
 
 //----------------------------------utils load_code(2x)----------------------------------
 writeToLog("loading utils")
-//load_code 20 == util_everyone
-load_code(20)
+
+load_code(20) //util everyone
+load_code(22) //util_skills
 //load_code 21 == util_combat
 if (configs.is_combat) load_code(21)
-//load_code 23 == util_ranger
-if (character.ctype == "ranger") load_code(23)
+
 //load_code 24 == util_merchant
 if (character.ctype == "merchant") load_code(24)
-//load_code 25 == util_mage
-if (character.ctype == "mage") load_code(25)
+
 
 writeToLog("Initialization complete")
 
