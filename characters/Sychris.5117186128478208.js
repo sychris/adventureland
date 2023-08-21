@@ -38,7 +38,8 @@ configs.pots.pots_to_request = {
   //ItemName, Count
   mpot0: 8000,
   hpot0: 1000,
-  mpot1: 5000
+  mpot1: 5000,
+  hpot1: 5000,
 }
 
 //this is where all the intervals etc are
