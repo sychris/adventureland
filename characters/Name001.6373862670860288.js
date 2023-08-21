@@ -17,7 +17,7 @@ configs.hpMp.hpMeditate.percent = 90
 
 configs.attack.enabled = 1
 configs.attack.allowMoveForAttack = false
-configs.attack.onlyAttack = "crab"
+configs.attack.onlyAttack = null//"crab"
 configs.attack.preferedTarget = "squigtoad"
 
 configs.sell.enabled = true
