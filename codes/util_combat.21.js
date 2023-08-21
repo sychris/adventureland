@@ -5,13 +5,15 @@ function inv_dump() {
     for (let s = 0; s < character.items.length; s++) {
       const currentItem = character.items[s];
       
-      if (currentItem !== null && !configs.inv_dump.wList.includes(currentItem)) {
-        writeToLog(`Sending ${JSON.stringify(currentItem)} to ${configs.inv_dump.sendTo}`);
-        send_item(configs.inv_dump.sendTo, s, 9999);
-        break;
-      }
+      if (currentItem == null) continue
+      if (configs.inv_dump.wList.includes(currentItem.name)) continue
+      
+      writeToLog(`Sending ${JSON.stringify(currentItem)} to ${configs.inv_dump.sendTo}`);
+      send_item(configs.inv_dump.sendTo, s, 9999);
+      break;
     }
   }
+  
 }
 
 function request_pots(name) {
