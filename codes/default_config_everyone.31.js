@@ -1,12 +1,8 @@
 writeToLog("loading default_config_everyone")
 configs = {};
 
-//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
 configs.is_combat = (character.ctype == "merchant") ? false : true
 
-configs.ctype = character.ctype;
-
-configs.mode = {};
 configs.move = {};
 configs.move.fname = "Movement Mode"
 configs.move.max = 2
@@ -16,7 +12,6 @@ configs.sell.enabled = false
 configs.sell.items = new Map()
 configs.sell.interval = 1000
 
-
 configs.sell.items.set('test_orb', 0)
 configs.sell.items.set('hpamulet', 0)
 configs.sell.items.set('wand', 0)
@@ -24,7 +19,6 @@ configs.sell.items.set('stinger', 0)
 configs.sell.items.set('hpbelt', 0)
 configs.sell.items.set('cclaw', 0)
 configs.sell.items.set('epyjamas', 0)
-
 
 configs.skills = {}
 
@@ -34,9 +28,6 @@ configs.autoLoot.interval = 200
 
 configs.party = {};
 configs.party.leader = "loots"
-
-
-configs.skills = {}
 
 configs.autocraft = {}
 configs.autocraft.enabled = false
@@ -82,4 +73,12 @@ configs.pots.pots_to_request = {
   hpot0: 1000
 }
 
-configs.testing = false
+configs.testing = false //this is for jest to run
+
+if (character.ctype === "mage"){
+  configs.skills.energize = {};
+  configs.skills.energize.enabled = false;
+  configs.skills.energize.target = "mrshoots"
+  configs.skills.energize.interval = 1000;
+}
+
