@@ -7,60 +7,33 @@ configs.move = {};
 configs.move.fname = "Movement Mode"
 configs.move.max = 2
 
-configs.sell = {}
-configs.sell.enabled = false
+configs.sell = {enabled: false, interval: 1000}
 configs.sell.items = new Map()
-configs.sell.interval = 1000
-
-configs.sell.items.set('test_orb', 0)
-configs.sell.items.set('hpamulet', 0)
-configs.sell.items.set('wand', 0)
-configs.sell.items.set('stinger', 0)
-configs.sell.items.set('hpbelt', 0)
-configs.sell.items.set('cclaw', 0)
-configs.sell.items.set('epyjamas', 0)
 
 configs.skills = {}
 
-configs.autoLoot = {};
-configs.autoLoot.enabled = true // this is not checked yet
-configs.autoLoot.interval = 200
+configs.autoLoot = {enabled: true, interval: 200};
 
 configs.party = {};
 configs.party.leader = "loots"
 
-configs.autocraft = {}
-configs.autocraft.enabled = false
+configs.buyPonty = {enabled: false}
+configs.upgrade = {enabled: false, interval: 300};
+configs.upgrade.fname = "Upgrade Mode"
+
+configs.autocraft = {enabled: false}
 configs.autocraft.item = ""
 configs.autocraft.interval = 100
 
-configs.hpMp = {}
-configs.hpMp.enabled = true
-configs.hpMp.interval = 250
+configs.hpMp = {enabled: true, interval: 250}
 
-configs.hpMp.useHpot1 = {}
-configs.hpMp.useHpot1.enabled = true
-configs.hpMp.useHpot1.percent = 50
+configs.hpMp.useHpot1 = {enabled: true, percent: 50}
+configs.hpMp.useHpot0 = {enabled: true, percent: 75}
+configs.hpMp.hpMeditate = {enabled: true, percent: 90}
 
-configs.hpMp.useHpot0 = {}
-configs.hpMp.useHpot0.enabled = true
-configs.hpMp.useHpot0.percent = 75
-
-configs.hpMp.hpMeditate = {}
-configs.hpMp.hpMeditate.Enabled = true
-configs.hpMp.hpMeditate.percent = 90
-
-configs.hpMp.useMpot1 = {}
-configs.hpMp.useMpot1.enabled = true
-configs.hpMp.useMpot1.percent = 50
-
-configs.hpMp.useMpot0 = {}
-configs.hpMp.useMpot0.enabled = true
-configs.hpMp.useMpot0.percent = 75
-
-configs.hpMp.mpMeditate = {}
-configs.hpMp.mpMeditate.Enabled = true
-configs.hpMp.mpMeditate.percent = 90
+configs.hpMp.useMpot1 = {enabled: true, percent: 50}
+configs.hpMp.useMpot0 = {enabled: true, percent: 75}
+configs.hpMp.mpMeditate = {enabled: true, percent: 90}
 
 
 configs.pots = {}
@@ -70,10 +43,8 @@ configs.pots.allow_buying_use_pot_types = false //not yet implemented
 configs.testing = false //this is for jest to run
 
 if (character.ctype === "mage") {
-  configs.skills.energize = {};
-  configs.skills.energize.enabled = false;
+  configs.skills.energize = {enabled: false, interval: 1000};
   configs.skills.energize.target = "mrshoots"
-  configs.skills.energize.interval = 1000;
   
 }
 

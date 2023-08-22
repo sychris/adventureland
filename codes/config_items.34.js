@@ -13,6 +13,7 @@ configs.sell.items.set('wand', 0)
 configs.sell.items.set('stinger', 0)
 configs.sell.items.set('hpbelt', 0)
 configs.sell.items.set('cclaw', 0)
+configs.sell.items.set('epyjamas', 0)
 
 configs.buyPonty.itemsList = [
   "dexamulet",

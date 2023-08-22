@@ -33,10 +33,6 @@ configs.exchangeItems.interval = 2000
 configs.upgradeNPCItem = {}
 configs.upgradeNPCItem.item = "staff"
 
-configs.buyPonty = {};
-configs.buyPonty.enabled = false
-configs.buyPonty.itemsList = []
-
 configs.buyMercs = {};
 configs.buyMercs.enabled = true
 configs.buyMercs.maxToSpend = 1000000
@@ -57,7 +53,3 @@ configs.buyPots = {};
 configs.buyPots.enabled = true
 configs.buyPots.pots_to_buy = {}
 
-configs.upgrade = {};
-configs.upgrade.fname = "Upgrade Mode"
-configs.upgrade.enabled = 0
-configs.upgrade.interval = 300

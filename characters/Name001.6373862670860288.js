@@ -5,14 +5,14 @@ configs.hpMp.useMpot1.enabled = true
 configs.hpMp.useMpot1.percent = 20
 configs.hpMp.useMpot0.enabled = true
 configs.hpMp.useMpot0.percent = 50
-configs.hpMp.mpMeditate.Enabled = true
+configs.hpMp.mpMeditate.enabled = true
 configs.hpMp.mpMeditate.percent = 90
 
 configs.hpMp.useHpot1.enabled = true
 configs.hpMp.useHpot1.percent = 20
 configs.hpMp.useHpot0.enabled = true
 configs.hpMp.useHpot0.percent = 50
-configs.hpMp.hpMeditate.Enabled = true
+configs.hpMp.hpMeditate.enabled = true
 configs.hpMp.hpMeditate.percent = 90
 
 configs.attack.enabled = 1
