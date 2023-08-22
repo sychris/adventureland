@@ -12,11 +12,7 @@ function ck_range(target, range) {
 
 function ck_range_by_name(name, range) {
   let c = get_player(name)
-  if (ck_range(c, range)) {
-    return true
-  } else {
-    return false
-  }
+  return ck_range(c, range);
 }
 
 
@@ -200,4 +196,5 @@ wait = (seconds) =>
 //this is to prevent the game from attempting this as it seams borked but allow unit testing
 if (configs.testing) {
   module.exports.ck_range = ck_range
+  module.exports.ck_range_by_name = ck_range_by_name
 }
