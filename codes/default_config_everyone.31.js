@@ -67,12 +67,6 @@ configs.pots = {}
 configs.pots.current_potions = new Map();
 configs.pots.allow_buying_use_pot_types = false //not yet implemented
 
-configs.pots.pots_to_request = {
-  //ItemName, Count
-  mpot0: 1000,
-  hpot0: 1000
-}
-
 configs.testing = false //this is for jest to run
 
 if (character.ctype === "mage") {

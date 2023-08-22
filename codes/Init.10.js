@@ -31,12 +31,10 @@ writeToLog("loading configs")
 
 
 load_code(31) //default_config_everyone
+load_code(34) //config_items
 
 //load_code 32 == "default_configs_combat" 33 == default_config_merc
 configs.is_combat ? load_code(32) : load_code(33)
-
-
-
 
 
 //----------------------------------utils load_code(2x)----------------------------------

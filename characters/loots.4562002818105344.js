@@ -26,7 +26,8 @@ configs.buyPots.pots_to_buy = {
   //ItemName, Count
   mpot0: 8000,
   mpot1: 8000,
-  hpot0: 5000
+  hpot0: 8000,
+  hpot1: 8000,
 }
 
 //currently exchanges item in slot 0 with nearby npc
@@ -52,23 +53,6 @@ configs.upgradeNPCItem.enabled = false
 configs.buyMercs.maxToSpend = 1000000
 
 configs.regen.to_percent = 80
-
-configs.sell.items.set('test_orb', 0)
-configs.sell.items.set('hpamulet', 0)
-configs.sell.items.set('wand', 0)
-configs.sell.items.set('stinger', 0)
-configs.sell.items.set('hpbelt', 0)
-configs.sell.items.set('cclaw', 0)
-
-configs.buyPonty.itemsList = [
-  "dexamulet",
-  "stramulet",
-  "intamulet",
-  "intring",
-  "intearring",
-  "dexring",
-  "dexearring"
-]
 
 let regen_mp_Interval = 1000
 
