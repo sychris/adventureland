@@ -1,7 +1,7 @@
 writeToLog("loading default_config_everyone")
 configs = {};
 
-configs.is_combat = (character.ctype == "merchant") ? false : true
+configs.is_combat = (character.ctype !== "merchant")
 
 configs.move = {};
 configs.move.fname = "Movement Mode"
@@ -75,10 +75,11 @@ configs.pots.pots_to_request = {
 
 configs.testing = false //this is for jest to run
 
-if (character.ctype === "mage"){
+if (character.ctype === "mage") {
   configs.skills.energize = {};
   configs.skills.energize.enabled = false;
   configs.skills.energize.target = "mrshoots"
   configs.skills.energize.interval = 1000;
+  
 }
 
