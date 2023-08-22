@@ -35,13 +35,8 @@ load_code(31) //default_config_everyone
 //load_code 32 == "default_configs_combat" 33 == default_config_merc
 configs.is_combat ? load_code(32) : load_code(33)
 
-if (character.ctype == "ranger") load_code(34)
-if (character.ctype == "mage") load_code(35)
-if (character.ctype == "priest") { //not really enough yet to warrant own file
-  configs.heal = {};
-  configs.heal.fname = "Heal Mode"
-  
-}
+
+
 
 
 //----------------------------------utils load_code(2x)----------------------------------

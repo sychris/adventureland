@@ -83,3 +83,13 @@ if (character.ctype === "mage") {
   
 }
 
+if (character.ctype === "ranger") {
+  configs.skills.threeShot = false
+}
+
+if (character.ctype === "priest") { //not really enough yet to warrant own file
+  configs.heal = {};
+  configs.heal.fname = "Heal Mode"
+  
+}
+
