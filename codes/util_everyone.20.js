@@ -11,10 +11,8 @@ function ck_range(target, range) {
 
 
 function ck_range_by_name(name, range) {
-  let c = get_player(name)
-  return ck_range(c, range);
+  return ck_range(get_player(name), range);
 }
-
 
 function npcInRange(npcName) {
   
@@ -31,10 +29,6 @@ function npcInRange(npcName) {
   return false
 }
 
-//----------------------------------loot----------------------------------
-function autoLoot() {
-  loot();
-}
 
 //----------------------------------HP Mp----------------------------------
 function getHpPercent() {
