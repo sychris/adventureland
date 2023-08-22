@@ -17,7 +17,7 @@ configs.hpMp.hpMeditate.Enabled = true
 configs.hpMp.hpMeditate.percent = 90
 
 configs.attack.enabled = 1
-configs.attack.onlyAttack = null//["crab", "hen", "rooster"] //null to disable can be string or list
+configs.attack.onlyAttack = ["crab", "hen", "rooster"] //null to disable can be string or list
 
 configs.hpMp.enabled = true
 
