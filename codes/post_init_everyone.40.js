@@ -8,5 +8,4 @@ setInterval(setmsg, 1000);
 setInterval(autoCraft, configs.autocraft.interval);
 
 //if merchant load post_init_merc else combat
-(character.ctype == "merchant") ? load_code(44) : load_code(41)
-
+(character.ctype === "merchant") ? load_code(44) : load_code(41)
