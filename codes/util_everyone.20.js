@@ -29,6 +29,10 @@ function npcInRange(npcName) {
   return false
 }
 
+//-----------------------------------autoLoot---------------------------------------
+function autoLoot() {
+  if (configs.autoLoot.enabled === true) loot()
+}
 
 //----------------------------------HP Mp----------------------------------
 function getHpPercent() {

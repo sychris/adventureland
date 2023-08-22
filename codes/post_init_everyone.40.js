@@ -2,7 +2,7 @@
 writeToLog("loading post_init_everyone")
 setInterval(partyCall, 30000);
 setInterval(checkHpMp, configs.hpMp.interval); // Loops every 1/10 seconds.
-setInterval(loot, configs.autoLoot.interval);
+setInterval(autoLoot, configs.autoLoot.interval);
 setInterval(autoSell, configs.sell.interval);
 setInterval(setmsg, 1000);
 setInterval(autoCraft, configs.autocraft.interval);
