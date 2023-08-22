@@ -4,7 +4,7 @@ log("Starting script")
 load_code(10)
 
 
-configs.attack.enabled = true
+configs.attack.enabled = false
 configs.attack.allowMoveForAttack = true
 configs.attack.onlyAttack = null//"crab"
 configs.attack.preferedTarget = null
@@ -24,6 +24,5 @@ configs.pots.pots_to_request = {
   mpot1: 8000,
   hpot1: 500
 }
-
 //this is where all the intervals etc are
 load_code(40)
