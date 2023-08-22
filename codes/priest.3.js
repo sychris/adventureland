@@ -6,7 +6,6 @@ writeToLog("starting the priest script")
 
 //Init
 var configs = {};
-configs.ctype = character.ctype;
 configs.inv = {};
 configs.inv.dump = {};
 configs.mode = {};
