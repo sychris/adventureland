@@ -30,7 +30,7 @@ function energize() {
   let targets = configs.skills.energize.targets.filter((t) =>
     ck_range_by_name(t, 320) == true
   )
-  if (!targets) return false
+  if (targets.length === 0) return false
   targets.sort(function (a, b) {
     return get_player(a).mp - get_player(b).mp
   });
