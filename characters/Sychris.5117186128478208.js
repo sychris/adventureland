@@ -2,22 +2,16 @@
 load_code(10)
 
 
-configs.hpMp.useMpot1.enabled = true
-configs.hpMp.useMpot1.percent = 50
-configs.hpMp.useMpot0.enabled = true
-configs.hpMp.useMpot0.percent = 75
-configs.hpMp.mpMeditate.enabled = true
-configs.hpMp.mpMeditate.percent = 90
+configs.hpMp.useHpot1 = {enabled: true, percent: 50}
+configs.hpMp.useHpot0 = {enabled: true, percent: 75}
+configs.hpMp.hpMeditate = {enabled: true, percent: 90}
 
-configs.hpMp.useHpot1.enabled = true
-configs.hpMp.useHpot1.percent = 50
-configs.hpMp.useHpot0.enabled = true
-configs.hpMp.useHpot0.percent = 75
-configs.hpMp.hpMeditate.enabled = true
-configs.hpMp.hpMeditate.percent = 90
+configs.hpMp.useMpot1 = {enabled: true, percent: 50}
+configs.hpMp.useMpot0 = {enabled: true, percent: 75}
+configs.hpMp.mpMeditate = {enabled: true, percent: 90}
 
 configs.attack.enabled = 1
-configs.attack.onlyAttack = ["crab", "hen", "rooster"] //null to disable can be string or list
+configs.attack.onlyAttack = ["crab", "hen", "rooster", "spider"] //null to disable can be string or list
 
 configs.hpMp.enabled = true
 
@@ -37,7 +31,7 @@ configs.skills.energize.targets = ["mrshoots", "Name001"]
 configs.pots.pots_to_request = {
   //ItemName, Count
   mpot0: 8000,
-  hpot0: 1000,
+  hpot0: 5000,
   mpot1: 5000,
   hpot1: 5000,
 }
