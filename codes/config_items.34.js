@@ -22,7 +22,9 @@ configs.buyPonty.itemsList = [
   "intring",
   "intearring",
   "dexring",
-  "dexearring"
+  "dexearring",
+  "mushroomstaff",
+  "ornamentstaff",
 ]
 
 configs.upgrade.upgradeWhitelist =
@@ -39,7 +41,7 @@ configs.upgrade.upgradeWhitelist =
     sshield: 7,
     shield: 7,
     shoes: 7,
-    staff: 7,
+    staff: 9,
     sword: 7,
     gloves: 7,
     coat: 7,
@@ -80,7 +82,7 @@ configs.upgrade.upgradeWhitelist =
     merry: 6,
     tshirt0: 7,
     tshirt1: 7,
-    handofmidas: 3,
+    handofmidas: 4,
     pmaceofthedead: 6,
     hbow: 7,
     frankypants: 6,
@@ -94,6 +96,7 @@ configs.upgrade.upgradeWhitelist =
     tshirt4: 7,
     mcape: 5,
     woodensword: 7,
+    mushroomstaff: 8,
   };
 
 configs.upgrade.combineWhitelist =
