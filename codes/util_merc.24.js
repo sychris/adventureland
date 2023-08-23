@@ -52,7 +52,7 @@ function upgrade() {
         }
         if (character.mp > 200) use_skill("massproductionpp")
         else if (character.mp > 20) use_skill("massproduction")
-  
+        
         writeToLog("upgrading")
         parent.socket.emit('upgrade', {
           item_num: i,
@@ -203,19 +203,16 @@ function top_up_pots() {
 }
 
 //-----------------------------------buy_pots---------------------------------------
-//todo add range check
+//todo add range check and computer check
 function buy_pots() {
   //writeToLog(pots_to_buy)
   if (!configs.buyPots.enabled === true) return "buy pots disabled"
   if (!npcInRange("secondhands")) return "ponty out of range"
   
   for (let pot in configs.buyPots.pots_to_buy) {
-    let current_pots = character.items[getItemSlot(pot)];
+    let current_pots = getItemQuantity(pot);
     let buy_count = 0;
-    if (current_pots == undefined) buy_count = configs.buyPots.pots_to_buy[pot]
-    else if (current_pots.q < configs.buyPots.pots_to_buy[pot]) buy_count = configs.buyPots.pots_to_buy[pot] - current_pots.q
-    else if (current_pots.q < 1) buy_count = configs.buyPots.pots_to_buy[pot]
-    //writeToLog(current_pots.q)
+    if (current_pots < configs.buyPots.pots_to_buy[pot]) buy_count = configs.buyPots.pots_to_buy[pot] - current_pots
     if (buy_count > 0) {
       writeToLog("buying " + buy_count + " " + pot)
       parent.buy(pot, buy_count)
