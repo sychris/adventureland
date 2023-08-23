@@ -44,7 +44,7 @@ configs.testing = false //this is for jest to run
 
 if (character.ctype === "mage") {
   configs.skills.energize = {enabled: false, interval: 1000};
-  configs.skills.energize.target = "mrshoots"
+  configs.skills.energize.targets = ["mrshoots"]
   
 }
 

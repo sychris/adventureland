@@ -32,7 +32,7 @@ configs.pots.use_Hp_pot_type = "hpot1"
 configs.pots.use_Mp_pot_type = "mpot1"
 
 configs.skills.energize.enabled = true;
-configs.skills.energize.target = "mrshoots"
+configs.skills.energize.targets = ["mrshoots", "Name001"]
 
 configs.pots.pots_to_request = {
   //ItemName, Count

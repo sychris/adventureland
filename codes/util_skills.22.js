@@ -27,11 +27,18 @@ function threeShot() {
 
 function energize() {
   if (!configs.skills.energize.enabled) return
-  if (!configs.skills.energize.target) return
+  if (!configs.skills.energize.targets) return
   if (is_on_cooldown("energize")) return
   if (character.mp == 0) return
-  if (!ck_range_by_name(configs.skills.energize.target, 320)) return
-  let target = get_player(configs.skills.energize.target)
+  let targets = configs.skills.energize.targets.filter((t) =>
+    ck_range_by_name(t, 320) == true
+  )
+  if (!targets) return
+  targets.sort(function (a, b) {
+    return get_player(a).mp - get_player(b).mp
+  });
+  
+  let target = get_player(targets[0])
   use_skill("energize", target)
   writeToLog("Energising: " + target.name)
 }
