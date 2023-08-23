@@ -12,6 +12,12 @@ function combat() {
   
 }
 
+
+function combat_mage() {
+  standardAttack()
+}
+
+
 function combat_warior() {
   standardAttack()
 }

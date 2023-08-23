@@ -41,7 +41,3 @@ function energize() {
   return true
   
 }
-
-function combat_mage() {
-  standardAttack()
-}
