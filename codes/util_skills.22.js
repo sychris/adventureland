@@ -6,7 +6,7 @@ function threeShot() {
   if (parent.character.level < 60) return false
   
   for (let id in parent.entities) {
-    if (configs.attack.onlyAttack && parent.entities[id].mtype !== configs.attack.onlyAttack) continue
+    if (configs.attack.onlyAttack && !configs.attack.onlyAttack.includes(parent.entities[id].mtype)) continue
     
     if (parent.entities[id].type !== "monster") continue
     if (!is_in_range(parent.entities[id], "3shot")) continue
