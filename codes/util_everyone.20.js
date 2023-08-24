@@ -18,7 +18,7 @@ function npcInRange(npcName) {
   
   let map = parent.G.maps[character.map]
   for (let npc of map.npcs) {
-    if (npcName == npc.id) {
+    if (npcName === npc.id) {
       let pos = {}
       pos.x = npc.position[0]
       pos.y = npc.position[1]
@@ -46,7 +46,7 @@ function getMpPercent() {
 //----------------------------------items----------------------------------
 function getItemSlot(name) {
   for (let i = 0; i < character.items.length; i++) {
-    if (character.items[i] && character.items[i].name == name) {
+    if (character.items[i] && character.items[i].name === name) {
       return i;
     }
   }
@@ -117,7 +117,7 @@ function updatePotions() {
 }
 
 function checkHpMp() {
-  if (!configs.hpMp.enabled == true) return
+  if (!configs.hpMp.enabled === true) return
   if (is_on_cooldown("use_hp")) return
   getHpPercent() < getMpPercent() ? restoreHp() : restoreMp()
 }
@@ -159,7 +159,7 @@ function setmsg() {
 
 
 function partyCall() {
-  if (configs.party.leader == character.name) {
+  if (configs.party.leader === character.name) {
     myToons.forEach(function (name) {
       if (!parent.party.hasOwnProperty(name) && get_player(name) != null && character.name != name) {
         writeToLog("Sending Invite to: " + name);
@@ -173,14 +173,14 @@ function partyCall() {
 function on_party_request(name) // called by the inviter's name - request = someone requesting to join your existing party
 {
   
-  if (configs.party.leader == name) {
+  if (configs.party.leader === name) {
     accept_party_request(name);
   }
 }
 
 function on_party_invite(name) // called by the inviter's name - request = someone requesting to join your existing party
 {
-  if (configs.party.leader == name) {
+  if (configs.party.leader === name) {
     accept_party_invite(name);
   }
 }
@@ -195,4 +195,6 @@ wait = (seconds) =>
 if (configs.testing) {
   module.exports.ck_range = ck_range
   module.exports.ck_range_by_name = ck_range_by_name
+  module.exports.npcInRange = npcInRange
+  module.exports.autoLoot = autoLoot
 }
