@@ -100,7 +100,7 @@ G.skills = {
     "type": "skill"
   },
   "alchemy": {
-    "explanation": "Dangerous skill, use with caution! Converts your firstfound item into pure gold!",
+    "explanation": "Dangerous skill, use with caution! Converts your first found item into pure gold!",
     "output": 0.8,
     "levels": [
       [
