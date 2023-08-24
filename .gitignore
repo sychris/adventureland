@@ -1,3 +1,4 @@
 node_modules/
 coverage/
-asdf.env
+.tzap-data
+.env
