@@ -61,6 +61,7 @@ function getTarget() {
 
 
 function standardAttack() {
+  if (is_on_cooldown("attack")) return false
   let target = get_targeted_monster();
   if (!target) {
     if (configs.attack.onlyAttack) {
