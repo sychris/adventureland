@@ -16,7 +16,7 @@ function threeShot() {
   }
   // Use 3-Shot with a Ranger on 3 targets
   if (targets.length < 2) return false
-  writeToLog("firing 3shot at " + targets.length + " Targets")
+  //writeToLog("firing 3shot at " + targets.length + " Targets")
   use_skill("3shot", targets);
   return true;
   
