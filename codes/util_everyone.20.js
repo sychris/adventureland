@@ -44,6 +44,20 @@ function getMpPercent() {
 }
 
 //----------------------------------items----------------------------------
+function searchForComputer() {
+  const inventory = character.items;
+  
+  for (let i = 0; i < inventory.length; i++) {
+    const item = inventory[i];
+    if (item && (item.name === "computer" || item.name === "supercomputer")) {
+      return true;
+    }
+  }
+  
+  return false;
+}
+
+
 function getItemSlot(name) {
   for (let i = 0; i < character.items.length; i++) {
     if (character.items[i] && character.items[i].name === name) {
@@ -197,4 +211,5 @@ if (configs.testing) {
   module.exports.ck_range_by_name = ck_range_by_name
   module.exports.npcInRange = npcInRange
   module.exports.autoLoot = autoLoot
+  module.exports.searchForComputer = searchForComputer
 }
