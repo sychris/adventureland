@@ -11,7 +11,7 @@ configs.hpMp.useMpot0 = {enabled: true, percent: 75}
 configs.hpMp.mpMeditate = {enabled: true, percent: 90}
 
 configs.attack.enabled = 1
-configs.attack.onlyAttack = ["crab", "hen", "rooster", "spider"] //null to disable can be string or list
+configs.attack.onlyAttack = ["crab", "hen", "rooster", "spider", "cutebee"] //null to disable can be string or list
 
 configs.hpMp.enabled = true
 
@@ -26,7 +26,7 @@ configs.pots.use_Hp_pot_type = "hpot1"
 configs.pots.use_Mp_pot_type = "mpot1"
 
 configs.skills.energize.enabled = true;
-configs.skills.energize.targets = ["mrshoots", "Name001"]
+configs.skills.energize.targets = ["mrshoots", "Name001", "loots"]
 
 configs.pots.pots_to_request = {
   //ItemName, Count

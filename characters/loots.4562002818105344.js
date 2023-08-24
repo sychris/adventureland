@@ -48,7 +48,7 @@ configs.travelToPlayers.targetPlayerName = "Name001"
 configs.autocraft.item = "basketofeggs"
 
 configs.upgradeNPCItem.item = "staff"
-configs.upgradeNPCItem.enabled = false
+configs.upgradeNPCItem.enabled = true
 
 configs.buyMercs.maxToSpend = 1000000
 
