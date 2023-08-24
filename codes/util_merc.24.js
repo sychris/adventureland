@@ -54,12 +54,9 @@ function upgrade() {
         else if (character.mp > 20) use_skill("massproduction")
         
         writeToLog("upgrading")
-        parent.socket.emit('upgrade', {
-          item_num: i,
-          scroll_num: scroll_slot,
-          offering_num: null,
-          clevel: itemSlot.level
-        });
+        parent.upgrade(i, scroll_slot, null).then(e => {
+          writeToLog("upgrade success: " + e.success + " level: " + e.level + " slot: " + e.num)
+        })
         return;
       }
     }
