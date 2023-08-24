@@ -4,7 +4,7 @@ configs.attack = {};
 configs.attack.enabled = 1
 configs.attack.fname = "Attack Mode"
 configs.attack.onlyAttack = undefined //null to disable can be string or list
-configs.attack.interval = 250
+configs.attack.interval = 100
 configs.attack.allowMoveForAttack = false
 
 configs.inv_dump = {};
