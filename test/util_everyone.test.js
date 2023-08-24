@@ -89,28 +89,16 @@ describe("npcInRange", () => {
       map: "main",
     };
     global.simple_distance = jest.fn(() => 200);
-    global.parent = {
-      G: {
-        maps: {
-          main: {
-            npcs: [
-              {
-                id: "npc1",
-                position: [150, 150]
-              },
-              {
-                id: "npc2",
-                position: [200, 200]
-              },
-              {
-                id: "npc3",
-                position: [250, 250]
-              }
-            ]
-          }
-        }
-      }
-    };
+    global.parent = {}
+    parent.G = {}
+    parent.G.maps = {}
+    parent.G.maps.main = {}
+    parent.G.maps.main.npcs = [
+      {id: "npc1", position: [150, 150]},
+      {id: "npc2", position: [200, 200]},
+      {id: "npc3", position: [250, 250]}
+    ]
+    
   });
   
   test("should return true if the given NPC is within 400 distance from the character", () => {
