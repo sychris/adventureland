@@ -4,7 +4,7 @@ configs.hpMp.enabled = true
 
 configs.attack.enabled = 1
 configs.attack.allowMoveForAttack = false
-configs.attack.onlyAttack = null//"crab"
+configs.attack.onlyAttack = ["crab", "hen", "rooster", "spider", "cutebee"]
 configs.attack.preferedTarget = null
 
 configs.sell.enabled = true
@@ -22,12 +22,8 @@ configs.pots.pots_to_request = {
   mpot0: 8000,
   hpot0: 8000,
   mpot1: 8000,
-  hpot1: 500
+  hpot1: 5000
 }
-
-
-var minMpPercentForThreeShot = 25
-
 
 load_code(40)
 
