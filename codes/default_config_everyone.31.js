@@ -49,7 +49,7 @@ if (character.ctype === "mage") {
 }
 
 if (character.ctype === "ranger") {
-  configs.skills.threeShot = false
+  configs.skills.threeShot = {enabled: true}
 }
 
 if (character.ctype === "priest") { //not really enough yet to warrant own file
